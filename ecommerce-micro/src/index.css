@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cor-principal: #000000;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-text-primary font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .accent-bg {
+    background-color: var(--cor-principal);
+  }
+  .accent-text {
+    color: var(--cor-principal);
+  }
+  .accent-border {
+    border-color: var(--cor-principal);
+  }
+}
