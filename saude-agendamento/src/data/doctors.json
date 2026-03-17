@@ -1,0 +1,62 @@
+[
+  {
+    "id": "d1",
+    "name": "Dra. Ana Costa",
+    "specialty": "Cardiologia",
+    "photo": "https://i.pravatar.cc/150?img=47",
+    "rating": 4.9,
+    "crm": "CRM/SP 123456",
+    "bio": "Cardiologista com 12 anos de experiência. Especialista em prevenção cardiovascular.",
+    "availableSlots": ["09:00", "10:00", "14:00", "15:30"]
+  },
+  {
+    "id": "d2",
+    "name": "Dr. Bruno Neves",
+    "specialty": "Dermatologia",
+    "photo": "https://i.pravatar.cc/150?img=11",
+    "rating": 4.7,
+    "crm": "CRM/RJ 654321",
+    "bio": "Dermatologista com foco em tratamentos estéticos e dermatoses inflamatórias.",
+    "availableSlots": ["08:00", "09:30", "11:00", "16:00"]
+  },
+  {
+    "id": "d3",
+    "name": "Dr. Carlos Lima",
+    "specialty": "Clínico Geral",
+    "photo": "https://i.pravatar.cc/150?img=33",
+    "rating": 4.8,
+    "crm": "CRM/SP 789012",
+    "bio": "Médico clínico geral com vasta experiência em atenção primária e diagnóstico.",
+    "availableSlots": ["08:30", "10:00", "13:00", "14:30", "17:00"]
+  },
+  {
+    "id": "d4",
+    "name": "Dra. Fernanda Rocha",
+    "specialty": "Pediatria",
+    "photo": "https://i.pravatar.cc/150?img=48",
+    "rating": 5.0,
+    "crm": "CRM/MG 345678",
+    "bio": "Pediatra dedicada ao acompanhamento do desenvolvimento infantil de 0 a 12 anos.",
+    "availableSlots": ["09:00", "10:30", "14:00", "15:00"]
+  },
+  {
+    "id": "d5",
+    "name": "Dr. Gustavo Pires",
+    "specialty": "Ortopedia",
+    "photo": "https://i.pravatar.cc/150?img=15",
+    "rating": 4.6,
+    "crm": "CRM/SP 901234",
+    "bio": "Ortopedista especializado em lesões esportivas e cirurgia minimamente invasiva.",
+    "availableSlots": ["08:00", "11:00", "14:00", "16:30"]
+  },
+  {
+    "id": "d6",
+    "name": "Dra. Helena Martins",
+    "specialty": "Neurologia",
+    "photo": "https://i.pravatar.cc/150?img=49",
+    "rating": 4.8,
+    "crm": "CRM/RS 567890",
+    "bio": "Neurologista com expertise em cefaléias, epilepsia e doenças neurodegenerativas.",
+    "availableSlots": ["10:00", "11:30", "15:00", "17:00"]
+  }
+]

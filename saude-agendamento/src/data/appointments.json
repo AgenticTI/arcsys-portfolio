@@ -1,0 +1,83 @@
+[
+  {
+    "id": "a1",
+    "patientId": "p1",
+    "doctorId": "d1",
+    "date": "2026-03-24",
+    "time": "09:00",
+    "status": "confirmed",
+    "reason": "Consulta de rotina cardiovascular"
+  },
+  {
+    "id": "a2",
+    "patientId": "p1",
+    "doctorId": "d3",
+    "date": "2026-03-27",
+    "time": "10:00",
+    "status": "pending",
+    "reason": "Check-up geral"
+  },
+  {
+    "id": "a3",
+    "patientId": "p1",
+    "doctorId": "d3",
+    "date": "2026-03-17",
+    "time": "08:30",
+    "status": "confirmed",
+    "reason": "Retorno de exames"
+  },
+  {
+    "id": "a4",
+    "patientId": "p1",
+    "doctorId": "d4",
+    "date": "2026-03-17",
+    "time": "14:00",
+    "status": "pending",
+    "reason": "Consulta pediátrica para filho"
+  },
+  {
+    "id": "a5",
+    "patientId": "p1",
+    "doctorId": "d2",
+    "date": "2026-03-10",
+    "time": "09:30",
+    "status": "confirmed",
+    "reason": "Avaliação dermatológica"
+  },
+  {
+    "id": "a6",
+    "patientId": "p1",
+    "doctorId": "d5",
+    "date": "2026-03-05",
+    "time": "11:00",
+    "status": "cancelled",
+    "reason": "Dor no joelho"
+  },
+  {
+    "id": "a7",
+    "patientId": "p1",
+    "doctorId": "d1",
+    "date": "2026-03-01",
+    "time": "14:00",
+    "status": "cancelled",
+    "reason": "Exame de rotina"
+  },
+  {
+    "id": "a8",
+    "patientId": "p1",
+    "doctorId": "d6",
+    "date": "2026-02-20",
+    "time": "10:00",
+    "status": "confirmed",
+    "reason": "Episódios de enxaqueca"
+  },
+  {
+    "id": "a9",
+    "patientId": "p1",
+    "doctorId": "d3",
+    "date": "2026-03-17",
+    "time": "13:00",
+    "status": "pending",
+    "reason": "Avaliação de pressão arterial"
+  }
+]
