@@ -53,7 +53,8 @@ export default function KanbanCard({ order, onAdvance, onClick }: KanbanCardProp
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96 }}
       transition={{ duration: 0.2 }}
-      className="cursor-pointer transition-all hover:-translate-y-0.5"
+      whileHover={{ y: -2 }}
+      className="cursor-pointer transition-all"
       style={{
         background: cardStyle.background,
         border: '1px solid rgba(240,234,224,0.1)',

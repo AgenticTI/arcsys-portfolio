@@ -22,6 +22,7 @@ export default function DishModal({ dish, onClose }: DishModalProps) {
     <AnimatePresence>
       {dish && (
         <motion.div
+          key={dish.id}
           className="fixed inset-0 z-50 flex items-center justify-center p-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
