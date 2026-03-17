@@ -17,8 +17,8 @@ function ProductPage() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-text-secondary">Produto não encontrado.</p>
+      <div className="min-h-screen bg-dark-surface flex items-center justify-center">
+        <p style={{ color: 'rgba(255,255,255,0.4)' }}>Produto não encontrado.</p>
       </div>
     )
   }
@@ -36,36 +36,49 @@ function ProductPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-dark-surface pt-16">
       <StoreHeader />
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Breadcrumb */}
         <Link
           to="/"
-          className="inline-flex items-center gap-1 text-sm text-text-secondary hover:text-text-primary transition-colors mb-8"
+          className="inline-flex items-center gap-1 text-sm mb-10 accent-text hover:opacity-70 transition-opacity"
         >
           <ChevronLeft className="w-4 h-4" />
-          Voltar ao catálogo
+          Catálogo
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-          {/* Image */}
-          <div className="aspect-square bg-surface rounded-2xl flex items-center justify-center p-12">
+          {/* Image container */}
+          <div
+            className="rounded-3xl flex items-center justify-center p-10"
+            style={{ background: '#141414', minHeight: '400px' }}
+          >
             <img
               src={product.image}
               alt={product.title}
-              className="w-full h-full object-contain mix-blend-multiply"
+              className="w-full max-w-[420px] h-auto object-contain"
+              style={{
+                filter: 'drop-shadow(0 40px 60px rgba(0,102,204,0.3)) drop-shadow(0 16px 32px rgba(0,0,0,0.6))',
+                animation: 'float 5s ease-in-out infinite',
+              }}
             />
           </div>
 
           {/* Details */}
           <div className="flex flex-col gap-6 py-4">
             <div>
-              <span className="text-xs uppercase tracking-widest text-text-secondary font-medium">
+              <span
+                className="text-xs uppercase tracking-widest font-medium"
+                style={{ color: 'rgba(255,255,255,0.4)' }}
+              >
                 {product.category}
               </span>
-              <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary mt-2 leading-tight">
+              <h1
+                className="text-white mt-2 leading-tight"
+                style={{ fontSize: '32px', fontWeight: 700 }}
+              >
                 {product.title}
               </h1>
             </div>
@@ -76,26 +89,30 @@ function ProductPage() {
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
                     key={i}
-                    className={`w-4 h-4 ${i < Math.round(product.rating.rate) ? 'fill-current text-amber-400' : 'text-border'}`}
+                    className={`w-4 h-4 ${i < Math.round(product.rating.rate) ? 'fill-current' : ''}`}
+                    style={{ color: i < Math.round(product.rating.rate) ? '#FFD700' : 'rgba(255,255,255,0.2)' }}
                   />
                 ))}
               </div>
-              <span className="text-sm text-text-secondary">
+              <span className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>
                 {product.rating.rate} ({product.rating.count} avaliações)
               </span>
             </div>
 
-            <p className="text-4xl font-semibold tracking-tight text-text-primary">
+            <p
+              className="font-extrabold tracking-tight text-white"
+              style={{ fontSize: '28px' }}
+            >
               ${product.price.toFixed(2)}
             </p>
 
-            <p className="text-text-secondary leading-relaxed text-sm">
+            <p className="leading-relaxed text-sm" style={{ color: 'rgba(255,255,255,0.55)', fontSize: '15px' }}>
               {product.description}
             </p>
 
             <button
               onClick={handleAddToCart}
-              className="mt-auto flex items-center justify-center gap-2 w-full py-4 rounded-xl accent-bg text-white font-medium hover:opacity-80 transition-all"
+              className="mt-auto flex items-center justify-center gap-2 w-full py-4 rounded-2xl accent-bg text-white font-semibold text-sm transition-transform hover:-translate-y-px"
             >
               {added ? (
                 <>
