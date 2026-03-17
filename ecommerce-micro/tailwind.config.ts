@@ -16,6 +16,9 @@ export default {
         border: '#D2D2D7',
         'admin-bg': '#0F0F0F',
         accent: 'var(--cor-principal)',
+        'dark-surface':   '#0A0A0A',
+        'card-dark':      '#141414',
+        'card-img-dark':  '#1c1c1c',
       },
       letterSpacing: {
         widest: '0.15em',
