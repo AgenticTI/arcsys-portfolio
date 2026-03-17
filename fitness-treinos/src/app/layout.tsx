@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={jakarta.variable}>
       <body className="bg-background text-text-primary min-h-screen">
-        <main className="pb-20 max-w-md mx-auto min-h-screen">
+        <main className="pb-24 max-w-md mx-auto min-h-screen">
           {children}
         </main>
         <BottomTabBar />
