@@ -10,20 +10,43 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "bg-sidebar": "#111118",
-        "bg-main": "#F7F7F8",
-        "bg-card": "#FFFFFF",
-        accent: "#7C3AED",
-        "accent-soft": "#EDE9FE",
-        "text-primary": "#0D0D12",
-        "text-muted": "#6B7280",
-        border: "#E5E7EB",
-        "priority-high": "#EF4444",
-        "priority-medium": "#F59E0B",
-        "priority-low": "#10B981",
+        // Backgrounds
+        "bg-app":     "#0C0B07",
+        "bg-sidebar": "#080700",
+        "bg-card":    "#161410",
+        "bg-card-2":  "#1E1C14",
+        "bg-input":   "#1A1814",
+        // Accents
+        accent:             "#E6CE00",
+        "accent-dim":       "rgba(230,206,0,0.14)",
+        "accent-glow":      "rgba(230,206,0,0.28)",
+        "accent-orange":    "#D97820",
+        "accent-orange-dim":"rgba(217,120,32,0.14)",
+        "accent-green":     "#34C759",
+        "accent-red":       "#FF3B30",
+        "accent-blue":      "#0A84FF",
+        // Text
+        "text-primary":   "#F0ECD8",
+        "text-secondary": "#A89E7C",
+        "text-muted":     "#6A6248",
+        "text-label":     "#8A8068",
+        // Borders
+        border:       "rgba(255,255,255,0.055)",
+        "border-soft":"rgba(255,255,255,0.035)",
+        // Priority (kept for PriorityBadge compatibility)
+        "priority-high":   "#FF3B30",
+        "priority-medium": "#D97820",
+        "priority-low":    "#0A84FF",
       },
+      // Use CSS variables injected by Next.js font optimization (set in layout.tsx)
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans:    ["var(--font-outfit)", "sans-serif"],
+        display: ["var(--font-syne)", "sans-serif"],
+      },
+      borderRadius: {
+        "2xl": "16px",
+        "3xl": "20px",
+        "4xl": "24px",
       },
     },
   },
