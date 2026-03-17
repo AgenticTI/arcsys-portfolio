@@ -3,95 +3,87 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTaskStore } from "@/store/useTaskStore";
-import { mockProjects, mockUser } from "@/data/mock";
-import { Avatar } from "@/components/ui/Avatar";
+import { mockUser } from "@/data/mock";
 import {
   LayoutDashboard,
-  CheckSquare,
+  Columns3,
+  Calendar,
+  BarChart2,
+  FileText,
   Settings,
+  Bell,
 } from "lucide-react";
 
 const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+  { href: "/board",     icon: Columns3,        label: "Board" },
+  { href: "/calendar",  icon: Calendar,        label: "Calendar" },
+  { href: "/reports",   icon: BarChart2,       label: "Reports" },
+  { href: "/docs",      icon: FileText,        label: "Documents" },
+  { href: "/settings",  icon: Settings,        label: "Settings" },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { activeProjectId, setActiveProject } = useTaskStore();
+  const { activeProjectId } = useTaskStore();
+
+  // Determine active nav: dashboard, board (any project), settings
+  const getIsActive = (href: string) => {
+    if (href === "/board") return pathname.startsWith("/board");
+    return pathname === href;
+  };
 
   return (
-    <aside className="w-60 h-screen bg-bg-sidebar flex flex-col flex-shrink-0">
+    <aside
+      className="w-[68px] min-w-[68px] h-screen flex flex-col items-center py-[22px]
+                 bg-bg-sidebar border-r border-border flex-shrink-0"
+      style={{ backdropFilter: "blur(24px) saturate(1.6)" }}
+    >
       {/* Logo */}
-      <div className="px-5 py-6">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-accent flex items-center justify-center">
-            <CheckSquare className="w-4 h-4 text-white" />
-          </div>
-          <span className="text-white font-semibold text-lg tracking-tight">Hazel</span>
-        </div>
+      <div
+        className="w-[38px] h-[38px] rounded-xl bg-accent flex items-center justify-center mb-8 flex-shrink-0"
+        style={{ boxShadow: "0 4px 16px rgba(230,206,0,0.28)" }}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#000">
+          <rect x="3" y="3" width="8" height="8" rx="1.5"/>
+          <rect x="13" y="3" width="8" height="8" rx="1.5"/>
+          <rect x="3" y="13" width="8" height="8" rx="1.5"/>
+          <rect x="13" y="13" width="8" height="8" rx="1.5"/>
+        </svg>
       </div>
 
       {/* Nav */}
-      <nav className="px-3 space-y-0.5">
-        {navItems.map(({ href, label, icon: Icon }) => {
-          const isActive = pathname === href;
+      <nav className="flex flex-col items-center gap-1.5 flex-1">
+        {navItems.map(({ href, icon: Icon, label }) => {
+          const active = getIsActive(href);
           return (
             <Link
               key={href}
-              href={href}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                isActive
-                  ? "bg-accent text-white"
-                  : "text-gray-400 hover:text-white hover:bg-white/5"
+              href={href === "/board" ? `/board/${activeProjectId}` : href}
+              title={label}
+              className={`w-[42px] h-[42px] rounded-xl flex items-center justify-center transition-all ${
+                active
+                  ? "bg-accent text-black shadow-[0_2px_12px_rgba(230,206,0,0.28)]"
+                  : "text-text-muted hover:bg-bg-card hover:text-text-secondary"
               }`}
             >
-              <Icon className="w-4 h-4 flex-shrink-0" />
-              {label}
+              <Icon className="w-[18px] h-[18px]" />
             </Link>
           );
         })}
       </nav>
 
-      {/* Projects */}
-      <div className="px-3 mt-6">
-        <p className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-          Projects
-        </p>
-        <div className="space-y-0.5">
-          {mockProjects.map((project) => {
-            const isActive = activeProjectId === project.id;
-            return (
-              <Link
-                key={project.id}
-                href={`/board/${project.id}`}
-                onClick={() => setActiveProject(project.id)}
-                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                  isActive
-                    ? "bg-white/10 text-white"
-                    : "text-gray-400 hover:text-white hover:bg-white/5"
-                }`}
-              >
-                <span
-                  className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: project.color }}
-                />
-                <span className="truncate">{project.name}</span>
-                <span className="ml-auto text-xs text-gray-500">{project.taskCount}</span>
-              </Link>
-            );
-          })}
+      {/* Bottom */}
+      <div className="flex flex-col items-center gap-3.5">
+        {/* Bell */}
+        <div className="relative w-[38px] h-[38px] rounded-full bg-bg-card border border-border flex items-center justify-center text-text-secondary cursor-pointer hover:bg-bg-card-2 transition-colors">
+          <Bell className="w-4 h-4" />
+          <span className="absolute top-[9px] right-[9px] w-[7px] h-[7px] rounded-full bg-accent-orange border-2 border-bg-sidebar" />
         </div>
-      </div>
 
-      {/* Footer — User */}
-      <div className="mt-auto px-3 pb-5">
-        <div className="flex items-center gap-3 px-3 py-2">
-          <Avatar initials={mockUser.avatarInitials} size="sm" />
-          <div className="min-w-0">
-            <p className="text-sm font-medium text-white truncate">{mockUser.name}</p>
-            <p className="text-xs text-gray-500 truncate">{mockUser.email}</p>
-          </div>
+        {/* Avatar */}
+        <div className="w-[38px] h-[38px] rounded-full bg-gradient-to-br from-[#3A3010] to-[#5A4820] border-2 border-accent-dim flex items-center justify-center font-display text-[13px] font-bold text-accent cursor-pointer">
+          {mockUser.avatarInitials.toUpperCase()}
         </div>
       </div>
     </aside>
