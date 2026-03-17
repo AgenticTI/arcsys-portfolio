@@ -12,16 +12,19 @@ const statusCycle: Record<Status, Status> = {
   done: "todo",
 };
 
-const statusLabel: Record<Status, string> = {
-  todo: "To Do",
-  in_progress: "In Progress",
-  done: "Done",
-};
-
-const statusStyle: Record<Status, string> = {
-  todo: "bg-gray-100 text-gray-500",
-  in_progress: "bg-amber-50 text-amber-600",
-  done: "bg-green-50 text-green-600",
+const statusConfig: Record<Status, { label: string; className: string }> = {
+  todo: {
+    label: "To Do",
+    className: "bg-white/[0.05] text-text-muted border border-border",
+  },
+  in_progress: {
+    label: "In Progress",
+    className: "bg-accent-orange-dim text-accent-orange border border-[rgba(217,120,32,0.2)]",
+  },
+  done: {
+    label: "Done",
+    className: "bg-[rgba(52,199,89,0.12)] text-accent-green border border-[rgba(52,199,89,0.2)]",
+  },
 };
 
 type Props = {
@@ -32,6 +35,7 @@ type Props = {
 export function TaskCard({ task, onSelect }: Props) {
   const { updateTaskStatus } = useTaskStore();
   const isDone = task.status === "done";
+  const { label, className } = statusConfig[task.status];
 
   const handleStatusClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -41,39 +45,41 @@ export function TaskCard({ task, onSelect }: Props) {
   return (
     <div
       onClick={() => onSelect(task.id)}
-      className="bg-bg-card border border-border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:border-accent/40 hover:shadow-sm transition-all group"
+      className="bg-bg-card border border-border rounded-2xl px-5 py-3.5 flex items-center gap-4 cursor-pointer hover:border-white/10 hover:bg-bg-card-2 transition-all group"
     >
-      {/* Animated checkbox */}
+      {/* Checkbox */}
       <button
         onClick={handleStatusClick}
-        className="flex-shrink-0 w-5 h-5 rounded-full border-2 border-border group-hover:border-accent/60 flex items-center justify-center transition-colors"
+        className="flex-shrink-0 w-[18px] h-[18px] rounded-full border-[1.5px] border-text-muted group-hover:border-text-secondary flex items-center justify-center transition-colors"
       >
         {isDone && (
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="w-3 h-3 rounded-full bg-priority-low"
+            className="w-[7px] h-[7px] rounded-full bg-accent"
           />
         )}
       </button>
 
       {/* Title */}
-      <p className={`flex-1 text-sm font-medium truncate ${isDone ? "line-through text-text-muted" : "text-text-primary"}`}>
+      <p className={`flex-1 text-[15px] font-medium truncate ${
+        isDone ? "line-through text-text-muted" : "text-text-primary"
+      }`}>
         {task.title}
       </p>
 
       {/* Meta */}
       <div className="flex items-center gap-3 flex-shrink-0">
         <PriorityBadge priority={task.priority} />
-        <div className="flex items-center gap-1 text-xs text-text-muted">
+        <div className="flex items-center gap-1.5 text-[13px] text-text-muted">
           <Calendar className="w-3 h-3" />
           <span>{task.dueDate}</span>
         </div>
         <button
           onClick={handleStatusClick}
-          className={`px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${statusStyle[task.status]} hover:opacity-80`}
+          className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-opacity hover:opacity-80 ${className}`}
         >
-          {statusLabel[task.status]}
+          {label}
         </button>
       </div>
     </div>
