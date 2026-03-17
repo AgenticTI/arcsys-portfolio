@@ -25,7 +25,7 @@ export function ExerciseProgress({
             key={exercise.id}
             className={`flex items-center gap-3 rounded-xl px-4 py-3 ${
               isCurrent
-                ? 'bg-surface-elevated border border-accent/30'
+                ? 'bg-surface-elevated border border-accent-muted'
                 : 'bg-surface'
             } ${isPending ? 'opacity-50' : ''}`}
           >

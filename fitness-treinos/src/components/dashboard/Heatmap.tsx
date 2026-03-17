@@ -10,7 +10,7 @@ type Props = {
 
 function getIntensityClass(count: number): string {
   if (count === 0) return 'bg-surface-elevated'
-  if (count === 1) return 'bg-accent opacity-40'
+  if (count === 1) return 'bg-accent-muted'
   return 'bg-accent'
 }
 
