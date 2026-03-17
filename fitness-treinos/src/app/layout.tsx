@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { BottomTabBar } from '@/components/layout/BottomTabBar'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -23,7 +24,7 @@ export default function RootLayout({
         <main className="pb-20 max-w-md mx-auto min-h-screen">
           {children}
         </main>
-        {/* BottomTabBar será adicionado na Task 3 */}
+        <BottomTabBar />
       </body>
     </html>
   )
