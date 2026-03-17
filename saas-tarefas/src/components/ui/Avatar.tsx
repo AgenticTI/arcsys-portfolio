@@ -4,12 +4,14 @@ type AvatarProps = {
 };
 
 export function Avatar({ initials, size = "md" }: AvatarProps) {
-  const sizeClass = size === "sm" ? "w-7 h-7 text-xs" : "w-9 h-9 text-sm";
+  const sizeClass = size === "sm"
+    ? "w-8 h-8 text-xs"
+    : "w-10 h-10 text-sm";
   return (
     <div
-      className={`${sizeClass} rounded-full bg-accent flex items-center justify-center text-white font-semibold flex-shrink-0`}
+      className={`${sizeClass} rounded-full bg-gradient-to-br from-[#3A3010] to-[#5A4820] border-2 border-accent-dim flex items-center justify-center font-display font-bold text-accent flex-shrink-0`}
     >
-      {initials}
+      {initials.toUpperCase()}
     </div>
   );
 }
