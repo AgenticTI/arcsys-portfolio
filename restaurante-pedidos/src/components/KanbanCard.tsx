@@ -104,12 +104,10 @@ export default function KanbanCard({ order, onAdvance, onClick }: KanbanCardProp
         )}
         {order.status === 'ready' && (
           <span
-            className="font-body text-[12px] uppercase tracking-wide flex items-center gap-2"
-            style={{ color: '#4ade80' }}
+            className="font-body text-[12px] uppercase tracking-wide flex items-center gap-2 text-green-400"
           >
             <span
-              className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-              style={{ background: '#4ade80', animation: 'pulse 1.5s infinite' }}
+              className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-green-400 animate-pulse"
             />
             Aguardando retirada
           </span>

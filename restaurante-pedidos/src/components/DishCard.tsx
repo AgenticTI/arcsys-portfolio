@@ -22,7 +22,7 @@ export default function DishCard({ dish, onClick, feature = false }: DishCardPro
     >
       <motion.div
         className="absolute inset-0"
-        variants={{ hover: { scale: 1.06 } }}
+        variants={{ hover: { scale: 1.02 } }}
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
         <Image
