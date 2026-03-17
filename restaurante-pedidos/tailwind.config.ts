@@ -9,15 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'noir-black': '#0A0A0A',
-        'noir-white': '#F5F4F0',
-        'noir-cream': '#E8E4DC',
-        'noir-gold': '#C9A96E',
-        'noir-gray': '#6B6B6B',
+        'noir-black':     '#090806',
+        'noir-white':     '#F0EAE0',
+        'noir-ember':     '#1C1510',
+        'noir-gold':      '#C9A96E',
+        'noir-gray':      '#9A9088',
+        'noir-parchment': '#EDE7DB',
+        'noir-bronze':    '#8B5E3C',
       },
       fontFamily: {
-        playfair: ['var(--font-playfair)', 'Georgia', 'serif'],
-        inter: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        cormorant: ['var(--font-cormorant)', 'Georgia', 'serif'],
+        caps:      ['var(--font-caps)', 'Georgia', 'serif'],
+        script:    ['var(--font-script)', 'cursive'],
+        body:      ['var(--font-body)', 'system-ui', 'sans-serif'],
       },
     },
   },

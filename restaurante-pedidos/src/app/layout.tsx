@@ -1,18 +1,35 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Inter } from 'next/font/google'
+import { Cormorant_Garamond, Cormorant_SC, Italianno, DM_Sans } from 'next/font/google'
 import { AppProvider } from '@/context/AppContext'
 import Header from '@/components/Header'
 import './globals.css'
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
+  weight: ['300', '400', '500', '600'],
+  style: ['normal', 'italic'],
   subsets: ['latin'],
-  variable: '--font-playfair',
+  variable: '--font-cormorant',
   display: 'swap',
 })
 
-const inter = Inter({
+const cormorantSC = Cormorant_SC({
+  weight: ['300', '400', '500'],
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-caps',
+  display: 'swap',
+})
+
+const italianno = Italianno({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-script',
+  display: 'swap',
+})
+
+const dmSans = DM_Sans({
+  weight: ['300', '400'],
+  subsets: ['latin'],
+  variable: '--font-body',
   display: 'swap',
 })
 
@@ -21,14 +38,13 @@ export const metadata: Metadata = {
   description: 'Sistema de pedidos do restaurante Noir',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="bg-noir-white min-h-screen">
+    <html
+      lang="pt-BR"
+      className={`${cormorant.variable} ${cormorantSC.variable} ${italianno.variable} ${dmSans.variable}`}
+    >
+      <body className="bg-noir-black min-h-screen">
         <AppProvider>
           <Header />
           <main className="pt-16">

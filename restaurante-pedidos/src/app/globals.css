@@ -11,9 +11,10 @@ html {
 }
 
 body {
-  background-color: #F5F4F0;
-  color: #0A0A0A;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  background-color: theme('colors.noir-black');
+  color: theme('colors.noir-white');
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 400;
 }
 
 .scrollbar-hide {
