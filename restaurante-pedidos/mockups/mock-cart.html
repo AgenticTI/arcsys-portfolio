@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Noir — Carrinho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@300;400&family=Italianno&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink:     #090806;
+    --ember:   #2C1A0E;
+    --bronze:  #8B5E3C;
+    --gold:    #C9A96E;
+    --creme:   #F0EAE0;
+    --mist:    #6B6358;
+    --parchment: #EDE7DB;
+    --ff-display: 'Cormorant Garamond', serif;
+    --ff-caps:    'Cormorant SC', serif;
+    --ff-script:  'Italianno', cursive;
+    --ff-body:    'DM Sans', sans-serif;
+  }
+  body {
+    background: var(--ink);
+    color: var(--creme);
+    font-family: var(--ff-body);
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: linear-gradient(to bottom, rgba(9,8,6,0.95) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(240,234,224,0.06);
+  }
+  .logo {
+    font-family: var(--ff-caps); font-size: 18px;
+    letter-spacing: 0.5em; color: var(--creme); text-decoration: none;
+  }
+  .header-back {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: rgba(240,234,224,0.45); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .header-back:hover { color: var(--gold); }
+
+  /* PAGE */
+  main {
+    padding-top: 120px; padding-bottom: 80px;
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 400px; gap: 0;
+  }
+
+  /* LEFT: Cart items */
+  .cart-panel {
+    padding: 60px 80px 60px 60px;
+    border-right: 1px solid rgba(240,234,224,0.06);
+  }
+  .cart-eyebrow {
+    font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+  }
+  .cart-title {
+    font-family: var(--ff-display); font-size: 48px; font-weight: 300;
+    color: var(--creme); line-height: 1.05; margin-bottom: 48px;
+  }
+  .cart-title em { font-style: italic; }
+
+  .cart-items { display: flex; flex-direction: column; gap: 0; }
+
+  .cart-item {
+    display: grid; grid-template-columns: 80px 1fr auto;
+    gap: 24px; align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(240,234,224,0.07);
+    transition: background 0.2s;
+  }
+  .cart-item:first-child { border-top: 1px solid rgba(240,234,224,0.07); }
+
+  .cart-item-thumb {
+    width: 80px; height: 80px; overflow: hidden;
+    flex-shrink: 0;
+  }
+  .cart-item-thumb img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.4s;
+  }
+  .cart-item:hover .cart-item-thumb img { transform: scale(1.08); }
+
+  .cart-item-info {}
+  .cart-item-category {
+    font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 5px;
+  }
+  .cart-item-name {
+    font-family: var(--ff-display); font-size: 20px; font-weight: 300;
+    color: var(--creme); margin-bottom: 10px; line-height: 1.2;
+  }
+  .cart-item-controls {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .qty-ctrl {
+    display: flex; align-items: center;
+    border: 1px solid rgba(240,234,224,0.12);
+  }
+  .qty-btn {
+    background: none; border: none; cursor: pointer;
+    width: 28px; height: 28px; color: rgba(240,234,224,0.5);
+    font-size: 16px; display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s;
+  }
+  .qty-btn:hover { color: var(--creme); }
+  .qty-value {
+    width: 32px; text-align: center; font-size: 13px; color: var(--creme);
+  }
+  .remove-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(240,234,224,0.25); transition: color 0.2s;
+    font-family: var(--ff-body);
+  }
+  .remove-btn:hover { color: #c0544e; }
+
+  .cart-item-price {
+    font-family: var(--ff-caps); font-size: 18px; color: var(--gold);
+    text-align: right; white-space: nowrap;
+  }
+
+  .cart-empty-hint {
+    margin-top: 48px;
+    font-family: var(--ff-script); font-size: 28px;
+    color: rgba(240,234,224,0.15); text-align: center;
+    padding: 60px 0;
+  }
+
+  /* RIGHT: Order Summary */
+  .summary-panel {
+    padding: 60px 60px 60px 60px;
+    background: #0d0b08;
+    display: flex; flex-direction: column;
+  }
+  .summary-eyebrow {
+    font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 32px;
+  }
+
+  .summary-lines { display: flex; flex-direction: column; gap: 0; }
+  .summary-line {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 14px 0; border-bottom: 1px solid rgba(240,234,224,0.1);
+    font-size: 13px; color: rgba(240,234,224,0.75);
+  }
+  .summary-line:first-child { border-top: 1px solid rgba(240,234,224,0.1); }
+  .summary-line span:last-child { font-family: var(--ff-caps); font-size: 15px; color: var(--creme); }
+
+  .summary-total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 24px 0; margin-top: 8px;
+    border-top: 1px solid rgba(201,169,110,0.25);
+  }
+  .summary-total-label {
+    font-family: var(--ff-display); font-size: 22px; font-weight: 300; color: var(--creme);
+  }
+  .summary-total-value {
+    font-family: var(--ff-caps); font-size: 28px; color: var(--gold);
+  }
+
+  .summary-note {
+    font-size: 12px; color: rgba(240,234,224,0.45);
+    line-height: 1.7; margin-bottom: 36px; margin-top: 8px;
+  }
+
+  .summary-spacer { flex: 1; }
+
+  /* Order notes */
+  .order-notes {
+    margin-bottom: 24px;
+  }
+  .order-notes label {
+    display: block; font-size: 9px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--mist); margin-bottom: 10px;
+  }
+  .order-notes textarea {
+    width: 100%; background: rgba(240,234,224,0.04);
+    border: 1px solid rgba(240,234,224,0.1); color: var(--creme);
+    font-family: var(--ff-body); font-size: 12px; font-weight: 300;
+    padding: 12px 14px; resize: none; height: 80px;
+    outline: none; transition: border-color 0.2s;
+  }
+  .order-notes textarea:focus { border-color: rgba(201,169,110,0.3); }
+  .order-notes textarea::placeholder { color: rgba(240,234,224,0.2); }
+
+  .btn-confirm {
+    width: 100%; background: var(--gold); border: none; cursor: pointer;
+    padding: 18px; font-family: var(--ff-body);
+    font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--ink); transition: background 0.25s;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .btn-confirm:hover { background: #d4b47c; }
+
+  .back-to-menu {
+    text-align: center; margin-top: 16px;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(240,234,224,0.25); text-decoration: none;
+    transition: color 0.2s; display: block;
+  }
+  .back-to-menu:hover { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="mock-menu.html" class="logo">NOIR</a>
+  <a href="mock-menu.html" class="header-back">← Continuar no Cardápio</a>
+</header>
+
+<main>
+  <!-- LEFT: Itens -->
+  <div class="cart-panel">
+    <p class="cart-eyebrow">Seu Pedido</p>
+    <h1 class="cart-title">
+      Revise<br>sua <em>seleção</em>
+    </h1>
+
+    <div class="cart-items">
+
+      <div class="cart-item">
+        <div class="cart-item-thumb">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300" alt="Filé" />
+        </div>
+        <div class="cart-item-info">
+          <p class="cart-item-category">Principal</p>
+          <h3 class="cart-item-name">Filé ao Molho de Trufas</h3>
+          <div class="cart-item-controls">
+            <div class="qty-ctrl">
+              <button class="qty-btn">−</button>
+              <span class="qty-value">1</span>
+              <button class="qty-btn">+</button>
+            </div>
+            <button class="remove-btn">Remover</button>
+          </div>
+        </div>
+        <div class="cart-item-price">R$ 148</div>
+      </div>
+
+      <div class="cart-item">
+        <div class="cart-item-thumb">
+          <img src="https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=300" alt="Negroni" />
+        </div>
+        <div class="cart-item-info">
+          <p class="cart-item-category">Bebida</p>
+          <h3 class="cart-item-name">Negroni Defumado</h3>
+          <div class="cart-item-controls">
+            <div class="qty-ctrl">
+              <button class="qty-btn">−</button>
+              <span class="qty-value">2</span>
+              <button class="qty-btn">+</button>
+            </div>
+            <button class="remove-btn">Remover</button>
+          </div>
+        </div>
+        <div class="cart-item-price">R$ 96</div>
+      </div>
+
+      <div class="cart-item">
+        <div class="cart-item-thumb">
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300" alt="Soufflé" />
+        </div>
+        <div class="cart-item-info">
+          <p class="cart-item-category">Sobremesa</p>
+          <h3 class="cart-item-name">Soufflé de Chocolate</h3>
+          <div class="cart-item-controls">
+            <div class="qty-ctrl">
+              <button class="qty-btn">−</button>
+              <span class="qty-value">1</span>
+              <button class="qty-btn">+</button>
+            </div>
+            <button class="remove-btn">Remover</button>
+          </div>
+        </div>
+        <div class="cart-item-price">R$ 52</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RIGHT: Resumo -->
+  <div class="summary-panel">
+    <p class="summary-eyebrow">Resumo do Pedido</p>
+
+    <div class="summary-lines">
+      <div class="summary-line">
+        <span>Filé ao Molho de Trufas × 1</span>
+        <span>R$ 148</span>
+      </div>
+      <div class="summary-line">
+        <span>Negroni Defumado × 2</span>
+        <span>R$ 96</span>
+      </div>
+      <div class="summary-line">
+        <span>Soufflé de Chocolate × 1</span>
+        <span>R$ 52</span>
+      </div>
+      <div class="summary-line">
+        <span>Taxa de serviço (10%)</span>
+        <span>R$ 29,60</span>
+      </div>
+    </div>
+
+    <div class="summary-total">
+      <span class="summary-total-label">Total</span>
+      <span class="summary-total-value">R$ 325,60</span>
+    </div>
+    <p class="summary-note">
+      Inclui 10% de taxa de serviço. Pagamento ao final da visita.
+    </p>
+
+    <div class="summary-spacer"></div>
+
+    <div class="order-notes">
+      <label>Observações para a cozinha</label>
+      <textarea placeholder="Ex: sem glúten, alergia a frutos do mar…"></textarea>
+    </div>
+
+    <button class="btn-confirm">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M5 13l4 4L19 7"/>
+      </svg>
+      Confirmar Pedido
+    </button>
+    <a href="mock-menu.html" class="back-to-menu">← Voltar ao Cardápio</a>
+  </div>
+</main>
+
+</body>
+</html>

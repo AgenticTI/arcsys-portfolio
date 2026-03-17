@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Noir — Cozinha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@300;400&family=Italianno&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink:     #090806;
+    --ember:   #1E1208;
+    --bronze:  #8B5E3C;
+    --gold:    #C9A96E;
+    --creme:   #F0EAE0;
+    --mist:    #9A9088;
+    --parchment: #EDE7DB;
+    --ff-display: 'Cormorant Garamond', serif;
+    --ff-caps:    'Cormorant SC', serif;
+    --ff-script:  'Italianno', cursive;
+    --ff-body:    'DM Sans', sans-serif;
+  }
+  body {
+    background: #111009;
+    color: var(--creme);
+    font-family: var(--ff-body);
+    font-weight: 400;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 40px;
+    background: #0d0b08;
+    border-bottom: 1px solid rgba(240,234,224,0.12);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .logo {
+    font-family: var(--ff-caps); font-size: 16px;
+    letter-spacing: 0.5em; color: var(--creme); text-decoration: none;
+  }
+  .header-center {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .kitchen-badge {
+    background: rgba(201,169,110,0.15); border: 1px solid rgba(201,169,110,0.5);
+    padding: 5px 16px; font-size: 10px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--gold); font-weight: 400;
+  }
+  .live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px #4ade80;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.75); }
+  }
+  .live-label {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #4ade80; font-weight: 400;
+  }
+  .persona-pill {
+    display: flex; gap: 0;
+    border: 1px solid rgba(201,169,110,0.4); border-radius: 2px; overflow: hidden;
+  }
+  .persona-pill button {
+    background: none; border: none; cursor: pointer;
+    padding: 7px 16px; font-family: var(--ff-body);
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(240,234,224,0.5); transition: all 0.2s; font-weight: 400;
+  }
+  .persona-pill button.active { background: var(--gold); color: var(--ink); font-weight: 400; }
+
+  /* TIME BAR */
+  .timebar {
+    padding: 12px 40px;
+    background: #0f0d0a;
+    border-bottom: 1px solid rgba(240,234,224,0.08);
+    display: flex; align-items: center; gap: 40px;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(240,234,224,0.5);
+  }
+  .time-stat strong {
+    color: var(--gold); font-family: var(--ff-caps);
+    font-size: 20px; display: block; margin-bottom: 3px; letter-spacing: 0.05em;
+  }
+
+  /* BOARD */
+  .board {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: rgba(240,234,224,0.08);
+    min-height: calc(100vh - 112px);
+    align-items: start;
+  }
+
+  /* COLUMN */
+  .kanban-col {
+    background: #110f0c;
+    display: flex; flex-direction: column;
+    min-height: calc(100vh - 112px);
+  }
+  .col-header {
+    padding: 22px 24px 18px;
+    border-bottom: 2px solid rgba(240,234,224,0.08);
+    display: flex; align-items: center; gap: 12px;
+    position: sticky; top: 57px; background: #110f0c; z-index: 10;
+  }
+  .col-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  }
+  .col-dot--new   { background: #c9a96e; box-shadow: 0 0 6px rgba(201,169,110,0.5); }
+  .col-dot--prep  { background: #f59e0b; box-shadow: 0 0 6px rgba(245,158,11,0.5); }
+  .col-dot--ready { background: #4ade80; box-shadow: 0 0 6px rgba(74,222,128,0.5); }
+
+  .col-title {
+    font-family: var(--ff-caps); font-size: 13px;
+    letter-spacing: 0.25em; text-transform: uppercase; color: var(--creme);
+    flex: 1; font-weight: 400;
+  }
+  .col-count {
+    background: rgba(240,234,224,0.12); border-radius: 999px;
+    width: 26px; height: 26px; display: flex; align-items: center;
+    justify-content: center; font-size: 13px; color: var(--creme); font-weight: 400;
+  }
+
+  .col-body {
+    padding: 14px 14px;
+    display: flex; flex-direction: column; gap: 10px;
+    flex: 1;
+  }
+
+  /* KANBAN CARD */
+  .kcard {
+    background: #1C1510;
+    border: 1px solid rgba(240,234,224,0.1);
+    border-left: 3px solid rgba(201,169,110,0.4);
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .kcard:hover {
+    border-color: rgba(201,169,110,0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .kcard--urgent {
+    background: #1f1008;
+    border-left: 3px solid #ef4444;
+    border-color: rgba(239,68,68,0.2);
+  }
+  .kcard--ready {
+    background: #0e1c10;
+    border-left: 3px solid #4ade80;
+    border-color: rgba(74,222,128,0.15);
+  }
+  .kcard--prep {
+    background: #1c1505;
+    border-left: 3px solid #f59e0b;
+    border-color: rgba(245,158,11,0.15);
+  }
+
+  .kcard-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .kcard-id {
+    font-family: var(--ff-caps); font-size: 16px; color: var(--gold);
+    letter-spacing: 0.1em; font-weight: 400;
+  }
+  .kcard-time {
+    font-size: 12px; color: rgba(240,234,224,0.55);
+    display: flex; align-items: center; gap: 5px; font-weight: 400;
+  }
+  .kcard-time--urgent { color: #f87171; font-weight: 400; }
+
+  .kcard-items {
+    list-style: none; display: flex; flex-direction: column; gap: 8px;
+    margin-bottom: 16px;
+  }
+  .kcard-item {
+    display: flex; align-items: baseline; gap: 10px;
+    font-size: 14px; color: rgba(240,234,224,0.88); font-weight: 400;
+    line-height: 1.3;
+  }
+  .kcard-item-qty {
+    font-family: var(--ff-caps); font-size: 13px; color: var(--gold);
+    min-width: 22px; flex-shrink: 0; font-weight: 400;
+  }
+
+  .kcard-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 14px; border-top: 1px solid rgba(240,234,224,0.1);
+  }
+  .kcard-table {
+    font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(240,234,224,0.55); font-weight: 400;
+  }
+  .kcard-btn {
+    background: rgba(201,169,110,0.1); border: 1px solid rgba(201,169,110,0.5);
+    color: var(--gold); cursor: pointer; padding: 8px 16px;
+    font-family: var(--ff-body); font-size: 11px;
+    letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400;
+    transition: all 0.2s;
+  }
+  .kcard-btn:hover { background: var(--gold); color: var(--ink); }
+  .kcard-btn--done {
+    background: rgba(74,222,128,0.08);
+    border-color: rgba(74,222,128,0.5); color: #4ade80;
+  }
+  .kcard-btn--done:hover { background: #4ade80; color: var(--ink); }
+  .kcard-waiting {
+    font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: #4ade80; display: flex; align-items: center; gap: 8px; font-weight: 400;
+  }
+  .kcard-waiting::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: #4ade80; animation: pulse 1.5s infinite;
+    flex-shrink: 0;
+  }
+
+  /* EMPTY STATE */
+  .col-empty {
+    padding: 40px 20px; text-align: center;
+    font-family: var(--ff-script); font-size: 26px;
+    color: rgba(240,234,224,0.15); line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="mock-menu.html" class="logo">NOIR</a>
+  <div class="header-center">
+    <span class="kitchen-badge">Cozinha</span>
+    <span class="live-dot"></span>
+    <span class="live-label">Ao vivo</span>
+  </div>
+  <div class="persona-pill">
+    <button>Cliente</button>
+    <button class="active">Cozinha</button>
+  </div>
+</header>
+
+<!-- TIMEBAR -->
+<div class="timebar">
+  <div class="time-stat">
+    <strong>5</strong>
+    Pedidos ativos
+  </div>
+  <div class="time-stat">
+    <strong>~12 min</strong>
+    Tempo médio
+  </div>
+  <div class="time-stat">
+    <strong>14:32</strong>
+    Horário atual
+  </div>
+</div>
+
+<!-- KANBAN BOARD -->
+<div class="board">
+
+  <!-- COL: NOVOS -->
+  <div class="kanban-col">
+    <div class="col-header">
+      <span class="col-dot col-dot--new"></span>
+      <span class="col-title">Novos Pedidos</span>
+      <span class="col-count">3</span>
+    </div>
+    <div class="col-body">
+
+      <div class="kcard kcard--urgent">
+        <div class="kcard-top">
+          <span class="kcard-id">#0012</span>
+          <span class="kcard-time kcard-time--urgent">⚠ 18 min</span>
+        </div>
+        <ul class="kcard-items">
+          <li class="kcard-item"><span class="kcard-item-qty">×2</span> Filé ao Molho de Trufas</li>
+          <li class="kcard-item"><span class="kcard-item-qty">×1</span> Soufflé de Chocolate</li>
+          <li class="kcard-item"><span class="kcard-item-qty">×2</span> Negroni Defumado</li>
+        </ul>
+        <div class="kcard-footer">
+          <span class="kcard-table">Mesa 04</span>
+          <button class="kcard-btn">Iniciar Preparo</button>
+        </div>
+      </div>
+
+      <div class="kcard">
+        <div class="kcard-top">
+          <span class="kcard-id">#0013</span>
+          <span class="kcard-time">3 min</span>
+        </div>
+        <ul class="kcard-items">
+          <li class="kcard-item"><span class="kcard-item-qty">×1</span> Carpaccio de Vieiras</li>
+          <li class="kcard-item"><span class="kcard-item-qty">×1</span> Robalo ao Missô</li>
+        </ul>
+        <div class="kcard-footer">
+          <span class="kcard-table">Mesa 07</span>
+          <button class="kcard-btn">Iniciar Preparo</button>
+        </div>
+      </div>
+
+      <div class="kcard">
+        <div class="kcard-top">
+          <span class="kcard-id">#0014</span>
+          <span class="kcard-time">1 min</span>
+        </div>
+        <ul class="kcard-items">
+          <li class="kcard-item"><span class="kcard-item-qty">×3</span> Tartare de Atum</li>
+          <li class="kcard-item"><span class="kcard-item-qty">×1</span> Wolf of Kyoto</li>
+        </ul>
+        <div class="kcard-footer">
+          <span class="kcard-table">Mesa 02</span>
+          <button class="kcard-btn">Iniciar Preparo</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COL: EM PREPARO -->
+  <div class="kanban-col">
+    <div class="col-header">
+      <span class="col-dot col-dot--prep"></span>
+      <span class="col-title">Em Preparo</span>
+      <span class="col-count">2</span>
+    </div>
+    <div class="col-body">
+
+      <div class="kcard kcard--prep">
+        <div class="kcard-top">
+          <span class="kcard-id">#0010</span>
+          <span class="kcard-time">9 min</span>
+        </div>
+        <ul class="kcard-items">
+          <li class="kcard-item"><span class="kcard-item-qty">×1</span> Linguine de Lagosta</li>
+          <li class="kcard-item"><span class="kcard-item-qty">×2</span> Cherry Blossom Martini</li>
+        </ul>
+        <div class="kcard-footer">
+          <span class="kcard-table">Mesa 01</span>
+          <button class="kcard-btn kcard-btn--done">Marcar Pronto</button>
+        </div>
+      </div>
+
+      <div class="kcard kcard--prep">
+        <div class="kcard-top">
+          <span class="kcard-id">#0011</span>
+          <span class="kcard-time">6 min</span>
+        </div>
+        <ul class="kcard-items">
+          <li class="kcard-item"><span class="kcard-item-qty">×2</span> Filé ao Molho de Trufas</li>
+          <li class="kcard-item"><span class="kcard-item-qty">×1</span> Carpaccio de Vieiras</li>
+          <li class="kcard-item"><span class="kcard-item-qty">×1</span> Soufflé de Chocolate</li>
+        </ul>
+        <div class="kcard-footer">
+          <span class="kcard-table">Mesa 09</span>
+          <button class="kcard-btn kcard-btn--done">Marcar Pronto</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COL: PRONTOS -->
+  <div class="kanban-col">
+    <div class="col-header">
+      <span class="col-dot col-dot--ready"></span>
+      <span class="col-title">Prontos</span>
+      <span class="col-count">1</span>
+    </div>
+    <div class="col-body">
+
+      <div class="kcard kcard--ready">
+        <div class="kcard-top">
+          <span class="kcard-id">#0009</span>
+          <span class="kcard-time">há 2 min</span>
+        </div>
+        <ul class="kcard-items">
+          <li class="kcard-item"><span class="kcard-item-qty">×1</span> Robalo ao Missô</li>
+          <li class="kcard-item"><span class="kcard-item-qty">×1</span> Negroni Defumado</li>
+        </ul>
+        <div class="kcard-footer">
+          <span class="kcard-table">Mesa 06</span>
+          <span class="kcard-waiting">Aguardando retirada</span>
+        </div>
+      </div>
+
+      <div class="col-empty">
+        os pratos<br>seguem em preparo…
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Persona pill
+  const pillBtns = document.querySelectorAll('.persona-pill button');
+  pillBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      pillBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (btn.textContent.trim() === 'Cliente') {
+        window.location.href = 'mock-menu.html';
+      }
+    });
+  });
+
+  // Simple time ticker
+  function updateTime() {
+    const now = new Date();
+    const t = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    document.querySelector('.time-stat:last-child strong').textContent = t;
+  }
+  setInterval(updateTime, 1000);
+  updateTime();
+</script>
+</body>
+</html>

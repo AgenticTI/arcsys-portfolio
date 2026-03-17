@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MicroShop — Hero V2 (Vídeo + Word Reveal)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --accent: #0066CC;
+    --white: #fff;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(0,0,0,0);
+    backdrop-filter: blur(0px);
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+  .header.scrolled {
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(20px);
+  }
+  .header-logo {
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.3px;
+    opacity: 0;
+    animation: fadeIn 0.6s 2.8s ease forwards;
+  }
+  .header-nav {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    opacity: 0;
+    animation: fadeIn 0.6s 2.8s ease forwards;
+  }
+  .header-actions {
+    opacity: 0;
+    animation: fadeIn 0.6s 2.8s ease forwards;
+  }
+  .cart-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    position: relative;
+  }
+  .cart-badge {
+    position: absolute; top: -2px; right: -2px;
+    width: 16px; height: 16px;
+    background: var(--accent);
+    border-radius: 50%;
+    font-size: 10px; font-weight: 600; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* Vídeo de fundo */
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+    z-index: 0;
+  }
+
+  /* Overlay cinematográfico */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.2) 100%),
+      linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 40%);
+    z-index: 1;
+  }
+
+  /* Animated bg fallback (quando vídeo não carrega) */
+  .hero-bg-anim {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: #000;
+    overflow: hidden;
+  }
+  .hero-bg-anim::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -10%;
+    width: 800px; height: 800px;
+    background: radial-gradient(ellipse, rgba(0,80,200,0.22) 0%, transparent 65%);
+    animation: drift 12s ease-in-out infinite alternate;
+  }
+  .hero-bg-anim::after {
+    content: '';
+    position: absolute;
+    bottom: -20%; left: 20%;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(80,0,180,0.12) 0%, transparent 65%);
+    animation: drift2 16s ease-in-out infinite alternate;
+  }
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(-60px, 40px) scale(1.15); }
+  }
+  @keyframes drift2 {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(40px, -50px) scale(1.2); }
+  }
+
+  /* Partículas */
+  .particles {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    animation: particle-float linear infinite;
+  }
+
+  /* Hero Content */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 120px 80px 80px;
+    max-width: 760px;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: slideUp 0.5s 0.3s ease forwards;
+  }
+
+  /* Word reveal container */
+  .hero-title {
+    font-size: clamp(52px, 7vw, 96px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -3px;
+    margin-bottom: 28px;
+    overflow: visible;
+  }
+
+  .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px) rotateX(20deg);
+    transform-origin: bottom center;
+    animation: wordReveal 0.5s ease forwards;
+    margin-right: 0.18em;
+  }
+
+  /* delays por palavra */
+  .word:nth-child(1)  { animation-delay: 0.5s; }
+  .word:nth-child(2)  { animation-delay: 0.75s; }
+  .word:nth-child(3)  { animation-delay: 1.0s; }
+  .word:nth-child(4)  { animation-delay: 1.25s; }
+  .word:nth-child(5)  { animation-delay: 1.5s; }
+  .word:nth-child(6)  { animation-delay: 1.75s; }
+  .word:nth-child(7)  { animation-delay: 2.0s; }
+
+  @keyframes wordReveal {
+    0%   { opacity: 0; transform: translateY(24px) rotateX(25deg); }
+    60%  { opacity: 1; }
+    100% { opacity: 1; transform: translateY(0) rotateX(0deg); }
+  }
+
+  .hero-title .line { display: block; }
+  .hero-title .highlight { color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.5); }
+
+  .hero-subtitle {
+    font-size: 19px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.65;
+    max-width: 420px;
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: slideUp 0.6s 2.2s ease forwards;
+  }
+
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    animation: slideUp 0.6s 2.4s ease forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: #000;
+    padding: 15px 32px;
+    border-radius: 980px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 0 0 rgba(255,255,255,0);
+  }
+  .btn-primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 32px rgba(255,255,255,0.2);
+  }
+
+  .btn-ghost {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: #fff; }
+
+  /* Badge strip */
+  .hero-badges {
+    position: absolute;
+    bottom: 48px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    gap: 12px;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeIn 0.6s 2.6s ease forwards;
+  }
+  .badge-pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    padding: 9px 18px;
+    border-radius: 980px;
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.65);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #30D158; flex-shrink: 0; }
+
+  /* Scroll indicator */
+  .scroll-cue {
+    position: absolute;
+    bottom: 50px;
+    right: 80px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 0.6s 2.8s ease forwards;
+  }
+  .scroll-cue span {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 56px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.25), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* Shared keyframes */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes particle-float {
+    0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(-100px) scale(1); opacity: 0; }
+  }
+
+  /* ─── PREVIEW LABEL ─── */
+  .label-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(10,10,10,0.9);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 12px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+  .label-bar strong { color: rgba(255,255,255,0.85); }
+  .replay-btn {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .replay-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+  /* ─── NEXT SECTION PEEK ─── */
+  .next-section-peek {
+    background: #fff;
+    padding: 60px 80px 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .peek-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #86868B;
+    margin-bottom: 4px;
+  }
+  .peek-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    color: #1D1D1F;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="header-logo">MicroShop</div>
+  <nav>
+    <ul class="header-nav">
+      <li>Catálogo</li>
+      <li>Novidades</li>
+      <li>Ofertas</li>
+    </ul>
+  </nav>
+  <div class="header-actions">
+    <div class="cart-btn">🛒<span class="cart-badge">3</span></div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- Background animado (fallback de vídeo) -->
+  <div class="hero-bg-anim"></div>
+
+  <!-- Vídeo de fundo (em produção: loop de produto/lifestyle) -->
+  <video class="hero-video" autoplay muted loop playsinline
+    poster=""
+    onerror="this.style.display='none'">
+    <!-- Em produção: <source src="/assets/hero-loop.mp4" type="video/mp4"> -->
+  </video>
+
+  <!-- Partículas -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Overlay -->
+  <div class="hero-overlay"></div>
+
+  <!-- Conteúdo -->
+  <div class="hero-content">
+    <p class="hero-eyebrow">✦ Nova Coleção — 2026</p>
+
+    <h1 class="hero-title">
+      <span class="line">
+        <span class="word">Feito</span>
+        <span class="word">pra</span>
+        <span class="word highlight">você.</span>
+      </span>
+      <span class="line">
+        <span class="word">Compre</span>
+        <span class="word">o</span>
+        <span class="word">que</span>
+        <span class="word">importa.</span>
+      </span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Produtos selecionados com qualidade premium.<br>
+      Entrega rápida, sem complicação.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">Ver Catálogo →</a>
+      <a href="#" class="btn-ghost">Novidades ›</a>
+    </div>
+  </div>
+
+  <!-- Badges -->
+  <div class="hero-badges">
+    <div class="badge-pill"><span class="badge-dot"></span>Frete grátis acima de R$&nbsp;200</div>
+    <div class="badge-pill">20+ marcas</div>
+    <div class="badge-pill">⭐ 4.8 avaliação média</div>
+    <div class="badge-pill">🔒 Compra segura</div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="scroll-cue">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+
+</section>
+
+<!-- PEEK DA PRÓXIMA SEÇÃO -->
+<section class="next-section-peek">
+  <div>
+    <p class="peek-label">Em Destaque</p>
+    <p class="peek-title">Os favoritos da semana ↓</p>
+  </div>
+</section>
+
+<!-- LABEL INFERIOR -->
+<div class="label-bar">
+  <span><strong>Mock V2</strong> — Hero com word reveal + vídeo de fundo (simulado com gradiente animado)</span>
+  <button class="replay-btn" onclick="replayAnimation()">↺ Replay animação</button>
+</div>
+
+<script>
+  // Scroll header
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Partículas
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 3 + 1;
+    p.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${Math.random() * 100}%;
+      animation-duration: ${Math.random() * 12 + 10}s;
+      animation-delay: ${Math.random() * 8}s;
+      opacity: ${Math.random() * 0.5 + 0.1};
+    `;
+    container.appendChild(p);
+  }
+
+  // Replay
+  function replayAnimation() {
+    const words = document.querySelectorAll('.word');
+    const animated = document.querySelectorAll('.hero-eyebrow, .hero-subtitle, .hero-ctas, .hero-badges, .scroll-cue, .header-logo, .header-nav, .header-actions');
+
+    [...words, ...animated].forEach(el => {
+      el.style.animation = 'none';
+      el.offsetHeight; // reflow
+    });
+
+    words.forEach((w, i) => {
+      const delays = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0];
+      w.style.animation = `wordReveal 0.5s ${delays[i] || 0.5}s ease forwards`;
+    });
+
+    const delayMap = {
+      '.hero-eyebrow': '0.3s',
+      '.hero-subtitle': '2.2s',
+      '.hero-ctas': '2.4s',
+      '.hero-badges': '2.6s',
+      '.scroll-cue': '2.8s',
+      '.header-logo': '2.8s',
+      '.header-nav': '2.8s',
+      '.header-actions': '2.8s',
+    };
+
+    animated.forEach(el => {
+      const cls = el.className.split(' ').map(c => '.' + c).find(c => delayMap[c]);
+      const delay = cls ? delayMap[cls] : '2s';
+      const anim = (el.className.includes('subtitle') || el.className.includes('ctas') ||
+                    el.className.includes('eyebrow') || el.className.includes('badges') ||
+                    el.className.includes('scroll'))
+        ? `slideUp 0.6s ${delay} ease forwards`
+        : `fadeIn 0.6s ${delay} ease forwards`;
+      el.style.animation = anim;
+    });
+  }
+</script>
+
+</body>
+</html>

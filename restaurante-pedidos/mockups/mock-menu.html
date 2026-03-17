@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Noir — Fine Dining · Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant+SC:wght@300;400;500&family=Italianno&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:     #090806;
+    --ember:   #2C1A0E;
+    --bronze:  #8B5E3C;
+    --gold:    #C9A96E;
+    --creme:   #F0EAE0;
+    --mist:    #6B6358;
+    --parchment: #EDE7DB;
+    --ff-display: 'Cormorant Garamond', serif;
+    --ff-caps:    'Cormorant SC', serif;
+    --ff-script:  'Italianno', cursive;
+    --ff-body:    'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--creme);
+    font-family: var(--ff-body);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 40px;
+    mix-blend-mode: normal;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(9,8,6,0.85) 0%, transparent 100%);
+    pointer-events: none;
+  }
+  .logo {
+    font-family: var(--ff-caps);
+    font-size: 18px;
+    letter-spacing: 0.5em;
+    color: var(--creme);
+    text-decoration: none;
+    position: relative;
+  }
+  nav {
+    display: flex; gap: 36px; align-items: center;
+    font-size: 11px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: rgba(240,234,224,0.6);
+    position: relative;
+  }
+  nav a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  nav a:hover, nav a.active { color: var(--creme); }
+  nav a.active { color: var(--gold); }
+  .nav-divider { opacity: 0.3; }
+  .header-actions {
+    display: flex; gap: 20px; align-items: center; position: relative;
+  }
+  .persona-pill {
+    display: flex; gap: 0;
+    border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 2px; overflow: hidden;
+  }
+  .persona-pill button {
+    background: none; border: none; cursor: pointer;
+    padding: 6px 16px;
+    font-family: var(--ff-body); font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(240,234,224,0.5);
+    transition: all 0.2s;
+  }
+  .persona-pill button.active {
+    background: var(--gold); color: var(--ink);
+  }
+  .cart-btn {
+    background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+    color: var(--creme); font-family: var(--ff-body);
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    opacity: 0.7; transition: opacity 0.2s;
+  }
+  .cart-btn:hover { opacity: 1; }
+  .cart-count {
+    background: var(--gold); color: var(--ink);
+    width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 400;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; height: 100vh; min-height: 700px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800');
+    background-size: cover; background-position: center;
+    transform: scale(1.04);
+    transition: transform 8s ease;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      160deg,
+      rgba(9,8,6,0.2) 0%,
+      rgba(9,8,6,0.5) 40%,
+      rgba(9,8,6,0.92) 100%
+    );
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 60px 70px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    align-items: end;
+  }
+  .hero-text {}
+  .hero-eyebrow {
+    font-family: var(--ff-body); font-size: 10px;
+    letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px; opacity: 0.9;
+  }
+  .hero-title {
+    font-family: var(--ff-display); font-size: clamp(52px, 6vw, 88px);
+    font-weight: 300; line-height: 1.02;
+    color: var(--creme); letter-spacing: -0.01em;
+    margin-bottom: 32px;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-desc {
+    max-width: 380px;
+    font-size: 14px; line-height: 1.8; color: rgba(240,234,224,0.8);
+    margin-bottom: 36px;
+  }
+  .btn-reserve {
+    display: inline-flex; align-items: center; gap: 14px;
+    border: 1px solid var(--gold); color: var(--gold);
+    padding: 14px 32px; font-size: 10px; letter-spacing: 0.3em;
+    text-transform: uppercase; text-decoration: none;
+    font-family: var(--ff-body); cursor: pointer; background: none;
+    transition: all 0.25s;
+  }
+  .btn-reserve:hover { background: var(--gold); color: var(--ink); }
+  .btn-reserve svg { width: 14px; height: 14px; }
+
+  .hero-aside {
+    display: flex; flex-direction: column; align-items: flex-end;
+    gap: 24px;
+  }
+  .hero-script {
+    font-family: var(--ff-script); font-size: 38px;
+    color: rgba(240,234,224,0.35); text-align: right;
+    line-height: 1.2;
+  }
+  .hero-badge {
+    border: 1px solid rgba(201,169,110,0.3);
+    padding: 16px 24px; text-align: center;
+  }
+  .hero-badge span {
+    display: block; font-family: var(--ff-body);
+    font-size: 9px; letter-spacing: 0.35em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 4px;
+  }
+  .hero-badge strong {
+    font-family: var(--ff-display); font-size: 22px;
+    font-weight: 300; color: var(--creme);
+  }
+  .scroll-hint {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: rgba(240,234,224,0.35); z-index: 2;
+  }
+  .scroll-line {
+    width: 1px; height: 40px; background: rgba(201,169,110,0.4);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(0.6); transform-origin: top; }
+  }
+
+  /* ── MENU SECTION ── */
+  .menu-section {
+    background: var(--ink);
+    padding: 100px 60px;
+  }
+  .menu-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 60px;
+  }
+  .section-eyebrow {
+    font-family: var(--ff-body); font-size: 10px;
+    letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--ff-display); font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300; color: var(--creme); line-height: 1.1;
+  }
+  .section-title em { font-style: italic; }
+
+  /* ── CATEGORY TABS ── */
+  .cat-tabs {
+    display: flex; gap: 0; border-bottom: 1px solid rgba(240,234,224,0.08);
+    margin-bottom: 56px;
+  }
+  .cat-tab {
+    background: none; border: none; cursor: pointer;
+    padding: 14px 28px; font-family: var(--ff-body);
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(240,234,224,0.35); transition: all 0.2s;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+    position: relative;
+  }
+  .cat-tab:hover { color: var(--creme); }
+  .cat-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ── DISH GRID ── */
+  .dish-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  /* Feature card (first, full-width of 2 cols) */
+  .dish-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    background: var(--ember);
+    aspect-ratio: 4/3;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .dish-card:hover { z-index: 2; }
+  .dish-card:hover .dish-img { transform: scale(1.06); }
+  .dish-card:hover .dish-overlay { opacity: 1; }
+  .dish-card:hover .dish-cta { opacity: 1; transform: translateY(0); }
+
+  .dish-card--feature {
+    grid-column: span 2;
+    aspect-ratio: 16/9;
+  }
+
+  .dish-img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: block;
+  }
+  .dish-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(9,8,6,0.92) 0%,
+      rgba(9,8,6,0.4) 50%,
+      transparent 100%
+    );
+    opacity: 0.7; transition: opacity 0.3s;
+  }
+  .dish-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 24px 28px;
+  }
+  .dish-category {
+    font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 8px; font-family: var(--ff-body);
+  }
+  .dish-name {
+    font-family: var(--ff-display); font-size: 22px; font-weight: 300;
+    color: var(--creme); line-height: 1.2; margin-bottom: 8px;
+  }
+  .dish-card--feature .dish-name { font-size: 32px; }
+  .dish-desc-text {
+    font-size: 13px; line-height: 1.65;
+    color: rgba(240,234,224,0.78); margin-bottom: 12px;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .dish-price {
+    font-family: var(--ff-caps); font-size: 15px; color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .dish-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 14px;
+    font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--creme); opacity: 0; transform: translateY(6px);
+    transition: all 0.25s;
+  }
+  .dish-cta::after {
+    content: '→'; font-size: 12px;
+  }
+
+  /* ── SPLIT SECTION (cocktail pairing) ── */
+  .split-section {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 560px;
+  }
+  .split-photo {
+    position: relative; overflow: hidden;
+  }
+  .split-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .split-photo-overlay {
+    position: absolute; inset: 0;
+    background: rgba(9,8,6,0.3);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 40px;
+  }
+  .split-photo-label {
+    font-family: var(--ff-script); font-size: 32px;
+    color: rgba(240,234,224,0.85); line-height: 1.3;
+    margin-bottom: 16px;
+  }
+  .split-photo-tags {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .split-photo-tags span {
+    font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+    border: 1px solid rgba(240,234,224,0.3); padding: 4px 12px;
+    color: rgba(240,234,224,0.6);
+  }
+
+  .split-content {
+    background: var(--parchment);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 70px 60px;
+  }
+  .split-content .section-eyebrow { color: var(--bronze); }
+  .split-title {
+    font-family: var(--ff-display); font-size: clamp(28px, 3vw, 44px);
+    font-weight: 300; color: var(--ember); line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .split-body {
+    font-size: 14px; line-height: 1.8; color: #5c5348;
+    margin-bottom: 32px; max-width: 340px;
+  }
+  .btn-dark {
+    display: inline-flex; align-items: center; gap: 14px;
+    background: var(--ember); color: var(--creme);
+    padding: 14px 32px; font-size: 10px; letter-spacing: 0.3em;
+    text-transform: uppercase; font-family: var(--ff-body);
+    border: none; cursor: pointer; transition: background 0.25s;
+    text-decoration: none; width: fit-content;
+  }
+  .btn-dark:hover { background: var(--bronze); }
+
+  /* ── SIGNATURE DISH ── */
+  .signature-section {
+    position: relative; height: 65vh; min-height: 480px;
+    overflow: hidden;
+  }
+  .signature-bg {
+    position: absolute; inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1600');
+    background-size: cover; background-position: center 30%;
+  }
+  .signature-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to right,
+      rgba(9,8,6,0.6) 0%, rgba(9,8,6,0.2) 50%, rgba(9,8,6,0.6) 100%
+    );
+  }
+  .signature-content {
+    position: relative; z-index: 2;
+    height: 100%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 40px;
+  }
+  .signature-content .section-eyebrow { margin-bottom: 16px; }
+  .signature-title {
+    font-family: var(--ff-display); font-size: clamp(36px, 5vw, 68px);
+    font-weight: 300; color: var(--creme); line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .signature-script {
+    font-family: var(--ff-script); font-size: 28px;
+    color: rgba(240,234,224,0.45); margin-bottom: 32px;
+  }
+  .signature-name {
+    font-family: var(--ff-caps); font-size: 14px; letter-spacing: 0.2em;
+    color: var(--creme); margin-bottom: 8px;
+  }
+  .signature-desc {
+    font-size: 14px; color: rgba(240,234,224,0.8); max-width: 440px;
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ember); padding: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: var(--ff-caps); font-size: 28px;
+    letter-spacing: 0.4em; color: var(--creme);
+  }
+  .footer-copy {
+    font-size: 11px; color: rgba(240,234,224,0.35);
+    letter-spacing: 0.15em;
+  }
+  .footer-links {
+    display: flex; gap: 28px;
+    font-size: 10px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: rgba(240,234,224,0.45);
+  }
+  .footer-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">NOIR</a>
+  <nav>
+    <a href="#">Início</a>
+    <span class="nav-divider">·</span>
+    <a href="#" class="active">Cardápio</a>
+    <span class="nav-divider">·</span>
+    <a href="#">Localização</a>
+    <span class="nav-divider">·</span>
+    <a href="#">Reservas</a>
+  </nav>
+  <div class="header-actions">
+    <div class="persona-pill">
+      <button class="active">Cliente</button>
+      <button>Cozinha</button>
+    </div>
+    <button class="cart-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="cart-count">2</span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Bem-vindo ao Noir</p>
+      <h1 class="hero-title">
+        Nosso cardápio<br>
+        promete deleitar<br>
+        <em>todos os sentidos</em>
+      </h1>
+      <p class="hero-desc">
+        Cada prato é uma celebração de sofisticação e arte,
+        oferecendo uma experiência inesquecível que alia inovação e tradição.
+      </p>
+      <button class="btn-reserve">
+        Reservar Mesa
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+    <div class="hero-aside">
+      <p class="hero-script">a arte em<br>cada prato</p>
+      <div class="hero-badge">
+        <span>Reconhecimento</span>
+        <strong>Top 50 Brasil</strong>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Explorar
+  </div>
+</section>
+
+<!-- MENU SECTION -->
+<section class="menu-section">
+  <div class="menu-header">
+    <div>
+      <p class="section-eyebrow">Nossa Culinária</p>
+      <h2 class="section-title">O <em>Cardápio</em><br>da Temporada</h2>
+    </div>
+  </div>
+
+  <!-- CATEGORY TABS -->
+  <div class="cat-tabs">
+    <button class="cat-tab active">Todos</button>
+    <button class="cat-tab">Entradas</button>
+    <button class="cat-tab">Principais</button>
+    <button class="cat-tab">Sobremesas</button>
+    <button class="cat-tab">Bebidas</button>
+  </div>
+
+  <!-- DISH GRID -->
+  <div class="dish-grid">
+
+    <!-- Feature card -->
+    <div class="dish-card dish-card--feature">
+      <img class="dish-img" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1000" alt="Prato principal" />
+      <div class="dish-overlay"></div>
+      <div class="dish-info">
+        <p class="dish-category">Principal</p>
+        <h3 class="dish-name">Filé ao Molho de Trufas<br>com Aspargos Grelhados</h3>
+        <p class="dish-desc-text">Filé mignon selado com redução de vinho tinto e raspas de trufa negra, acompanhado de aspargos frescos.</p>
+        <span class="dish-price">R$ 148</span>
+        <div class="dish-cta">Ver detalhes</div>
+      </div>
+    </div>
+
+    <!-- Regular card -->
+    <div class="dish-card">
+      <img class="dish-img" src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=600" alt="Entrada" />
+      <div class="dish-overlay"></div>
+      <div class="dish-info">
+        <p class="dish-category">Entrada</p>
+        <h3 class="dish-name">Carpaccio de Vieiras</h3>
+        <p class="dish-desc-text">Fatias finas de vieira crua com emulsão de maracujá, alcaparras e azeite.</p>
+        <span class="dish-price">R$ 88</span>
+        <div class="dish-cta">Ver detalhes</div>
+      </div>
+    </div>
+
+    <!-- Regular cards row -->
+    <div class="dish-card">
+      <img class="dish-img" src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600" alt="Sobremesa" />
+      <div class="dish-overlay"></div>
+      <div class="dish-info">
+        <p class="dish-category">Sobremesa</p>
+        <h3 class="dish-name">Soufflé de Chocolate</h3>
+        <p class="dish-desc-text">Soufflé quente com creme de baunilha e fava tonka ralada.</p>
+        <span class="dish-price">R$ 52</span>
+        <div class="dish-cta">Ver detalhes</div>
+      </div>
+    </div>
+
+    <div class="dish-card">
+      <img class="dish-img" src="https://images.unsplash.com/photo-1432139509613-5c4255815697?w=600" alt="Prato 4" />
+      <div class="dish-overlay"></div>
+      <div class="dish-info">
+        <p class="dish-category">Principal</p>
+        <h3 class="dish-name">Robalo ao Missô</h3>
+        <p class="dish-desc-text">Filé de robalo grelhado com glaze de missô branco e purê de raiz de aipo.</p>
+        <span class="dish-price">R$ 128</span>
+        <div class="dish-cta">Ver detalhes</div>
+      </div>
+    </div>
+
+    <div class="dish-card">
+      <img class="dish-img" src="https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=600" alt="Bebida" />
+      <div class="dish-overlay"></div>
+      <div class="dish-info">
+        <p class="dish-category">Bebida</p>
+        <h3 class="dish-name">Negroni Defumado</h3>
+        <p class="dish-desc-text">Gin, Campari, vermute rosso e nuvem de fumaça de carvalho.</p>
+        <span class="dish-price">R$ 48</span>
+        <div class="dish-cta">Ver detalhes</div>
+      </div>
+    </div>
+
+    <div class="dish-card">
+      <img class="dish-img" src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600" alt="Entrada 2" />
+      <div class="dish-overlay"></div>
+      <div class="dish-info">
+        <p class="dish-category">Entrada</p>
+        <h3 class="dish-name">Tartare de Atum</h3>
+        <p class="dish-desc-text">Atum bluefin picado com leite de tigre, crispy de quinoa e micro-ervas.</p>
+        <span class="dish-price">R$ 96</span>
+        <div class="dish-cta">Ver detalhes</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SPLIT: COCKTAIL PAIRING -->
+<div class="split-section">
+  <div class="split-photo">
+    <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=900" alt="Cocktails" />
+    <div class="split-photo-overlay">
+      <p class="split-photo-label">Encontre a harmonização<br>perfeita para seu prato</p>
+      <div class="split-photo-tags">
+        <span>Cendre Al Mule</span>
+        <span>Cherry Blossom Martini</span>
+        <span>Wolf of Kyoto</span>
+      </div>
+    </div>
+  </div>
+  <div class="split-content">
+    <p class="section-eyebrow">Série de Cocktails</p>
+    <h2 class="split-title">Torne cada mordida<br>e gole inesquecível</h2>
+    <p class="split-body">
+      Combine seu prato favorito com nossas criações exclusivas.
+      Nossa equipe indica harmonizações personalizadas para
+      tornar sua noite perfeita.
+    </p>
+    <a class="btn-dark" href="#">
+      Reservar Mesa →
+    </a>
+  </div>
+</div>
+
+<!-- SIGNATURE DISH BANNER -->
+<section class="signature-section">
+  <div class="signature-bg"></div>
+  <div class="signature-content">
+    <p class="section-eyebrow">Assinatura do Chef da Temporada</p>
+    <h2 class="signature-title">Experiencie o coração<br>do Restaurante Noir</h2>
+    <p class="signature-script">o verdadeiro equilíbrio de texturas<br>e a profundidade do sabor</p>
+    <p class="signature-name">Linguine de Lagosta com Farofa de Pistache</p>
+    <p class="signature-desc">
+      Lagosta pochê complementa linguine al dente, realçado por limão siciliano
+      e azeite infusionado com ervas. Finalizado com crocante de pistache e microgreens apimentados.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">NOIR</div>
+  <p class="footer-copy">© 2025 Restaurante Noir · Todos os direitos reservados</p>
+  <div class="footer-links">
+    <a href="#">Cardápio</a>
+    <a href="#">Reservas</a>
+    <a href="#">Localização</a>
+    <a href="#">Contato</a>
+  </div>
+</footer>
+
+<script>
+  // Category tab switching
+  const tabs = document.querySelectorAll('.cat-tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // Persona pill
+  const pillBtns = document.querySelectorAll('.persona-pill button');
+  pillBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      pillBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Parallax hero
+  const heroBg = document.querySelector('.hero-bg');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (heroBg) heroBg.style.transform = `scale(1.04) translateY(${y * 0.3}px)`;
+  });
+</script>
+</body>
+</html>
