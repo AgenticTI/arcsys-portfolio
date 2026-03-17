@@ -9,33 +9,33 @@ export default function Header() {
   const router = useRouter()
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 bg-noir-black/95 backdrop-blur-sm border-b border-noir-gray/20">
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 bg-noir-black/95 backdrop-blur-sm border-b border-noir-white/[0.08]">
       {/* Logo */}
       <button
         onClick={() => { setView('client'); router.push('/') }}
-        className="font-playfair text-2xl text-noir-white tracking-widest hover:text-noir-gold transition-colors"
+        className="font-caps text-[18px] text-noir-white tracking-[0.5em] hover:text-noir-gold transition-colors"
       >
         NOIR
       </button>
 
       {/* Persona Switcher */}
-      <div className="flex items-center gap-1 bg-noir-white/10 rounded-full p-1">
+      <div className="flex items-center gap-1 border border-noir-gold/40 p-1">
         <button
           onClick={() => { setView('client'); router.push('/') }}
-          className={`px-5 py-1.5 rounded-full text-sm font-inter font-medium transition-all ${
+          className={`px-5 py-1.5 font-body text-[11px] tracking-[0.2em] uppercase transition-all ${
             activeView === 'client'
               ? 'bg-noir-gold text-noir-black'
-              : 'text-noir-white hover:text-noir-gold'
+              : 'text-noir-white/50 hover:text-noir-white'
           }`}
         >
           Cliente
         </button>
         <button
           onClick={() => { setView('kitchen'); router.push('/kitchen') }}
-          className={`px-5 py-1.5 rounded-full text-sm font-inter font-medium transition-all ${
+          className={`px-5 py-1.5 font-body text-[11px] tracking-[0.2em] uppercase transition-all ${
             activeView === 'kitchen'
               ? 'bg-noir-gold text-noir-black'
-              : 'text-noir-white hover:text-noir-gold'
+              : 'text-noir-white/50 hover:text-noir-white'
           }`}
         >
           Cozinha
@@ -60,7 +60,7 @@ export default function Header() {
               key={cartItemCount}
               initial={{ scale: 0.6 }}
               animate={{ scale: 1 }}
-              className="absolute -top-2 -right-2 w-5 h-5 bg-noir-gold text-noir-black text-xs font-bold rounded-full flex items-center justify-center"
+              className="absolute -top-2 -right-2 w-[18px] h-[18px] bg-noir-gold text-noir-black text-xs font-body rounded-full flex items-center justify-center"
             >
               {cartItemCount}
             </motion.span>
