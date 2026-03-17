@@ -8,6 +8,25 @@ const STATUS_NEXT_LABEL: Partial<Record<OrderStatus, string>> = {
   preparing: 'Marcar Pronto',
 }
 
+const STATUS_CARD_STYLE: Record<string, { background: string; borderLeft: string }> = {
+  received: { background: '#1C1510', borderLeft: '3px solid #C9A96E' },
+  preparing: { background: '#1c1505', borderLeft: '3px solid #f59e0b' },
+  ready:     { background: '#0e1c10', borderLeft: '3px solid #4ade80' },
+}
+
+const BTN_STYLE: Record<string, { border: string; color: string; background: string }> = {
+  received: {
+    border: '1px solid rgba(201,169,110,0.5)',
+    color: '#C9A96E',
+    background: 'rgba(201,169,110,0.1)',
+  },
+  preparing: {
+    border: '1px solid rgba(74,222,128,0.5)',
+    color: '#4ade80',
+    background: 'rgba(74,222,128,0.08)',
+  },
+}
+
 interface KanbanCardProps {
   order: Order
   onAdvance: (orderId: string) => void
@@ -24,6 +43,8 @@ function formatElapsed(createdAt: Date): string {
 
 export default function KanbanCard({ order, onAdvance, onClick }: KanbanCardProps) {
   const nextLabel = STATUS_NEXT_LABEL[order.status]
+  const cardStyle = STATUS_CARD_STYLE[order.status] ?? STATUS_CARD_STYLE.received
+  const btnStyle = order.status !== 'ready' ? BTN_STYLE[order.status] : undefined
 
   return (
     <motion.div
@@ -32,34 +53,68 @@ export default function KanbanCard({ order, onAdvance, onClick }: KanbanCardProp
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96 }}
       transition={{ duration: 0.2 }}
-      className="bg-noir-cream border border-noir-cream hover:border-noir-gray/40 p-5 cursor-pointer transition-colors"
-      style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}
+      className="cursor-pointer transition-all hover:-translate-y-0.5"
+      style={{
+        background: cardStyle.background,
+        border: '1px solid rgba(240,234,224,0.1)',
+        borderLeft: cardStyle.borderLeft,
+        padding: '18px 20px',
+      }}
+      onClick={() => onClick(order)}
     >
-      <div onClick={() => onClick(order)}>
-        <div className="flex items-center justify-between mb-3">
-          <span className="font-inter font-semibold text-noir-black text-base">{order.id}</span>
-          <span className="font-inter text-xs text-noir-gray">{formatElapsed(order.createdAt)}</span>
-        </div>
-        <ul className="mb-4 space-y-1">
-          {order.items.map(item => (
-            <li key={item.dish.id} className="font-inter text-sm text-noir-black">
-              <span className="text-noir-gold font-medium">{item.quantity}×</span> {item.dish.name}
-            </li>
-          ))}
-        </ul>
-        <p className="font-inter text-xs text-noir-gray font-semibold">
-          Total: R$ {order.totalAmount.toFixed(2).replace('.', ',')}
-        </p>
+      {/* Top row */}
+      <div className="flex items-center justify-between mb-3.5">
+        <span className="font-caps text-[16px] text-noir-gold tracking-wide">
+          {order.id}
+        </span>
+        <span className="font-body text-[12px] text-noir-white/55">
+          {formatElapsed(order.createdAt)}
+        </span>
       </div>
 
-      {nextLabel && (
-        <button
-          onClick={(e) => { e.stopPropagation(); onAdvance(order.id) }}
-          className="mt-4 w-full bg-noir-black text-noir-gold font-inter text-xs uppercase tracking-widest py-2.5 hover:bg-noir-gold hover:text-noir-black transition-all"
-        >
-          {nextLabel}
-        </button>
-      )}
+      {/* Items */}
+      <ul className="space-y-2 mb-4">
+        {order.items.map(item => (
+          <li key={item.dish.id} className="flex items-baseline gap-2.5 font-body text-[14px] text-noir-white/88">
+            <span className="font-caps text-[13px] text-noir-gold min-w-[22px] flex-shrink-0">
+              ×{item.quantity}
+            </span>
+            {item.dish.name}
+          </li>
+        ))}
+      </ul>
+
+      {/* Footer */}
+      <div
+        className="flex items-center justify-between pt-3.5"
+        style={{ borderTop: '1px solid rgba(240,234,224,0.1)' }}
+        onClick={e => e.stopPropagation()}
+      >
+        <span className="font-body text-[12px] text-noir-white/55 tracking-widest uppercase">
+          R$ {order.totalAmount.toFixed(2).replace('.', ',')}
+        </span>
+        {nextLabel && btnStyle && (
+          <button
+            onClick={() => onAdvance(order.id)}
+            className="font-body text-[11px] tracking-[0.2em] uppercase px-4 py-2 transition-all hover:opacity-90"
+            style={btnStyle}
+          >
+            {nextLabel}
+          </button>
+        )}
+        {order.status === 'ready' && (
+          <span
+            className="font-body text-[12px] uppercase tracking-wide flex items-center gap-2"
+            style={{ color: '#4ade80' }}
+          >
+            <span
+              className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+              style={{ background: '#4ade80', animation: 'pulse 1.5s infinite' }}
+            />
+            Aguardando retirada
+          </span>
+        )}
+      </div>
     </motion.div>
   )
 }

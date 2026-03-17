@@ -35,7 +35,8 @@ export default function OrderDetailModal({ order, onClose, onAdvance }: OrderDet
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-noir-black/80 z-40 backdrop-blur-sm"
+            className="fixed inset-0 z-40"
+            style={{ background: 'rgba(9,8,6,0.85)', backdropFilter: 'blur(4px)' }}
           />
           <motion.div
             key="modal"
@@ -43,27 +44,27 @@ export default function OrderDetailModal({ order, onClose, onAdvance }: OrderDet
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 30 }}
             transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-            className="fixed inset-x-4 top-1/2 -translate-y-1/2 md:inset-auto md:left-1/2 md:-translate-x-1/2 md:w-[480px] bg-noir-cream z-50 p-8"
+            className="fixed inset-x-4 top-1/2 -translate-y-1/2 md:inset-auto md:left-1/2 md:-translate-x-1/2 md:w-[480px] bg-noir-ember z-50 p-8"
             style={{ boxShadow: '0 24px 64px rgba(0,0,0,0.5)' }}
           >
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-noir-gray hover:text-noir-black transition-colors"
+              className="absolute top-4 right-4 text-noir-gray hover:text-noir-white transition-colors"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
 
-            <p className="font-inter text-xs text-noir-gold uppercase tracking-widest mb-1">Pedido</p>
-            <h2 className="font-playfair text-3xl text-noir-black mb-1">{order.id}</h2>
-            <p className="font-inter text-sm text-noir-gray mb-6">
+            <p className="font-body text-xs text-noir-gold uppercase tracking-widest mb-1">Pedido</p>
+            <h2 className="font-cormorant text-3xl text-noir-white mb-1">{order.id}</h2>
+            <p className="font-body text-sm text-noir-gray mb-6">
               Tempo de espera: {formatElapsed(order.createdAt)}
             </p>
 
             <ul className="space-y-3 mb-6">
               {order.items.map(item => (
-                <li key={item.dish.id} className="flex justify-between font-inter text-noir-black">
+                <li key={item.dish.id} className="flex justify-between font-body text-noir-white">
                   <span>
                     <span className="text-noir-gold font-semibold">{item.quantity}×</span> {item.dish.name}
                   </span>
@@ -77,14 +78,14 @@ export default function OrderDetailModal({ order, onClose, onAdvance }: OrderDet
             {nextLabel && (
               <button
                 onClick={() => { onAdvance(order.id); onClose() }}
-                className="w-full bg-noir-black text-noir-gold font-inter text-sm uppercase tracking-widest py-4 hover:bg-noir-gold hover:text-noir-black transition-all"
+                className="w-full bg-noir-black text-noir-gold font-body text-sm uppercase tracking-widest py-4 hover:bg-noir-gold hover:text-noir-black transition-all"
               >
                 {nextLabel}
               </button>
             )}
 
             {order.status === 'ready' && (
-              <p className="text-center font-inter text-sm text-noir-gold font-semibold py-3 uppercase tracking-widest">
+              <p className="text-center font-body text-sm text-noir-gold font-semibold py-3 uppercase tracking-widest">
                 Aguardando retirada
               </p>
             )}

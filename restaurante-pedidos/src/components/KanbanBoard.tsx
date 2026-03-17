@@ -18,7 +18,14 @@ export default function KanbanBoard() {
 
   return (
     <>
-      <div className="flex gap-6 overflow-x-auto pb-4">
+      <div
+        className="grid bg-noir-black"
+        style={{
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '1px',
+          background: 'rgba(240,234,224,0.08)',
+        }}
+      >
         {KITCHEN_COLUMNS.map(status => (
           <KanbanColumn
             key={status}
