@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import { BottomTabBar } from '@/components/layout/BottomTabBar'
 
-const inter = Inter({
+const jakarta = Plus_Jakarta_Sans({
+  weight: ['300', '400', '500', '600', '700', '800'],
   subsets: ['latin'],
-  variable: '--font-inter-var',
+  variable: '--font-jakarta',
 })
 
 export const metadata: Metadata = {
@@ -19,9 +20,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={inter.variable}>
+    <html lang="pt-BR" className={jakarta.variable}>
       <body className="bg-background text-text-primary min-h-screen">
-        <main className="pb-20 max-w-md mx-auto min-h-screen">
+        <main className="pb-24 max-w-md mx-auto min-h-screen">
           {children}
         </main>
         <BottomTabBar />

@@ -5,16 +5,23 @@ type HeatmapDay = {
 
 type Props = {
   data: HeatmapDay[]
-  columns?: number // quantas colunas no grid (default 6 para 30 dias)
+  columns?: number // quantas colunas no grid (default 7 para 28 dias)
 }
 
-function getIntensityClass(count: number): string {
-  if (count === 0) return 'bg-surface-elevated'
-  if (count === 1) return 'bg-accent-muted'
-  return 'bg-accent'
+function getCellStyle(count: number): React.CSSProperties {
+  if (count === 0) return { backgroundColor: 'var(--color-surface-elevated)' }
+  if (count === 1) return { backgroundColor: 'rgba(165,253,24,0.18)' }
+  return { backgroundColor: '#A5FD18' }
 }
 
-export function Heatmap({ data, columns = 6 }: Props) {
+export function Heatmap({ data, columns = 7 }: Props) {
+  const legendBoxes = [
+    { background: 'var(--color-surface-elevated)' },
+    { background: 'rgba(165,253,24,0.18)' },
+    { background: 'rgba(165,253,24,0.50)' },
+    { background: '#A5FD18' },
+  ]
+
   return (
     <div>
       <div
@@ -25,9 +32,26 @@ export function Heatmap({ data, columns = 6 }: Props) {
           <div
             key={day.date}
             title={`${day.date}: ${day.count} treino(s)`}
-            className={`aspect-square rounded-sm ${getIntensityClass(day.count)}`}
+            className="aspect-square rounded-sm"
+            style={getCellStyle(day.count)}
           />
         ))}
+      </div>
+
+      {/* Legend */}
+      <div
+        className="flex items-center justify-end gap-1.5 mt-3"
+        style={{ fontSize: 11, color: 'rgba(235,235,245,0.16)' }}
+      >
+        <span>Menos</span>
+        {legendBoxes.map((box, i) => (
+          <div
+            key={i}
+            className="rounded-sm"
+            style={{ width: 10, height: 10, background: box.background }}
+          />
+        ))}
+        <span>Mais</span>
       </div>
     </div>
   )
