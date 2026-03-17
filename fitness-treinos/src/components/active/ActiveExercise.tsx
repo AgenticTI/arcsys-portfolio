@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CheckCircle } from 'lucide-react'
+import { MUSCLE_GROUP_LABELS } from '@/lib/types'
 import type { Exercise } from '@/lib/types'
 
 type Props = {
@@ -11,74 +11,152 @@ type Props = {
 }
 
 export function ActiveExercise({ exercise, currentSet, onCompleteSet }: Props) {
-  const [weight, setWeight] = useState('')
-  const [reps, setReps] = useState('')
+  const [weight, setWeight] = useState(60)
+  const [reps, setReps] = useState(10)
 
   function handleComplete() {
-    const w = parseFloat(weight)
-    const r = parseInt(reps, 10)
-    if (isNaN(w) || isNaN(r) || w <= 0 || r <= 0) return
-    onCompleteSet(w, r)
-    setWeight('')
-    setReps('')
+    onCompleteSet(weight, reps)
   }
 
-  const canComplete = weight !== '' && reps !== '' &&
-    !isNaN(parseFloat(weight)) && !isNaN(parseInt(reps, 10))
+  const muscleLabel = MUSCLE_GROUP_LABELS[exercise.muscleGroup]
 
   return (
-    <div className="bg-surface rounded-2xl p-6">
-      {/* Exercício */}
-      <div className="mb-5">
-        <p className="text-text-secondary text-sm font-medium uppercase tracking-wider mb-1">
-          Exercício atual
-        </p>
-        <h2 className="text-text-primary text-2xl font-bold leading-tight">
-          {exercise.name}
-        </h2>
-        <p className="text-accent font-semibold mt-1">
-          Série {currentSet} de {exercise.sets}
-        </p>
+    <div className="bg-surface rounded-[22px] p-[22px]">
+      {/* Top section */}
+      <p className="text-[12px] font-semibold uppercase tracking-[0.5px] text-text-tertiary mb-2">
+        SÉRIE {currentSet} DE {exercise.sets}
+      </p>
+      <h2 className="text-[26px] font-bold tracking-[-0.5px] leading-[1.15] text-text-primary mb-3">
+        {exercise.name}
+      </h2>
+
+      {/* Tags row */}
+      <div className="flex items-center gap-2 flex-wrap">
+        <span
+          className="text-[12px] font-semibold px-2.5 py-1 rounded-full"
+          style={{
+            background: 'rgba(165,253,24,0.12)',
+            color: '#A5FD18',
+          }}
+        >
+          {muscleLabel}
+        </span>
+        <span className="text-[12px] font-semibold px-2.5 py-1 rounded-full bg-surface-elevated text-text-secondary">
+          {exercise.sets} séries
+        </span>
       </div>
 
-      {/* Inputs kg / reps */}
-      <div className="flex gap-3 mb-5">
-        <div className="flex-1">
-          <label className="text-text-secondary text-xs font-medium block mb-1.5">
-            Peso (kg)
-          </label>
-          <input
-            type="number"
-            inputMode="decimal"
-            placeholder="0"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-            className="w-full bg-surface-elevated rounded-xl px-4 py-3 text-text-primary text-xl font-bold text-center outline-none focus:ring-1 focus:ring-accent"
-          />
+      {/* Steppers grid */}
+      <div className="grid grid-cols-2 gap-3 mt-6">
+        {/* Weight stepper */}
+        <div className="bg-surface-elevated rounded-2xl p-4">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.5px] text-text-tertiary mb-3">
+            PESO
+          </p>
+          <div className="flex items-center justify-between">
+            <button
+              onClick={() => setWeight((w) => Math.max(0, parseFloat((w - 2.5).toFixed(1))))}
+              className="w-[34px] h-[34px] rounded-full bg-surface-3 flex items-center justify-center text-[20px] font-light text-text-primary active:opacity-70"
+              aria-label="Diminuir peso"
+            >
+              −
+            </button>
+            <div className="text-center">
+              <p className="text-[28px] font-bold tracking-[-1px] text-text-primary leading-none">
+                {weight % 1 === 0 ? weight : weight.toFixed(1)}
+              </p>
+              <p className="text-[12px] font-medium text-text-tertiary mt-1">kg</p>
+            </div>
+            <button
+              onClick={() => setWeight((w) => parseFloat((w + 2.5).toFixed(1)))}
+              className="w-[34px] h-[34px] rounded-full bg-surface-3 flex items-center justify-center text-[20px] font-light text-text-primary active:opacity-70"
+              aria-label="Aumentar peso"
+            >
+              +
+            </button>
+          </div>
         </div>
-        <div className="flex-1">
-          <label className="text-text-secondary text-xs font-medium block mb-1.5">
-            Repetições
-          </label>
-          <input
-            type="number"
-            inputMode="numeric"
-            placeholder="0"
-            value={reps}
-            onChange={(e) => setReps(e.target.value)}
-            className="w-full bg-surface-elevated rounded-xl px-4 py-3 text-text-primary text-xl font-bold text-center outline-none focus:ring-1 focus:ring-accent"
-          />
+
+        {/* Reps stepper */}
+        <div className="bg-surface-elevated rounded-2xl p-4">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.5px] text-text-tertiary mb-3">
+            REPS
+          </p>
+          <div className="flex items-center justify-between">
+            <button
+              onClick={() => setReps((r) => Math.max(1, r - 1))}
+              className="w-[34px] h-[34px] rounded-full bg-surface-3 flex items-center justify-center text-[20px] font-light text-text-primary active:opacity-70"
+              aria-label="Diminuir repetições"
+            >
+              −
+            </button>
+            <div className="text-center">
+              <p className="text-[28px] font-bold tracking-[-1px] text-text-primary leading-none">
+                {reps}
+              </p>
+              <p className="text-[12px] font-medium text-text-tertiary mt-1">reps</p>
+            </div>
+            <button
+              onClick={() => setReps((r) => r + 1)}
+              className="w-[34px] h-[34px] rounded-full bg-surface-3 flex items-center justify-center text-[20px] font-light text-text-primary active:opacity-70"
+              aria-label="Aumentar repetições"
+            >
+              +
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Botão Concluir Série */}
+      {/* Set tracker */}
+      <div className="flex gap-2 mt-5">
+        {Array.from({ length: exercise.sets }, (_, i) => {
+          const serieNum = i + 1
+          const isDone = serieNum < currentSet
+          const isCurrent = serieNum === currentSet
+
+          if (isDone) {
+            return (
+              <div
+                key={i}
+                className="flex-1 flex items-center justify-center h-[38px] rounded-xl text-[14px] font-bold text-accent"
+                style={{ background: 'rgba(165,253,24,0.12)' }}
+              >
+                S{serieNum} ✓
+              </div>
+            )
+          }
+
+          if (isCurrent) {
+            return (
+              <div
+                key={i}
+                className="flex-1 flex items-center justify-center h-[38px] rounded-xl bg-accent text-black text-[14px] font-bold"
+              >
+                S{serieNum}
+              </div>
+            )
+          }
+
+          return (
+            <div
+              key={i}
+              className="flex-1 flex items-center justify-center h-[38px] rounded-xl bg-surface-elevated text-text-tertiary text-[14px] font-bold"
+            >
+              S{serieNum}
+            </div>
+          )
+        })}
+      </div>
+
+      {/* CTA button */}
       <button
         onClick={handleComplete}
-        disabled={!canComplete}
-        className="w-full bg-accent text-white font-bold py-4 rounded-xl text-base flex items-center justify-center gap-2 disabled:opacity-30 active:opacity-80 transition-opacity"
+        className="mt-5 w-full bg-accent text-black text-[17px] font-bold rounded-2xl py-4 flex items-center justify-center gap-2 active:opacity-80 transition-opacity"
       >
-        <CheckCircle size={20} />
-        Concluir série
+        <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+        Completar Série {currentSet}
       </button>
     </div>
   )

@@ -21,7 +21,10 @@ export function WorkoutTimer({ startedAt, onTick }: Props) {
   }, [startedAt, onTick])
 
   return (
-    <span className="text-text-secondary text-sm font-medium tabular-nums">
+    <span
+      className="tabular-nums font-bold"
+      style={{ fontSize: 15, letterSpacing: '-0.3px', color: '#A5FD18' }}
+    >
       {formatDuration(elapsed)}
     </span>
   )
