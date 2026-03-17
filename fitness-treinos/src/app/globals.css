@@ -1,15 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0A0A0A;
-  --color-surface: #141414;
-  --color-surface-elevated: #1C1C1C;
-  --color-accent: #FF6B00;
-  --color-accent-muted: #FF6B0026;
-  --color-text-primary: #F5F5F5;
-  --color-text-secondary: #6B6B6B;
-  --color-destructive: #FF3B30;
-  --font-inter: var(--font-inter-var), system-ui, sans-serif;
+  --color-background:        #000000;
+  --color-surface:           #1C1C1E;
+  --color-surface-elevated:  #2C2C2E;
+  --color-surface-3:         #3A3A3C;
+  --color-surface-4:         #48484A;
+  --color-accent:            #A5FD18;
+  --color-accent-muted:      rgba(165,253,24,0.12);
+  --color-accent-glow:       rgba(165,253,24,0.20);
+  --color-text-primary:      #FFFFFF;
+  --color-text-secondary:    rgba(235,235,245,0.60);
+  --color-text-tertiary:     rgba(235,235,245,0.30);
+  --color-text-quaternary:   rgba(235,235,245,0.16);
+  --color-separator:         rgba(84,84,88,0.65);
+  --color-separator-opaque:  rgba(84,84,88,0.36);
+  --color-destructive:       #FF453A;
+  --color-orange:            #FF9F0A;
+  --color-blue:              #0A84FF;
 }
 
 @layer base {
@@ -20,6 +28,6 @@
   body {
     background-color: var(--color-background);
     color: var(--color-text-primary);
-    font-family: var(--font-inter-var), system-ui, sans-serif;
+    font-family: var(--font-jakarta), system-ui, sans-serif;
   }
 }
