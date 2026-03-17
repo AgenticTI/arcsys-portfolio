@@ -3,39 +3,43 @@
 import Link from "next/link";
 import { useTaskStore } from "@/store/useTaskStore";
 import { mockProjects } from "@/data/mock";
-import { PriorityBadge } from "@/components/ui/PriorityBadge";
 
 export function UpcomingTasks() {
   const tasks = useTaskStore((s) => s.tasks);
 
-  const upcoming = tasks
-    .filter((t) => t.status !== "done")
-    .sort((a, b) => a.dueDate.localeCompare(b.dueDate))
-    .slice(0, 3);
-
   return (
-    <div className="bg-bg-card rounded-xl border border-border p-5">
-      <p className="text-sm font-semibold text-text-primary mb-4">Upcoming Tasks</p>
-      <div className="space-y-3">
-        {upcoming.map((task) => {
-          const project = mockProjects.find((p) => p.id === task.projectId);
+    <div className="bg-bg-card border border-border rounded-[20px] p-5 shadow-[0_2px_8px_rgba(0,0,0,0.35)]">
+      <div className="flex items-center justify-between mb-4">
+        <p className="font-display text-[15px] font-bold text-text-primary">Projects</p>
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        {mockProjects.map((project) => {
+          const projectTasks = tasks.filter((t) => t.projectId === project.id);
+          const donePct = projectTasks.length > 0
+            ? Math.round((projectTasks.filter((t) => t.status === "done").length / projectTasks.length) * 100)
+            : 0;
+
           return (
             <Link
-              key={task.id}
-              href={`/board/${task.projectId}`}
-              className="flex items-center gap-3 group"
+              key={project.id}
+              href={`/board/${project.id}`}
+              className="flex items-center gap-2.5 px-3 py-2.5 rounded-[10px] bg-bg-card-2 hover:bg-white/[0.04] cursor-pointer transition-colors"
             >
-              <div
-                className="w-1.5 h-8 rounded-full flex-shrink-0"
-                style={{ backgroundColor: project?.color ?? "#7C3AED" }}
+              <span
+                className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                style={{ backgroundColor: project.color }}
               />
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-text-primary truncate group-hover:text-accent transition-colors">
-                  {task.title}
-                </p>
-                <p className="text-xs text-text-muted">{project?.name} · Due {task.dueDate}</p>
+              <span className="flex-1 text-[14px] font-medium text-text-primary">
+                {project.name}
+              </span>
+              <span className="text-[13px] text-text-muted">{projectTasks.length} tasks</span>
+              <div className="w-[56px] h-1 bg-white/[0.06] rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full"
+                  style={{ width: `${donePct}%`, backgroundColor: project.color }}
+                />
               </div>
-              <PriorityBadge priority={task.priority} />
             </Link>
           );
         })}
