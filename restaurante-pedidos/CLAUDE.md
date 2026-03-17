@@ -29,8 +29,10 @@ The persona switcher lives in the fixed header and routes between `/` (client) a
 | ESLint | ^8 (eslint-config-next 14.2.35) |
 
 Fonts loaded via `next/font/google`:
-- `Playfair_Display` → CSS var `--font-playfair` → Tailwind class `font-playfair` (headings, logo, dish names)
-- `Inter` → CSS var `--font-inter` → Tailwind class `font-inter` (all body/UI text)
+- `Cormorant_Garamond` → CSS var `--font-cormorant` → `font-cormorant` (headings, dish names, editorial titles)
+- `Cormorant_SC` → CSS var `--font-caps` → `font-caps` (logo, prices, order IDs)
+- `Italianno` (weight: '400' only) → CSS var `--font-script` → `font-script` (decorative script annotations)
+- `DM_Sans` → CSS var `--font-body` → `font-body` (body text, UI elements, buttons — use `font-body` NOT `font-sans`, which shadows Tailwind's built-in)
 
 Image host: `images.unsplash.com` — whitelisted in `next.config.mjs` via `remotePatterns`.
 
@@ -51,7 +53,7 @@ src/
 
   components/                 # All UI components — no subdirectories
     Header.tsx                # Fixed top bar: NOIR logo, persona switcher pill, cart icon badge
-    HeroSection.tsx           # Full-screen hero with Unsplash bg image at 40% opacity
+    HeroSection.tsx           # Full-screen editorial hero: 2-col grid, content anchored bottom-left, parallax bg, script badge
     CategoryTabs.tsx          # Scrollable horizontal tab bar (Todos + 4 categories)
     DishGrid.tsx              # Responsive 1/2/3-col grid with stagger animation on category change
     DishCard.tsx              # Single dish card: image, name, truncated description, gold price
@@ -118,6 +120,13 @@ There is no test runner configured. No `typecheck` script in `package.json` — 
 
 Expose via `useApp()` hook — throw if used outside `AppProvider`. Never access the context directly.
 
+**AppContext API for cart mutations:**
+- `updateCartQuantity(dishId: string, qty: number)` — change item qty (call with `item.quantity - 1` to decrease)
+- `removeFromCart(dishId: string)` — single argument only, no second arg
+- `cartItemCount: number` — pre-computed, exposed directly from `useApp()` (no need to derive from cart)
+
+**Known lint issue:** `AppContext.tsx` has a pre-existing ESLint error (`'CartItem' is defined but never used`). This is a false positive — do not modify `AppContext.tsx` to fix it.
+
 ### Order lifecycle
 
 Status progression is a fixed linear array: `['received', 'preparing', 'ready', 'delivered']`.
@@ -163,25 +172,31 @@ Use only Tailwind utility classes with the Noir palette tokens (defined in `tail
 
 | Token | Hex | Usage |
 |---|---|---|
-| `noir-black` | `#0A0A0A` | Backgrounds (header, hero, kitchen page), text |
-| `noir-white` | `#F5F4F0` | Page background, light surfaces |
-| `noir-cream` | `#E8E4DC` | Cards, borders, secondary surfaces |
+| `noir-black` | `#090806` | Base background (warmer black) |
+| `noir-white` | `#F0EAE0` | Text on dark, light surface text |
+| `noir-ember` | `#1C1510` | Card backgrounds (dark surfaces) |
 | `noir-gold` | `#C9A96E` | Accent: prices, active states, CTA buttons, progress |
-| `noir-gray` | `#6B6B6B` | Secondary text, disabled states, borders |
+| `noir-gray` | `#9A9088` | Secondary text |
+| `noir-parchment` | `#EDE7DB` | Light surface backgrounds |
+| `noir-bronze` | `#8B5E3C` | Tertiary accent, hover states |
 
-Never hardcode color hex values in JSX — always use the Tailwind token. Exception: Framer Motion `animate` props that require color values (see `StatusTracker.tsx` — `backgroundColor: '#C9A96E'`).
+**`noir-cream` is removed.** Migration: dark card bg → `noir-ember`, light surface → `noir-parchment`, borders → `rgba(240,234,224,0.1)` inline style.
+
+Never hardcode color hex values in className strings — use Tailwind tokens. Exception: Framer Motion `animate` props and `style` objects for gradients/rgba values that have no Tailwind token equivalent.
 
 Typography pattern used throughout:
 ```tsx
 // Section eyebrow label
-<p className="font-inter text-noir-gold text-xs tracking-[0.4em] uppercase mb-3">Label</p>
+<p className="font-body text-noir-gold text-[10px] tracking-[0.4em] uppercase mb-3">Label</p>
 // Section heading
-<h2 className="font-playfair text-5xl text-noir-black">Title</h2>
+<h2 className="font-cormorant text-5xl font-light text-noir-white">Title</h2>
+// Price / order ID
+<span className="font-caps text-noir-gold">R$ 148</span>
 ```
 
 ### Framer Motion patterns
 
-- **Card hover lift**: `whileHover={{ y: -4 }}` with `transition={{ duration: 0.2 }}` on `DishCard`.
+- **Card hover lift**: use `whileHover={{ y: -2 }}` (Framer Motion prop), NOT CSS `hover:-translate-y-*` — CSS hover transforms conflict with Framer Motion `layout` prop and cause jitter during column transitions (KanbanCard).
 - **Modal entrance**: `initial={{ opacity: 0, y: 40, scale: 0.97 }}` / `animate={{ opacity: 1, y: 0, scale: 1 }}` with spring `{ damping: 28, stiffness: 300 }`. Used in both `DishModal` and `OrderDetailModal`.
 - **Kanban card**: `motion.div` with `layout` prop + `initial/animate/exit` for smooth column transitions via `AnimatePresence`.
 - **Grid stagger**: `DishGrid` uses `variants` container/item pattern with `staggerChildren: 0.06` and `key={activeCategory}` to re-trigger on filter change.
@@ -215,7 +230,7 @@ Each `Dish` has: `id`, `name`, `description`, `price` (number, BRL), `category`,
 
 All images are from `images.unsplash.com`. They are whitelisted in `next.config.mjs`. `next/image` with `fill` is used throughout — always provide a positioned parent container (e.g., `relative h-52 overflow-hidden`).
 
-The hero background is `photo-1414235077428-338989a2e8c0?w=1600` with `opacity-40` overlay.
+The hero background is `photo-1414235077428-338989a2e8c0?w=1800` with a multi-stop gradient overlay (`160deg`, transparent → 92% noir-black). The hero uses a 2-col grid with content anchored to bottom-left.
 
 ### Adding a dish
 
