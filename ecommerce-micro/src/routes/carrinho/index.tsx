@@ -11,10 +11,10 @@ function CartPage() {
   const items = useCartStore((s) => s.items)
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-surface pt-16">
       <StoreHeader />
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Link
           to="/"
           className="inline-flex items-center gap-1 text-sm text-text-secondary hover:text-text-primary transition-colors mb-8"
@@ -23,8 +23,11 @@ function CartPage() {
           Continuar comprando
         </Link>
 
-        <h1 className="text-2xl font-semibold tracking-tight text-text-primary mb-8">
-          Carrinho de Compras
+        <h1
+          className="mb-10 text-text-primary"
+          style={{ fontSize: '40px', fontWeight: 700, letterSpacing: '-1.2px' }}
+        >
+          Carrinho
         </h1>
 
         {items.length === 0 ? (
@@ -39,16 +42,16 @@ function CartPage() {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-12 items-start">
             {/* Item list */}
-            <div className="lg:col-span-2">
+            <div>
               {items.map((item) => (
                 <CartItemRow key={item.productId} item={item} />
               ))}
             </div>
 
-            {/* Summary */}
-            <div className="lg:col-span-1">
+            {/* Sticky summary */}
+            <div style={{ position: 'sticky', top: '88px' }}>
               <OrderSummary />
             </div>
           </div>
