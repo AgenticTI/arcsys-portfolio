@@ -37,11 +37,14 @@ function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-surface pt-16">
       <StoreHeader />
 
       <main className="max-w-lg mx-auto px-4 sm:px-6 py-12">
-        <h1 className="text-2xl font-semibold tracking-tight text-text-primary mb-8">
+        <h1
+          className="text-text-primary mb-10"
+          style={{ fontSize: '40px', fontWeight: 700, letterSpacing: '-1.2px' }}
+        >
           Finalizar Pedido
         </h1>
 
@@ -52,7 +55,9 @@ function CheckoutPage() {
             </h2>
 
             <div className="space-y-2">
-              <Label htmlFor="nome">Nome completo</Label>
+              <Label htmlFor="nome" className="text-[13px] font-medium text-[#424245]">
+                Nome completo
+              </Label>
               <Input
                 id="nome"
                 name="nome"
@@ -60,11 +65,14 @@ function CheckoutPage() {
                 value={form.nome}
                 onChange={handleChange}
                 placeholder="João Silva"
+                className="rounded-xl focus-visible:ring-2 focus-visible:ring-[rgba(0,102,204,0.3)] focus-visible:border-[#0066CC]"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="endereco">Endereço</Label>
+              <Label htmlFor="endereco" className="text-[13px] font-medium text-[#424245]">
+                Endereço
+              </Label>
               <Input
                 id="endereco"
                 name="endereco"
@@ -72,6 +80,7 @@ function CheckoutPage() {
                 value={form.endereco}
                 onChange={handleChange}
                 placeholder="Rua das Flores, 123 — São Paulo"
+                className="rounded-xl focus-visible:ring-2 focus-visible:ring-[rgba(0,102,204,0.3)] focus-visible:border-[#0066CC]"
               />
             </div>
           </div>
@@ -82,7 +91,9 @@ function CheckoutPage() {
             </h2>
 
             <div className="space-y-2">
-              <Label htmlFor="cartao">Número do cartão</Label>
+              <Label htmlFor="cartao" className="text-[13px] font-medium text-[#424245]">
+                Número do cartão
+              </Label>
               <Input
                 id="cartao"
                 name="cartao"
@@ -91,12 +102,13 @@ function CheckoutPage() {
                 onChange={handleChange}
                 placeholder="0000 0000 0000 0000"
                 maxLength={19}
+                className="rounded-xl focus-visible:ring-2 focus-visible:ring-[rgba(0,102,204,0.3)] focus-visible:border-[#0066CC]"
               />
             </div>
           </div>
 
           {/* Order preview */}
-          <div className="bg-surface rounded-xl p-4 space-y-2">
+          <div className="bg-white rounded-2xl p-5 space-y-2" style={{ border: '1px solid rgba(0,0,0,0.06)' }}>
             <p className="text-xs uppercase tracking-widest text-text-secondary font-medium">
               Resumo
             </p>
@@ -118,7 +130,7 @@ function CheckoutPage() {
 
           <button
             type="submit"
-            className="w-full py-4 rounded-xl accent-bg text-white font-medium hover:opacity-80 transition-opacity"
+            className="w-full py-4 rounded-2xl accent-bg text-white font-semibold transition-transform hover:-translate-y-px"
           >
             Confirmar Pedido
           </button>
