@@ -9,18 +9,18 @@ interface CategoryTabsProps {
 }
 
 export default function CategoryTabs({ active, onChange }: CategoryTabsProps) {
-  const allCategories = [{ id: 'all' as const, label: 'Todos' }, ...categories]
+  const all = [{ id: 'all' as const, label: 'Todos' }, ...categories]
 
   return (
-    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-      {allCategories.map(cat => (
+    <div className="flex border-b border-noir-white/8">
+      {all.map(cat => (
         <button
           key={cat.id}
           onClick={() => onChange(cat.id)}
-          className={`whitespace-nowrap px-6 py-2.5 font-inter text-sm font-medium transition-all border ${
+          className={`font-body text-[10px] tracking-[0.3em] uppercase px-7 py-3.5 border-b-2 -mb-px transition-all ${
             active === cat.id
-              ? 'bg-noir-black text-noir-gold border-noir-black'
-              : 'bg-transparent text-noir-gray border-noir-cream hover:border-noir-gray hover:text-noir-black'
+              ? 'text-noir-gold border-noir-gold'
+              : 'text-noir-gray/60 border-transparent hover:text-noir-white'
           }`}
         >
           {cat.label}

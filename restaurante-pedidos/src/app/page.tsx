@@ -16,14 +16,18 @@ export default function HomePage() {
       <HeroSection />
 
       {/* Menu Section */}
-      <section id="menu" className="bg-noir-white py-20 px-8 md:px-16 lg:px-24">
+      <section id="menu" className="bg-noir-black py-24 px-14">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-12">
-            <p className="font-inter text-noir-gold text-xs tracking-[0.4em] uppercase mb-3">Cardápio</p>
-            <h2 className="font-playfair text-5xl text-noir-black">Nossa Seleção</h2>
+          <div className="mb-14">
+            <p className="font-body text-noir-gold text-[10px] tracking-[0.4em] uppercase mb-3">
+              Nossa Culinária
+            </p>
+            <h2 className="font-cormorant text-5xl font-light text-noir-white">
+              O <em>Cardápio</em> da Temporada
+            </h2>
           </div>
 
-          <div className="mb-10">
+          <div className="mb-12">
             <CategoryTabs active={activeCategory} onChange={setActiveCategory} />
           </div>
 
