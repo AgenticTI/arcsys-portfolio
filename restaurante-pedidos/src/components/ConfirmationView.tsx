@@ -54,16 +54,16 @@ export default function ConfirmationView({ order }: ConfirmationViewProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <p className="font-inter text-noir-gold text-xs tracking-[0.4em] uppercase mb-3">
+        <p className="font-body text-noir-gold text-xs tracking-[0.4em] uppercase mb-3">
           Confirmado
         </p>
-        <h1 className="font-playfair text-5xl text-noir-white mb-4">
+        <h1 className="font-cormorant text-5xl text-noir-white mb-4">
           Pedido Recebido
         </h1>
-        <p className="font-inter text-3xl text-noir-gold font-semibold mb-6">
+        <p className="font-caps text-3xl text-noir-gold mb-6">
           {order.id}
         </p>
-        <p className="font-inter text-noir-white/50 text-sm">
+        <p className="font-body text-noir-white/50 text-sm">
           Redirecionando para acompanhamento...
         </p>
       </motion.div>

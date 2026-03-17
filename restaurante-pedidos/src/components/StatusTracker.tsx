@@ -22,7 +22,7 @@ export default function StatusTracker({ currentStatus }: StatusTrackerProps) {
     <div className="py-8">
       {/* Progress bar */}
       <div className="relative mb-8">
-        <div className="h-0.5 bg-noir-cream w-full" />
+        <div className="h-0.5 bg-noir-gray/30 w-full" />
         <motion.div
           className="absolute top-0 left-0 h-0.5 bg-noir-gold"
           initial={{ width: 0 }}
@@ -35,8 +35,9 @@ export default function StatusTracker({ currentStatus }: StatusTrackerProps) {
             <motion.div
               key={step.key}
               animate={{
-                backgroundColor: i <= currentIndex ? '#C9A96E' : '#E8E4DC',
-                borderColor: i <= currentIndex ? '#C9A96E' : '#6B6B6B',
+                backgroundColor: i <= currentIndex ? '#C9A96E' : '#9A9088',
+                borderColor: i <= currentIndex ? '#C9A96E' : '#9A9088',
+                boxShadow: i <= currentIndex ? '0 0 6px #C9A96E' : 'none',
               }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
               className="w-4 h-4 rounded-full border-2 -translate-y-px"
@@ -50,7 +51,7 @@ export default function StatusTracker({ currentStatus }: StatusTrackerProps) {
         {STEPS.map((step, i) => (
           <span
             key={step.key}
-            className={`font-inter text-xs uppercase tracking-widest transition-colors ${
+            className={`font-body text-[11px] uppercase tracking-widest transition-colors ${
               i <= currentIndex ? 'text-noir-gold' : 'text-noir-gray'
             }`}
             style={{ width: '25%', textAlign: i === 0 ? 'left' : i === STEPS.length - 1 ? 'right' : 'center' }}

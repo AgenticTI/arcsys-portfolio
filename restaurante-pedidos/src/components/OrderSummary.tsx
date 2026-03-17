@@ -2,30 +2,51 @@ import type { CartItem } from '@/types'
 
 interface OrderSummaryProps {
   items: CartItem[]
-  showServiceFee?: boolean
 }
 
-export default function OrderSummary({ items, showServiceFee = true }: OrderSummaryProps) {
-  const subtotal = items.reduce((sum, item) => sum + item.dish.price * item.quantity, 0)
-  const serviceFee = showServiceFee ? subtotal * 0.1 : 0
+export default function OrderSummary({ items }: OrderSummaryProps) {
+  const subtotal = items.reduce((acc, i) => acc + i.dish.price * i.quantity, 0)
+  const serviceFee = subtotal * 0.1
   const total = subtotal + serviceFee
 
   return (
-    <div className="bg-noir-cream p-6 space-y-3">
-      <div className="flex justify-between font-inter text-sm text-noir-black">
-        <span>Subtotal</span>
-        <span>R$ {subtotal.toFixed(2).replace('.', ',')}</span>
-      </div>
-      {showServiceFee && (
-        <div className="flex justify-between font-inter text-sm text-noir-gray">
+    <div>
+      {/* Line items */}
+      <div style={{ borderTop: '1px solid rgba(240,234,224,0.1)' }}>
+        {items.map(item => (
+          <div
+            key={item.dish.id}
+            className="flex justify-between items-baseline py-3.5 font-body text-[13px] text-noir-white/75"
+            style={{ borderBottom: '1px solid rgba(240,234,224,0.1)' }}
+          >
+            <span>{item.dish.name} × {item.quantity}</span>
+            <span className="font-caps text-[15px] text-noir-white">
+              R$ {(item.dish.price * item.quantity).toFixed(2).replace('.', ',')}
+            </span>
+          </div>
+        ))}
+        <div
+          className="flex justify-between items-baseline py-3.5 font-body text-[13px] text-noir-white/75"
+          style={{ borderBottom: '1px solid rgba(240,234,224,0.1)' }}
+        >
           <span>Taxa de serviço (10%)</span>
-          <span>R$ {serviceFee.toFixed(2).replace('.', ',')}</span>
+          <span className="font-caps text-[15px] text-noir-white">
+            R$ {serviceFee.toFixed(2).replace('.', ',')}
+          </span>
         </div>
-      )}
-      <div className="border-t border-noir-gray/20 pt-3 flex justify-between font-inter font-semibold text-noir-black">
-        <span>Total</span>
-        <span className="text-noir-gold text-lg">R$ {total.toFixed(2).replace('.', ',')}</span>
       </div>
+
+      {/* Total */}
+      <div className="flex justify-between items-baseline py-6" style={{ borderTop: '1px solid rgba(201,169,110,0.25)' }}>
+        <span className="font-cormorant text-[22px] font-light text-noir-white">Total</span>
+        <span className="font-caps text-[28px] text-noir-gold">
+          R$ {total.toFixed(2).replace('.', ',')}
+        </span>
+      </div>
+
+      <p className="font-body text-[12px] text-noir-white/45 leading-relaxed">
+        Inclui 10% de taxa de serviço. Pagamento ao final da visita.
+      </p>
     </div>
   )
 }

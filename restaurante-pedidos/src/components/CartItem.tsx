@@ -1,65 +1,71 @@
 'use client'
 
 import Image from 'next/image'
-import { useApp } from '@/context/AppContext'
 import type { CartItem as CartItemType } from '@/types'
 
 interface CartItemProps {
   item: CartItemType
+  onIncrease: () => void
+  onDecrease: () => void
+  onRemove: () => void
 }
 
-export default function CartItem({ item }: CartItemProps) {
-  const { updateCartQuantity, removeFromCart } = useApp()
-
+export default function CartItem({ item, onIncrease, onDecrease, onRemove }: CartItemProps) {
   return (
-    <div className="flex items-center gap-5 py-5 border-b border-noir-cream">
+    <div
+      className="grid items-center gap-6 py-6"
+      style={{
+        gridTemplateColumns: '80px 1fr auto',
+        borderBottom: '1px solid rgba(240,234,224,0.07)',
+      }}
+    >
       {/* Thumbnail */}
-      <div className="relative w-20 h-20 flex-shrink-0 overflow-hidden">
-        <Image
-          src={item.dish.imageUrl}
-          alt={item.dish.name}
-          fill
-          className="object-cover"
-        />
+      <div className="relative w-20 h-20 overflow-hidden flex-shrink-0">
+        <Image src={item.dish.imageUrl} alt={item.dish.name} fill className="object-cover" />
       </div>
 
       {/* Info */}
-      <div className="flex-1 min-w-0">
-        <h3 className="font-playfair text-lg text-noir-black mb-0.5">{item.dish.name}</h3>
-        <p className="font-inter text-sm text-noir-gold font-semibold">
-          R$ {item.dish.price.toFixed(2).replace('.', ',')}
+      <div>
+        <p className="font-body text-[9px] tracking-[0.3em] uppercase text-noir-gold mb-1.5">
+          {item.dish.category}
         </p>
+        <h3 className="font-cormorant text-[20px] font-light text-noir-white mb-2.5 leading-tight">
+          {item.dish.name}
+        </h3>
+        <div className="flex items-center gap-3.5">
+          <div
+            className="flex items-center"
+            style={{ border: '1px solid rgba(240,234,224,0.12)' }}
+          >
+            <button
+              onClick={onDecrease}
+              className="w-7 h-7 flex items-center justify-center text-noir-white/50 hover:text-noir-white text-base transition-colors"
+            >
+              −
+            </button>
+            <span className="w-8 text-center font-body text-[13px] text-noir-white">
+              {item.quantity}
+            </span>
+            <button
+              onClick={onIncrease}
+              className="w-7 h-7 flex items-center justify-center text-noir-white/50 hover:text-noir-white text-base transition-colors"
+            >
+              +
+            </button>
+          </div>
+          <button
+            onClick={onRemove}
+            className="font-body text-[10px] tracking-[0.2em] uppercase text-noir-white/25 hover:text-red-400 transition-colors"
+          >
+            Remover
+          </button>
+        </div>
       </div>
 
-      {/* Quantity control */}
-      <div className="flex items-center gap-3 border border-noir-cream px-3 py-1.5">
-        <button
-          onClick={() => updateCartQuantity(item.dish.id, item.quantity - 1)}
-          className="w-5 h-5 flex items-center justify-center text-noir-black hover:text-noir-gold transition-colors"
-        >
-          −
-        </button>
-        <span className="font-inter text-noir-black w-4 text-center text-sm">{item.quantity}</span>
-        <button
-          onClick={() => updateCartQuantity(item.dish.id, item.quantity + 1)}
-          className="w-5 h-5 flex items-center justify-center text-noir-black hover:text-noir-gold transition-colors"
-        >
-          +
-        </button>
-      </div>
-
-      {/* Subtotal */}
-      <div className="text-right w-24 flex-shrink-0">
-        <p className="font-inter font-semibold text-noir-black">
-          R$ {(item.dish.price * item.quantity).toFixed(2).replace('.', ',')}
-        </p>
-        <button
-          onClick={() => removeFromCart(item.dish.id)}
-          className="font-inter text-xs text-noir-gray hover:text-noir-black transition-colors mt-1"
-        >
-          Remover
-        </button>
-      </div>
+      {/* Price — shows subtotal for this item */}
+      <span className="font-caps text-[18px] text-noir-gold text-right whitespace-nowrap">
+        R$ {(item.dish.price * item.quantity).toFixed(2).replace('.', ',')}
+      </span>
     </div>
   )
 }

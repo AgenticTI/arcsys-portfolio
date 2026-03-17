@@ -35,34 +35,36 @@ export default function StatusPage() {
   if (!latestOrder) return null
 
   return (
-    <div className="max-w-2xl mx-auto px-8 py-16">
-      <div className="mb-10">
-        <p className="font-inter text-noir-gold text-xs tracking-[0.4em] uppercase mb-2">
-          Pedido {latestOrder.id}
-        </p>
-        <h1 className="font-playfair text-4xl text-noir-black">
-          {STATUS_LABELS[latestOrder.status]}
-        </h1>
-      </div>
-
-      <StatusTracker currentStatus={latestOrder.status} />
-
-      <div className="mt-12">
-        <h2 className="font-inter text-xs uppercase tracking-widest text-noir-gray mb-4">Resumo do Pedido</h2>
-        <OrderSummary items={latestOrder.items} />
-      </div>
-
-      {latestOrder.status === 'delivered' && (
-        <div className="mt-8 text-center">
-          <p className="font-playfair text-2xl text-noir-black mb-4">Bom apetite!</p>
-          <button
-            onClick={() => router.push('/')}
-            className="font-inter text-sm uppercase tracking-widest border border-noir-black text-noir-black px-8 py-3 hover:bg-noir-black hover:text-noir-white transition-all"
-          >
-            Fazer Novo Pedido
-          </button>
+    <div className="min-h-screen bg-noir-black">
+      <div className="max-w-2xl mx-auto px-8 py-16">
+        <div className="mb-10">
+          <p className="font-body text-noir-gold text-xs tracking-[0.4em] uppercase mb-2">
+            Pedido {latestOrder.id}
+          </p>
+          <h1 className="font-cormorant text-4xl text-noir-white">
+            {STATUS_LABELS[latestOrder.status]}
+          </h1>
         </div>
-      )}
+
+        <StatusTracker currentStatus={latestOrder.status} />
+
+        <div className="mt-12">
+          <h2 className="font-body text-xs uppercase tracking-widest text-noir-gray mb-4">Resumo do Pedido</h2>
+          <OrderSummary items={latestOrder.items} />
+        </div>
+
+        {latestOrder.status === 'delivered' && (
+          <div className="mt-8 text-center">
+            <p className="font-cormorant text-2xl text-noir-white mb-4">Bom apetite!</p>
+            <button
+              onClick={() => router.push('/')}
+              className="font-body text-sm uppercase tracking-widest border border-noir-gold/40 text-noir-gold px-8 py-3 hover:bg-noir-gold hover:text-noir-black transition-all"
+            >
+              Fazer Novo Pedido
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
