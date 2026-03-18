@@ -23,6 +23,7 @@ export interface StoreConfig {
   bannerUrl: string
   bannerTitulo: string
   bannerSubtitulo: string
+  bannerEyebrow: string
 }
 
 export interface Order {
