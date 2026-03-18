@@ -6,6 +6,8 @@ import { Star, ChevronLeft, ShoppingCart, Check } from 'lucide-react'
 import { StoreHeader } from '../../components/layout/StoreHeader'
 import { useProductsStore } from '../../stores/useProductsStore'
 import { useCartStore } from '../../stores/useCartStore'
+import { formatBRL } from '../../lib/formatBRL'
+import { translateCategory } from '../../lib/categoryLabels'
 
 function ProductPage() {
   const { id } = Route.useParams()
@@ -73,7 +75,7 @@ function ProductPage() {
                 className="text-xs uppercase tracking-widest font-medium"
                 style={{ color: 'rgba(255,255,255,0.4)' }}
               >
-                {product.category}
+                {translateCategory(product.category)}
               </span>
               <h1
                 className="text-white mt-2 leading-tight"
@@ -103,7 +105,7 @@ function ProductPage() {
               className="font-extrabold tracking-tight text-white"
               style={{ fontSize: '28px' }}
             >
-              ${product.price.toFixed(2)}
+              {formatBRL(product.price)}
             </p>
 
             <p className="leading-relaxed text-sm" style={{ color: 'rgba(255,255,255,0.55)', fontSize: '15px' }}>
