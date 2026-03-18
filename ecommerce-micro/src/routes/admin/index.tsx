@@ -130,6 +130,19 @@ function AdminPage() {
                 className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-white/20"
               />
             </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="bannerEyebrow" className="text-white/80 text-sm">
+                Eyebrow do banner
+              </Label>
+              <Input
+                id="bannerEyebrow"
+                value={config.bannerEyebrow}
+                onChange={(e) => updateConfig({ bannerEyebrow: e.target.value })}
+                className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-white/20"
+                placeholder="Ex: Nova Coleção"
+              />
+            </div>
           </section>
 
           <div className="pt-4 flex justify-end">
