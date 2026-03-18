@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react'
 import { Search } from 'lucide-react'
 import { Slider } from './ui/slider'
+import { formatBRL } from '../lib/formatBRL'
+import { translateCategory } from '../lib/categoryLabels'
 import type { Product } from '../types'
 
 interface FilterBarProps {
@@ -56,7 +58,7 @@ export function FilterBar({ categories, products, onFilter, variant = 'light' }:
               onClick={() => setActiveCategory(cat)}
               className={`${chipBase} ${activeCategory === cat ? chipActive : chipInactive} capitalize`}
             >
-              {cat}
+              {translateCategory(cat)}
             </button>
           ))}
         </div>
@@ -88,7 +90,7 @@ export function FilterBar({ categories, products, onFilter, variant = 'light' }:
             Preço máximo
           </span>
           <span className={isDark ? 'text-white font-medium' : 'font-medium text-text-primary'}>
-            ${priceRange[0].toFixed(0)}
+            {formatBRL(priceRange[0])}
           </span>
         </div>
         <Slider
