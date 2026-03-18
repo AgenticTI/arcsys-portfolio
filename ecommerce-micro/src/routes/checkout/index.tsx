@@ -7,6 +7,15 @@ import { StoreHeader } from '../../components/layout/StoreHeader'
 import { Input } from '../../components/ui/input'
 import { Label } from '../../components/ui/label'
 import { useCartStore } from '../../stores/useCartStore'
+import { formatBRL } from '../../lib/formatBRL'
+
+function formatCardNumber(value: string): string {
+  return value
+    .replace(/\D/g, '')
+    .slice(0, 16)
+    .replace(/(.{4})/g, '$1 ')
+    .trim()
+}
 
 // In-memory order store (not persisted — cleared after success)
 let pendingOrder: { orderId: string; items: ReturnType<typeof useCartStore.getState>['items']; total: number; createdAt: Date } | null = null
@@ -96,10 +105,9 @@ function CheckoutPage() {
               </Label>
               <Input
                 id="cartao"
-                name="cartao"
                 required
                 value={form.cartao}
-                onChange={handleChange}
+                onChange={(e) => setForm((prev) => ({ ...prev, cartao: formatCardNumber(e.target.value) }))}
                 placeholder="0000 0000 0000 0000"
                 maxLength={19}
                 className="rounded-xl focus-visible:ring-2 focus-visible:ring-[rgba(0,102,204,0.3)] focus-visible:border-[#0066CC]"
@@ -118,13 +126,13 @@ function CheckoutPage() {
                   {item.title} × {item.quantity}
                 </span>
                 <span className="font-medium text-text-primary flex-shrink-0">
-                  ${(item.price * item.quantity).toFixed(2)}
+                  {formatBRL(item.price * item.quantity)}
                 </span>
               </div>
             ))}
             <div className="pt-2 border-t border-border flex justify-between font-semibold text-sm">
               <span>Total</span>
-              <span>${total().toFixed(2)}</span>
+              <span>{formatBRL(total())}</span>
             </div>
           </div>
 
