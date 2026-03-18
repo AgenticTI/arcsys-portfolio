@@ -3,6 +3,8 @@ import { Link } from '@tanstack/react-router'
 import { Star } from 'lucide-react'
 import type { Product } from '../types'
 import { useCartStore } from '../stores/useCartStore'
+import { formatBRL } from '../lib/formatBRL'
+import { translateCategory } from '../lib/categoryLabels'
 
 interface ProductCardProps {
   product: Product
@@ -47,7 +49,7 @@ export function ProductCard({ product, variant = 'dark' }: ProductCardProps) {
 
         <div className="flex flex-col flex-1 p-4 gap-2">
           <span className="text-xs uppercase tracking-widest font-medium" style={{ color: 'rgba(255,255,255,0.4)' }}>
-            {product.category}
+            {translateCategory(product.category)}
           </span>
           <p className="text-sm font-medium text-white leading-snug line-clamp-2 flex-1">
             {product.title}
@@ -58,7 +60,7 @@ export function ProductCard({ product, variant = 'dark' }: ProductCardProps) {
             <span className="text-xs">({product.rating.count})</span>
           </div>
           <div className="flex items-center justify-between mt-auto pt-2" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-            <span className="font-semibold text-white">${product.price.toFixed(2)}</span>
+            <span className="font-semibold text-white">{formatBRL(product.price)}</span>
             <button
               onClick={handleAddToCart}
               className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-lg transition-colors hover:accent-bg"
@@ -91,7 +93,7 @@ export function ProductCard({ product, variant = 'dark' }: ProductCardProps) {
       </div>
       <div className="flex flex-col flex-1 p-4 gap-2">
         <span className="text-xs uppercase tracking-widest text-text-secondary font-medium">
-          {product.category}
+          {translateCategory(product.category)}
         </span>
         <p className="text-sm font-medium text-text-primary leading-snug line-clamp-2 flex-1">
           {product.title}
@@ -102,7 +104,7 @@ export function ProductCard({ product, variant = 'dark' }: ProductCardProps) {
           <span className="text-xs">({product.rating.count})</span>
         </div>
         <div className="flex items-center justify-between mt-auto pt-2 border-t border-border">
-          <span className="font-semibold text-text-primary">${product.price.toFixed(2)}</span>
+          <span className="font-semibold text-text-primary">{formatBRL(product.price)}</span>
           <button
             onClick={handleAddToCart}
             className="text-xs font-medium px-3 py-1.5 rounded-lg accent-bg text-white hover:opacity-80 transition-opacity"
