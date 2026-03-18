@@ -34,10 +34,11 @@ export function formatBRL(value: number): string {
 // formatBRL(168)   → "R$ 168,00"
 ```
 
-**Consumidores (8 locais — substitui todos os `$${price.toFixed(2)}`):**
+**Consumidores (10 locais — substitui todos os `$` hardcoded):**
 - `src/components/ProductCard.tsx:61, 105`
-- `src/components/CartItem.tsx:37`
+- `src/components/CartItem.tsx:37, 62`
 - `src/components/OrderSummary.tsx:18, 31`
+- `src/components/FilterBar.tsx:91` (label do preço máximo do slider)
 - `src/routes/index.tsx:39, 66` (BentoGrid)
 - `src/routes/checkout/index.tsx:121, 127`
 - `src/routes/checkout/sucesso.tsx:44, 52`
@@ -92,25 +93,29 @@ Footer escuro, três colunas + linha de copyright. Montado em `__root.tsx`.
 
 ### 2.1 `src/types/index.ts` — StoreConfig
 
-Adicionar dois campos à interface `StoreConfig`:
+Adicionar **um** novo campo à interface `StoreConfig` (`bannerUrl` já existe):
 
 ```ts
-bannerEyebrow: string   // novo — eyebrow label do Hero
-// bannerUrl já existe — permanece
+// Inserir na interface StoreConfig:
+bannerEyebrow: string   // eyebrow label configurável do Hero (ex: "Nova Coleção")
 ```
+
+`bannerUrl: string` já está declarado na interface — não alterar o tipo.
 
 ### 2.2 `src/stores/useStoreConfig.ts` — DEFAULT_CONFIG
 
 ```ts
 // Antes:
 nomeLoja: 'My Store',
+bannerUrl: '/assets/banner-default.jpg',
 
 // Depois:
 nomeLoja: 'MicroShop',
+bannerUrl: '',           // string vazia → Hero exibe vídeo por padrão (falsy check)
 bannerEyebrow: 'Nova Coleção',
 ```
 
-`bannerUrl` já possui default `'/assets/banner-default.jpg'`. Manter.
+**Importante:** `bannerUrl` muda de `'/assets/banner-default.jpg'` para `''` (string vazia). Isso garante que a condição `{bannerUrl ? <img/> : <video/>}` no `HeroBanner` roteie para o vídeo no carregamento padrão. Quando o admin configurar uma URL real, a imagem sobrepõe o vídeo.
 
 ---
 
@@ -308,8 +313,8 @@ Todos seguem o mesmo padrão: importar `translateCategory` e/ou `formatBRL`, sub
 | Arquivo | Mudança |
 |---|---|
 | `src/components/ProductCard.tsx` | `translateCategory` na linha 49; `formatBRL` nas linhas 61, 105 |
-| `src/components/FilterBar.tsx` | `translateCategory` na linha 59 |
-| `src/components/CartItem.tsx` | `formatBRL` na linha 37 |
+| `src/components/FilterBar.tsx` | `translateCategory` na linha 59; `formatBRL` na linha 91 (label do preço máximo do slider) |
+| `src/components/CartItem.tsx` | `formatBRL` nas linhas 37 e 62 (preço unitário e subtotal da linha) |
 | `src/routes/produto/$id.tsx` | `translateCategory` na linha 76; `formatBRL` na linha 107 |
 | `src/routes/checkout/index.tsx` | `formatBRL` nas linhas 121, 127 |
 | `src/routes/checkout/sucesso.tsx` | `formatBRL` nas linhas 44, 52 |
@@ -336,7 +341,9 @@ Adicionar campo "Eyebrow do Banner" abaixo dos campos de banner existentes:
 
 ### 4.7 `src/routes/checkout/index.tsx` — máscara de cartão (P12)
 
-**Handler inline (sem biblioteca):**
+**Contexto importante:** O checkout usa um único objeto de estado `form` com `setForm` e um `handleChange` genérico. O campo do cartão é `form.cartao`. A máscara deve usar esse padrão existente — **não introduzir um `useState` separado**.
+
+**Handler inline (sem biblioteca) — definir fora do componente:**
 ```tsx
 function formatCardNumber(value: string): string {
   return value
@@ -347,18 +354,28 @@ function formatCardNumber(value: string): string {
 }
 ```
 
-**No campo de input:**
+**Substituição no campo de input** — trocar o `onChange={handleChange}` pelo formatter:
 ```tsx
+// Antes:
+<Input
+  name="cartao"
+  placeholder="Número do cartão"
+  maxLength={19}
+  onChange={handleChange}
+  required
+/>
+
+// Depois (remover name="cartao", substituir onChange):
 <Input
   placeholder="0000 0000 0000 0000"
   maxLength={19}
-  value={cardNumber}
-  onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
+  value={form.cartao}
+  onChange={(e) => setForm((prev) => ({ ...prev, cartao: formatCardNumber(e.target.value) }))}
   required
 />
 ```
 
-Requer estado local `const [cardNumber, setCardNumber] = useState('')` no componente de checkout.
+`handleChange` continua sendo usado pelos outros campos do formulário. O campo `cartao` passa a ter `onChange` dedicado e `value` explícito. O `name="cartao"` é removido pois o `handleChange` não é mais responsável por esse campo.
 
 ---
 
