@@ -2,7 +2,7 @@
 import { useStoreConfig } from '../stores/useStoreConfig'
 
 export function HeroBanner() {
-  const { bannerTitulo, bannerSubtitulo } = useStoreConfig((s) => s.config)
+  const { bannerTitulo, bannerSubtitulo, bannerUrl, bannerEyebrow } = useStoreConfig((s) => s.config)
   const words = bannerTitulo.split(' ')
 
   // Delays: eyebrow=0.3s, words start at 0.5s (+0.25s each), subtitle=2.2s, ctas=2.4s, badges=2.6s, scrollcue=2.8s
@@ -22,17 +22,27 @@ export function HeroBanner() {
         }}
       />
 
-      {/* Video background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        style={{ opacity: 0.35 }}
-      >
-        <source src="/src/assets/hero-loop.mp4" type="video/mp4" />
-      </video>
+      {/* Background layer — priority: image > video > animated gradient */}
+      {bannerUrl ? (
+        <img
+          src={bannerUrl}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          style={{ opacity: 0.35 }}
+        />
+      ) : (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          style={{ opacity: 0.35 }}
+        >
+          <source src="/hero-loop.mp4" type="video/mp4" />
+        </video>
+      )}
 
       {/* Cinematic overlay */}
       <div
@@ -49,7 +59,7 @@ export function HeroBanner() {
           className="text-xs font-semibold uppercase tracking-[0.1em] text-white/50 mb-4"
           style={{ opacity: 0, animation: 'slideUp 0.5s ease forwards', animationDelay: '0.3s' }}
         >
-          Coleção 2026
+          {bannerEyebrow}
         </p>
 
         {/* Title — word reveal */}
@@ -124,7 +134,7 @@ export function HeroBanner() {
         className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1"
         style={{ opacity: 0, animation: 'fadeIn 0.6s ease forwards', animationDelay: '2.8s' }}
       >
-        <span className="text-[10px] text-white/30 uppercase tracking-widest">scroll</span>
+        <span className="text-[10px] text-white/30 uppercase tracking-widest">rolar</span>
         <div
           className="w-px h-8 bg-white/20"
           style={{ animation: 'float 2s ease-in-out infinite' }}
