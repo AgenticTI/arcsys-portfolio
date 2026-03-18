@@ -16,6 +16,7 @@ const DEFAULT_CONFIG: StoreConfig = {
   bannerUrl: '/assets/banner-default.jpg',
   bannerTitulo: 'Bem-vindo à nossa loja',
   bannerSubtitulo: 'Encontre o produto perfeito',
+  bannerEyebrow: 'Nova Coleção',
 }
 
 export const useStoreConfig = create<StoreConfigState>()(
