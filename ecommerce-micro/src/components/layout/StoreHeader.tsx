@@ -51,6 +51,19 @@ export function StoreHeader() {
           )}
         </Link>
 
+        {/* Nav — hidden on mobile */}
+        <nav className="hidden md:flex items-center gap-8">
+          <a href="/#catalog" className={`text-sm font-medium transition-opacity hover:opacity-70 ${textClass}`}>
+            Catálogo
+          </a>
+          <a href="#" className={`text-sm font-medium transition-opacity hover:opacity-70 ${textClass}`}>
+            Novidades
+          </a>
+          <a href="#" className={`text-sm font-medium transition-opacity hover:opacity-70 ${textClass}`}>
+            Ofertas
+          </a>
+        </nav>
+
         <Link to="/carrinho" className={`relative p-2 hover:opacity-70 transition-opacity ${textClass}`}>
           <ShoppingCart className="w-5 h-5" />
           {itemCount > 0 && (

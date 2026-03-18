@@ -8,6 +8,8 @@ import { ProductGrid } from '../components/ProductGrid'
 import { FilterBar } from '../components/FilterBar'
 import { useProductsStore } from '../stores/useProductsStore'
 import type { Product } from '../types'
+import { formatBRL } from '../lib/formatBRL'
+import { translateCategory } from '../lib/categoryLabels'
 
 function BentoGrid({ products }: { products: Product[] }) {
   const [big, ...rest] = products.slice(0, 5)
@@ -31,12 +33,12 @@ function BentoGrid({ products }: { products: Product[] }) {
         <img
           src={big.image}
           alt={big.title}
-          className="absolute top-8 right-8 w-32 h-32 object-contain"
+          className="absolute inset-0 w-full h-full object-contain p-12"
           style={{ filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))', animation: 'float 5s ease-in-out infinite' }}
         />
-        <span className="text-xs text-white/40 uppercase tracking-widest mb-1">{big.category}</span>
+        <span className="text-xs text-white/40 uppercase tracking-widest mb-1">{translateCategory(big.category)}</span>
         <p className="text-white font-semibold text-lg leading-snug line-clamp-2 mb-2">{big.title}</p>
-        <span className="text-white font-bold text-xl">${big.price.toFixed(2)}</span>
+        <span className="text-white font-bold text-xl">{formatBRL(big.price)}</span>
       </Link>
 
       {/* 4 small cards */}
@@ -53,7 +55,7 @@ function BentoGrid({ products }: { products: Product[] }) {
               className="text-xs uppercase tracking-widest font-medium"
               style={{ color: bentoTextColors[i], opacity: 0.5 }}
             >
-              {product.category}
+              {translateCategory(product.category)}
             </span>
             <p
               className="text-sm font-semibold mt-1 line-clamp-2"
@@ -64,12 +66,12 @@ function BentoGrid({ products }: { products: Product[] }) {
           </div>
           <div className="flex items-end justify-between">
             <span className="font-bold text-base" style={{ color: bentoTextColors[i] }}>
-              ${product.price.toFixed(2)}
+              {formatBRL(product.price)}
             </span>
             <img
               src={product.image}
               alt={product.title}
-              className="w-16 h-16 object-contain"
+              className="w-24 h-24 object-contain"
               style={{
                 filter: i === 3
                   ? 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))'
@@ -107,6 +109,9 @@ function HomePage() {
               <p className="text-xs font-semibold uppercase tracking-[0.1em] text-text-secondary mb-1">Seleção especial</p>
               <h2 className="text-[40px] font-bold tracking-[-1.2px] text-text-primary">Em Destaque</h2>
             </div>
+            <Link to="/" className="text-sm font-medium accent-text hover:opacity-70 transition-opacity">
+              Ver todos →
+            </Link>
           </div>
           <BentoGrid products={products} />
         </div>
@@ -115,11 +120,16 @@ function HomePage() {
       {/* Section 3: Catalog — dark */}
       <section id="catalog" className="bg-dark-surface py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
-              Todos os produtos
-            </p>
-            <h2 className="text-[40px] font-bold tracking-[-1.2px] text-white">Catálogo Completo</h2>
+          <div className="flex items-baseline justify-between mb-10">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.1em] mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                Todos os produtos
+              </p>
+              <h2 className="text-[40px] font-bold tracking-[-1.2px] text-white">Catálogo Completo</h2>
+            </div>
+            <a href="#catalog" className="text-sm font-medium text-white/60 hover:text-white transition-colors">
+              Ver todos →
+            </a>
           </div>
           <div className="space-y-8">
             <FilterBar

@@ -2,6 +2,7 @@
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import type { CartItem as CartItemType } from '../types'
 import { useCartStore } from '../stores/useCartStore'
+import { formatBRL } from '../lib/formatBRL'
 
 interface CartItemProps {
   item: CartItemType
@@ -34,7 +35,7 @@ export function CartItemRow({ item }: CartItemProps) {
         <p className="text-sm font-medium text-text-primary leading-snug line-clamp-2">
           {item.title}
         </p>
-        <p className="text-sm text-text-secondary">${item.price.toFixed(2)} / un.</p>
+        <p className="text-sm text-text-secondary">{formatBRL(item.price)} / un.</p>
 
         {/* Qty controls */}
         <div className="flex items-center gap-2 mt-auto">
@@ -59,7 +60,7 @@ export function CartItemRow({ item }: CartItemProps) {
       {/* Subtotal + remove */}
       <div className="flex flex-col items-end justify-between flex-shrink-0">
         <span className="font-semibold text-sm text-text-primary">
-          ${(item.price * item.quantity).toFixed(2)}
+          {formatBRL(item.price * item.quantity)}
         </span>
         <button
           onClick={() => removeItem(item.productId)}

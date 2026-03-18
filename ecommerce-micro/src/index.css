@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --cor-principal: #000000;
+  --cor-principal: #0066CC;
 }
 
 @layer base {
