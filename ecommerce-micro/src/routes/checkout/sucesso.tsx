@@ -4,6 +4,7 @@ import { Route as rootRoute } from '../__root'
 import { StoreHeader } from '../../components/layout/StoreHeader'
 import { SuccessCheckmark } from '../../components/SuccessCheckmark'
 import { getPendingOrder } from './index'
+import { formatBRL } from '../../lib/formatBRL'
 
 function SuccessPage() {
   const order = getPendingOrder()
@@ -41,7 +42,7 @@ function SuccessPage() {
                     {item.title} × {item.quantity}
                   </span>
                   <span className="text-text-primary font-medium flex-shrink-0">
-                    ${(item.price * item.quantity).toFixed(2)}
+                    {formatBRL(item.price * item.quantity)}
                   </span>
                 </div>
               ))}
@@ -49,7 +50,7 @@ function SuccessPage() {
 
             <div className="border-t border-border pt-3 flex justify-between font-semibold text-sm">
               <span>Total pago</span>
-              <span>${order.total.toFixed(2)}</span>
+              <span>{formatBRL(order.total)}</span>
             </div>
           </div>
         )}
