@@ -89,7 +89,7 @@ export function GanttChart() {
 
       <div className="flex-1 overflow-y-auto">
         {/* Day axis header */}
-        <div className="flex h-8 border-b border-border sticky top-0 bg-main z-10">
+        <div className="flex h-8 border-b border-border sticky top-0 bg-bg-app z-10">
           <div className="w-[180px] flex-shrink-0" />
           <div className="flex-1 relative">
             {dayMarkers.map((day) => (
