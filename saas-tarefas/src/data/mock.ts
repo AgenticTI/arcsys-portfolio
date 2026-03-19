@@ -32,6 +32,14 @@ export type User = {
   avatarInitials: string;
 };
 
+export type WikiPage = {
+  id: string;
+  projectId: string;
+  title: string;
+  content: string;
+  updatedAt: string; // ISO date string
+};
+
 export const mockUser: User = {
   name: "Leon",
   email: "leon@hazel.app",
@@ -224,5 +232,50 @@ export const mockTasks: Task[] = [
       { id: "st32", title: "Get team review", completed: true },
     ],
     createdAt: "2026-03-09",
+  },
+];
+
+export const mockPages: WikiPage[] = [
+  {
+    id: "wp1",
+    projectId: "p1",
+    title: "Overview",
+    content: "Redesign completo do site corporativo.\n\nObjetivos: aumentar conversão em 30%.\nPrazo: Q2 2026.\nStakeholders: Leon (dev), Ana (design), Carlos (PM).",
+    updatedAt: "2026-03-17T10:00:00Z",
+  },
+  {
+    id: "wp2",
+    projectId: "p1",
+    title: "Brief",
+    content: "O cliente solicitou um redesign focado em mobile-first.\n\nRequisitos principais:\n- Nova identidade visual\n- Performance acima de 90 no Lighthouse\n- Integração com CRM existente",
+    updatedAt: "2026-03-14T14:30:00Z",
+  },
+  {
+    id: "wp3",
+    projectId: "p2",
+    title: "Overview",
+    content: "App mobile para iOS e Android.\n\nStack: React Native + Expo.\nTarget: usuários B2C, 18-35 anos.\nLançamento previsto: Julho 2026.",
+    updatedAt: "2026-03-16T09:15:00Z",
+  },
+  {
+    id: "wp4",
+    projectId: "p2",
+    title: "Sprint Notes",
+    content: "Sprint 1 (Mar 11-18):\n✓ Setup do projeto e CI/CD\n✓ Tela de login e autenticação\n→ Push notifications (em progresso)\n\nSprint 2 (Mar 18-25):\n- Feed principal\n- Profile screen",
+    updatedAt: "2026-03-18T16:00:00Z",
+  },
+  {
+    id: "wp5",
+    projectId: "p3",
+    title: "Overview",
+    content: "Campanha de marketing para o Q2 2026.\n\nCanais: Google Ads, Instagram, LinkedIn.\nOrçamento: R$ 45.000.\nKPIs: 500 leads qualificados, CAC < R$ 90.",
+    updatedAt: "2026-03-15T11:00:00Z",
+  },
+  {
+    id: "wp6",
+    projectId: "p3",
+    title: "Copy Guidelines",
+    content: "Tom de voz: profissional mas acessível.\n\nPalavras a usar: resultado, crescimento, solução.\nPalavras a evitar: barato, grátis, urgente.\n\nFormato dos CTAs: verbos no imperativo (\"Comece agora\", \"Saiba mais\").",
+    updatedAt: "2026-03-13T08:45:00Z",
   },
 ];
