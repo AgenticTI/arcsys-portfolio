@@ -1,0 +1,149 @@
+<h2>Calendar — Gantt/Timeline Layout</h2>
+<p class="subtitle">Qual estrutura de layout faz mais sentido para a página /calendar?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111;padding:12px;font-family:monospace;font-size:11px;color:#aaa;height:200px;overflow:hidden">
+      <div style="background:#1a1a1a;border-radius:6px;padding:8px;margin-bottom:6px">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+          <span style="color:#E6CE00;font-weight:bold">← Mar 2025 →</span>
+          <span style="margin-left:auto;background:#222;padding:2px 8px;border-radius:4px">4 semanas</span>
+          <span style="background:#222;padding:2px 8px;border-radius:4px">8 semanas</span>
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:4px">
+          <div style="color:#555;font-size:10px">Projeto</div>
+          <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:1px">
+            <div style="color:#555;font-size:9px;text-align:center">S1</div>
+            <div style="color:#555;font-size:9px;text-align:center">S2</div>
+            <div style="color:#555;font-size:9px;text-align:center">S3</div>
+            <div style="color:#555;font-size:9px;text-align:center">S4</div>
+            <div style="color:#555;font-size:9px;text-align:center">S5</div>
+            <div style="color:#555;font-size:9px;text-align:center">S6</div>
+            <div style="color:#555;font-size:9px;text-align:center">S7</div>
+            <div style="color:#555;font-size:9px;text-align:center">S8</div>
+          </div>
+          <!-- Project rows -->
+          <div style="color:#ccc;font-size:10px;padding:4px 0">● Website</div>
+          <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:1px;align-items:center">
+            <div style="grid-column:1/4;background:#7C3AED;border-radius:3px;height:14px;font-size:8px;color:#fff;padding:0 4px;line-height:14px;overflow:hidden">Design</div>
+            <div style="grid-column:3/7;background:#7C3AED88;border-radius:3px;height:14px;margin-top:2px;font-size:8px;color:#fff;padding:0 4px;line-height:14px">Dev</div>
+          </div>
+          <div style="color:#ccc;font-size:10px;padding:4px 0">● Mobile</div>
+          <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:1px;align-items:center">
+            <div style="grid-column:2/5;background:#10B981;border-radius:3px;height:14px;font-size:8px;color:#fff;padding:0 4px;line-height:14px">Sprint 1</div>
+            <div style="grid-column:5/8;background:#10B98188;border-radius:3px;height:14px;font-size:8px;color:#fff;padding:0 4px;line-height:14px">Sprint 2</div>
+          </div>
+          <div style="color:#ccc;font-size:10px;padding:4px 0">● Marketing</div>
+          <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:1px;align-items:center">
+            <div style="grid-column:1/3;background:#F59E0B;border-radius:3px;height:14px;font-size:8px;color:#fff;padding:0 4px;line-height:14px">Camp.</div>
+            <div style="grid-column:4/9;background:#F59E0B88;border-radius:3px;height:14px;font-size:8px;color:#fff;padding:0 4px;line-height:14px">Q2 Launch</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Gantt por Projeto</h3>
+      <p>Linhas = projetos. Barras = tarefas agrupadas dentro de cada projeto. Navegação de período (4 ou 8 semanas). Mais parecido com um Gantt real.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111;padding:12px;font-family:monospace;font-size:11px;color:#aaa;height:200px;overflow:hidden">
+      <div style="background:#1a1a1a;border-radius:6px;padding:8px">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+          <span style="color:#E6CE00;font-weight:bold">← Mar 2025 →</span>
+          <div style="margin-left:auto;display:flex;gap:4px">
+            <span style="background:#E6CE0022;color:#E6CE00;padding:2px 8px;border-radius:4px;font-size:10px">● Website</span>
+            <span style="background:#10B98122;color:#10B981;padding:2px 8px;border-radius:4px;font-size:10px">● Mobile</span>
+            <span style="background:#F59E0B22;color:#F59E0B;padding:2px 8px;border-radius:4px;font-size:10px">● Marketing</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:140px 1fr;gap:4px">
+          <div></div>
+          <div style="display:grid;grid-template-columns:repeat(30,1fr);gap:0">
+            <div style="color:#555;font-size:8px;grid-column:1/6;text-align:center">1</div>
+            <div style="color:#555;font-size:8px;grid-column:7/12;text-align:center">7</div>
+            <div style="color:#555;font-size:8px;grid-column:13/18;text-align:center">14</div>
+            <div style="color:#555;font-size:8px;grid-column:21/26;text-align:center">21</div>
+          </div>
+          <!-- Task rows -->
+          <div style="color:#ccc;font-size:10px;padding:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Redesign hero section</div>
+          <div style="display:grid;grid-template-columns:repeat(30,1fr);align-items:center">
+            <div style="grid-column:1/12;background:#7C3AED;border-radius:3px;height:12px"></div>
+          </div>
+          <div style="color:#ccc;font-size:10px;padding:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">API integration</div>
+          <div style="display:grid;grid-template-columns:repeat(30,1fr);align-items:center">
+            <div style="grid-column:8/22;background:#10B981;border-radius:3px;height:12px"></div>
+          </div>
+          <div style="color:#ccc;font-size:10px;padding:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Write copy for ads</div>
+          <div style="display:grid;grid-template-columns:repeat(30,1fr);align-items:center">
+            <div style="grid-column:3/16;background:#F59E0B;border-radius:3px;height:12px"></div>
+          </div>
+          <div style="color:#ccc;font-size:10px;padding:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Push notifications</div>
+          <div style="display:grid;grid-template-columns:repeat(30,1fr);align-items:center">
+            <div style="grid-column:12/28;background:#10B981;border-radius:3px;height:12px"></div>
+          </div>
+          <div style="color:#ccc;font-size:10px;padding:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">A/B test landing page</div>
+          <div style="display:grid;grid-template-columns:repeat(30,1fr);align-items:center">
+            <div style="grid-column:18/30;background:#F59E0B;border-radius:3px;height:12px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Gantt por Tarefa</h3>
+      <p>Linhas = tarefas individuais. Cor da barra = projeto. Filtro por projeto nos chips do topo. Mais granular, parece com ferramentas como Linear ou Asana.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111;padding:12px;font-family:monospace;font-size:11px;color:#aaa;height:200px;overflow:hidden">
+      <div style="background:#1a1a1a;border-radius:6px;padding:8px">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
+          <span style="color:#E6CE00;font-weight:bold">← Mar 2025 →</span>
+          <div style="margin-left:auto;display:flex;gap:4px">
+            <span style="background:#222;padding:2px 8px;border-radius:4px;font-size:10px">Timeline</span>
+            <span style="background:#E6CE0022;color:#E6CE00;padding:2px 8px;border-radius:4px;font-size:10px">Agenda</span>
+          </div>
+        </div>
+        <!-- Split view -->
+        <div style="display:grid;grid-template-columns:1fr 180px;gap:8px">
+          <div>
+            <div style="display:grid;grid-template-columns:100px 1fr;gap:4px">
+              <div style="color:#ccc;font-size:10px;padding:3px 0">Redesign hero</div>
+              <div style="display:grid;grid-template-columns:repeat(20,1fr);align-items:center">
+                <div style="grid-column:1/9;background:#7C3AED;border-radius:3px;height:12px"></div>
+              </div>
+              <div style="color:#ccc;font-size:10px;padding:3px 0">API integration</div>
+              <div style="display:grid;grid-template-columns:repeat(20,1fr);align-items:center">
+                <div style="grid-column:5/15;background:#10B981;border-radius:3px;height:12px"></div>
+              </div>
+              <div style="color:#ccc;font-size:10px;padding:3px 0">Write copy</div>
+              <div style="display:grid;grid-template-columns:repeat(20,1fr);align-items:center">
+                <div style="grid-column:2/12;background:#F59E0B;border-radius:3px;height:12px"></div>
+              </div>
+              <div style="color:#ccc;font-size:10px;padding:3px 0">Push notif.</div>
+              <div style="display:grid;grid-template-columns:repeat(20,1fr);align-items:center">
+                <div style="grid-column:9/20;background:#10B981;border-radius:3px;height:12px"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Agenda sidebar -->
+          <div style="background:#111;border-radius:6px;padding:6px;border:1px solid #333">
+            <div style="color:#E6CE00;font-size:10px;font-weight:bold;margin-bottom:4px">Próximas</div>
+            <div style="font-size:9px;color:#888;margin-bottom:3px">Hoje</div>
+            <div style="background:#7C3AED22;border-radius:3px;padding:3px 5px;margin-bottom:3px;font-size:9px;color:#ccc">Redesign hero</div>
+            <div style="font-size:9px;color:#888;margin-bottom:3px">Amanhã</div>
+            <div style="background:#10B98122;border-radius:3px;padding:3px 5px;font-size:9px;color:#ccc">API integration</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Timeline + Agenda Lateral</h3>
+      <p>Gantt por tarefa à esquerda + painel de "Próximas tarefas" à direita com lista cronológica. Toggle entre Timeline e Agenda. Mais rico, mais espaço na tela.</p>
+    </div>
+  </div>
+
+</div>

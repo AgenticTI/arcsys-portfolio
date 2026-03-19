@@ -1,7 +1,7 @@
 'use client'
 
 import React, { createContext, useContext, useReducer, useCallback } from 'react'
-import type { AppState, CartItem, Dish, Order, OrderStatus } from '@/types'
+import type { AppState, Dish, Order, OrderStatus } from '@/types'
 
 type Action =
   | { type: 'SET_VIEW'; payload: 'client' | 'kitchen' }

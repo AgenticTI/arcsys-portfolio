@@ -1,0 +1,191 @@
+<h2>Reports — Layout da Página</h2>
+<p class="subtitle">Como organizar "Meu desempenho" + "Status dos projetos" na mesma página?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111;padding:12px;font-size:11px;color:#aaa;height:210px;overflow:hidden">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <!-- Top row: 3 metric cards -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px">
+          <div style="background:#E6CE0022;border:1px solid #E6CE0033;border-radius:6px;padding:6px;text-align:center">
+            <div style="font-size:18px;font-weight:bold;color:#E6CE00">8</div>
+            <div style="font-size:9px;color:#888">Concluídas</div>
+          </div>
+          <div style="background:#D9782022;border:1px solid #D9782033;border-radius:6px;padding:6px;text-align:center">
+            <div style="font-size:18px;font-weight:bold;color:#D97820">3</div>
+            <div style="font-size:9px;color:#888">Em progresso</div>
+          </div>
+          <div style="background:#1a1a1a;border:1px solid #333;border-radius:6px;padding:6px;text-align:center">
+            <div style="font-size:18px;font-weight:bold;color:#ccc">5</div>
+            <div style="font-size:9px;color:#888">A fazer</div>
+          </div>
+        </div>
+        <!-- Bar chart -->
+        <div style="background:#1a1a1a;border-radius:6px;padding:8px;flex:1">
+          <div style="font-size:9px;color:#E6CE00;margin-bottom:6px">Tasks por semana</div>
+          <div style="display:flex;align-items:flex-end;gap:4px;height:50px">
+            <div style="flex:1;background:#E6CE0066;border-radius:2px 2px 0 0;height:40%"></div>
+            <div style="flex:1;background:#E6CE0066;border-radius:2px 2px 0 0;height:60%"></div>
+            <div style="flex:1;background:#E6CE0066;border-radius:2px 2px 0 0;height:30%"></div>
+            <div style="flex:1;background:#E6CE0066;border-radius:2px 2px 0 0;height:80%"></div>
+            <div style="flex:1;background:#E6CE00;border-radius:2px 2px 0 0;height:100%"></div>
+            <div style="flex:1;background:#E6CE0066;border-radius:2px 2px 0 0;height:50%"></div>
+            <div style="flex:1;background:#E6CE0066;border-radius:2px 2px 0 0;height:70%"></div>
+          </div>
+          <div style="display:flex;gap:4px;margin-top:3px">
+            <div style="flex:1;font-size:8px;color:#555;text-align:center">S1</div>
+            <div style="flex:1;font-size:8px;color:#555;text-align:center">S2</div>
+            <div style="flex:1;font-size:8px;color:#555;text-align:center">S3</div>
+            <div style="flex:1;font-size:8px;color:#555;text-align:center">S4</div>
+            <div style="flex:1;font-size:8px;color:#E6CE00;text-align:center;font-weight:bold">S5</div>
+            <div style="flex:1;font-size:8px;color:#555;text-align:center">S6</div>
+            <div style="flex:1;font-size:8px;color:#555;text-align:center">S7</div>
+          </div>
+        </div>
+        <!-- Project bars -->
+        <div style="background:#1a1a1a;border-radius:6px;padding:8px">
+          <div style="font-size:9px;color:#888;margin-bottom:5px">Progresso por projeto</div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;align-items:center;gap:6px">
+              <div style="font-size:9px;color:#ccc;width:60px">Website</div>
+              <div style="flex:1;background:#333;border-radius:3px;height:6px"><div style="width:75%;background:#7C3AED;border-radius:3px;height:100%"></div></div>
+              <div style="font-size:9px;color:#888">75%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <div style="font-size:9px;color:#ccc;width:60px">Mobile</div>
+              <div style="flex:1;background:#333;border-radius:3px;height:6px"><div style="width:40%;background:#10B981;border-radius:3px;height:100%"></div></div>
+              <div style="font-size:9px;color:#888">40%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <div style="font-size:9px;color:#ccc;width:60px">Marketing</div>
+              <div style="flex:1;background:#333;border-radius:3px;height:6px"><div style="width:55%;background:#F59E0B;border-radius:3px;height:100%"></div></div>
+              <div style="font-size:9px;color:#888">55%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Vertical, seção única</h3>
+      <p>Metrics cards no topo → gráfico de barras semanal → progress bars por projeto. Tudo fluindo de cima pra baixo. Simples e legível.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111;padding:12px;font-size:11px;color:#aaa;height:210px;overflow:hidden">
+      <!-- Two column layout -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;height:100%">
+        <!-- Left: Desempenho -->
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:9px;color:#E6CE00;font-weight:bold;letter-spacing:0.5px">MEU DESEMPENHO</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+            <div style="background:#E6CE0022;border-radius:5px;padding:5px;text-align:center">
+              <div style="font-size:16px;font-weight:bold;color:#E6CE00">8</div>
+              <div style="font-size:8px;color:#888">Concluídas</div>
+            </div>
+            <div style="background:#1a1a1a;border-radius:5px;padding:5px;text-align:center">
+              <div style="font-size:16px;font-weight:bold;color:#ccc">5</div>
+              <div style="font-size:8px;color:#888">Streak dias</div>
+            </div>
+          </div>
+          <div style="background:#1a1a1a;border-radius:5px;padding:6px;flex:1">
+            <div style="font-size:8px;color:#888;margin-bottom:4px">Velocidade semanal</div>
+            <div style="display:flex;align-items:flex-end;gap:3px;height:40px">
+              <div style="flex:1;background:#E6CE0044;border-radius:1px 1px 0 0;height:50%"></div>
+              <div style="flex:1;background:#E6CE0044;border-radius:1px 1px 0 0;height:70%"></div>
+              <div style="flex:1;background:#E6CE0044;border-radius:1px 1px 0 0;height:40%"></div>
+              <div style="flex:1;background:#E6CE00;border-radius:1px 1px 0 0;height:100%"></div>
+              <div style="flex:1;background:#E6CE0044;border-radius:1px 1px 0 0;height:60%"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Right: Projetos -->
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:9px;color:#888;font-weight:bold;letter-spacing:0.5px">STATUS DOS PROJETOS</div>
+          <div style="background:#1a1a1a;border-radius:5px;padding:6px;flex:1">
+            <!-- Donut placeholder -->
+            <div style="display:flex;justify-content:center;margin-bottom:5px">
+              <div style="width:48px;height:48px;border-radius:50%;background:conic-gradient(#7C3AED 0% 40%, #10B981 40% 65%, #F59E0B 65% 100%);position:relative">
+                <div style="position:absolute;inset:8px;background:#1a1a1a;border-radius:50%"></div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:3px">
+              <div style="display:flex;align-items:center;gap:4px">
+                <div style="width:6px;height:6px;background:#7C3AED;border-radius:50%"></div>
+                <div style="font-size:9px;color:#ccc">Website</div>
+                <div style="margin-left:auto;font-size:9px;color:#888">4 tasks</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px">
+                <div style="width:6px;height:6px;background:#10B981;border-radius:50%"></div>
+                <div style="font-size:9px;color:#ccc">Mobile</div>
+                <div style="margin-left:auto;font-size:9px;color:#888">4 tasks</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px">
+                <div style="width:6px;height:6px;background:#F59E0B;border-radius:50%"></div>
+                <div style="font-size:9px;color:#ccc">Marketing</div>
+                <div style="margin-left:auto;font-size:9px;color:#888">4 tasks</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Duas colunas simétricas</h3>
+      <p>Esquerda = métricas pessoais + gráfico de velocidade. Direita = donut chart dos projetos + legenda. Divisão clara entre "eu" e "projetos".</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111;padding:12px;font-size:11px;color:#aaa;height:210px;overflow:hidden">
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <!-- Period tabs -->
+        <div style="display:flex;gap:4px">
+          <div style="background:#E6CE00;color:#000;font-size:9px;padding:2px 8px;border-radius:4px;font-weight:bold">Esta semana</div>
+          <div style="background:#1a1a1a;font-size:9px;padding:2px 8px;border-radius:4px">Mês</div>
+          <div style="background:#1a1a1a;font-size:9px;padding:2px 8px;border-radius:4px">Total</div>
+        </div>
+        <!-- Big number highlight -->
+        <div style="background:#E6CE0011;border:1px solid #E6CE0033;border-radius:8px;padding:8px;display:flex;align-items:center;gap:12px">
+          <div>
+            <div style="font-size:28px;font-weight:bold;color:#E6CE00;line-height:1">8</div>
+            <div style="font-size:9px;color:#888">tasks concluídas</div>
+          </div>
+          <div style="flex:1;display:flex;align-items:flex-end;gap:2px;height:32px">
+            <div style="flex:1;background:#E6CE0033;border-radius:1px 1px 0 0;height:50%"></div>
+            <div style="flex:1;background:#E6CE0033;border-radius:1px 1px 0 0;height:70%"></div>
+            <div style="flex:1;background:#E6CE0033;border-radius:1px 1px 0 0;height:30%"></div>
+            <div style="flex:1;background:#E6CE0033;border-radius:1px 1px 0 0;height:90%"></div>
+            <div style="flex:1;background:#E6CE00;border-radius:1px 1px 0 0;height:100%"></div>
+            <div style="flex:1;background:#E6CE0033;border-radius:1px 1px 0 0;height:60%"></div>
+            <div style="flex:1;background:#E6CE0033;border-radius:1px 1px 0 0;height:80%"></div>
+          </div>
+        </div>
+        <!-- Project grid 3 cards -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px">
+          <div style="background:#7C3AED22;border:1px solid #7C3AED44;border-radius:6px;padding:6px">
+            <div style="font-size:8px;color:#7C3AED;margin-bottom:3px">● Website</div>
+            <div style="background:#333;border-radius:2px;height:4px"><div style="width:75%;background:#7C3AED;border-radius:2px;height:100%"></div></div>
+            <div style="font-size:9px;color:#888;margin-top:3px">3/4 done</div>
+          </div>
+          <div style="background:#10B98122;border:1px solid #10B98144;border-radius:6px;padding:6px">
+            <div style="font-size:8px;color:#10B981;margin-bottom:3px">● Mobile</div>
+            <div style="background:#333;border-radius:2px;height:4px"><div style="width:40%;background:#10B981;border-radius:2px;height:100%"></div></div>
+            <div style="font-size:9px;color:#888;margin-top:3px">2/5 done</div>
+          </div>
+          <div style="background:#F59E0B22;border:1px solid #F59E0B44;border-radius:6px;padding:6px">
+            <div style="font-size:8px;color:#F59E0B;margin-bottom:3px">● Marketing</div>
+            <div style="background:#333;border-radius:2px;height:4px"><div style="width:55%;background:#F59E0B;border-radius:2px;height:100%"></div></div>
+            <div style="font-size:9px;color:#888;margin-top:3px">2/4 done</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Hero number + filtro por período</h3>
+      <p>Número grande de destaque com mini-gráfico inline, tabs de período (semana/mês/total), e cards por projeto abaixo. Foco num KPI principal primeiro.</p>
+    </div>
+  </div>
+
+</div>

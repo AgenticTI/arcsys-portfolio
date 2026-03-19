@@ -1,0 +1,128 @@
+<h2>Docs — Layout da Wiki por Projeto</h2>
+<p class="subtitle">Como estruturar a navegação e edição de páginas da wiki?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111;padding:10px;font-size:11px;color:#aaa;height:210px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:110px 1fr;gap:6px;height:100%">
+        <!-- Left nav -->
+        <div style="background:#1a1a1a;border-radius:6px;padding:6px;display:flex;flex-direction:column;gap:3px">
+          <div style="font-size:8px;color:#555;margin-bottom:2px">PROJETOS</div>
+          <div style="background:#7C3AED22;border-radius:4px;padding:3px 6px;font-size:9px;color:#7C3AED">● Website</div>
+          <div style="padding:3px 6px;font-size:9px;color:#888">● Mobile</div>
+          <div style="padding:3px 6px;font-size:9px;color:#888">● Marketing</div>
+          <div style="margin-top:6px;font-size:8px;color:#555">PÁGINAS</div>
+          <div style="background:#E6CE0011;border-left:2px solid #E6CE00;padding:3px 6px;font-size:9px;color:#E6CE00">Overview</div>
+          <div style="padding:3px 6px;font-size:9px;color:#888">Brief</div>
+          <div style="padding:3px 6px;font-size:9px;color:#888">Guidelines</div>
+          <div style="padding:3px 6px;font-size:9px;color:#555">+ Nova página</div>
+        </div>
+        <!-- Right content -->
+        <div style="background:#1a1a1a;border-radius:6px;padding:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <div style="font-size:12px;font-weight:bold;color:#fff">Overview</div>
+            <div style="background:#E6CE0022;color:#E6CE00;font-size:8px;padding:2px 8px;border-radius:4px">Editar</div>
+          </div>
+          <div style="font-size:9px;color:#888;margin-bottom:4px">Atualizado há 2 dias · Website Redesign</div>
+          <div style="height:1px;background:#333;margin-bottom:6px"></div>
+          <div style="font-size:9px;color:#ccc;line-height:1.5">Resumo do projeto, objetivos e stakeholders principais...</div>
+          <div style="margin-top:6px;font-size:9px;color:#555;font-style:italic">Clique em Editar para modificar</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Sidebar dupla (projetos + páginas)</h3>
+      <p>Nav esquerda com projetos no topo e páginas do projeto abaixo. Conteúdo à direita com botão Editar. Parecido com Notion/Confluence.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111;padding:10px;font-size:11px;color:#aaa;height:210px;overflow:hidden">
+      <div style="display:flex;flex-direction:column;gap:5px;height:100%">
+        <!-- Project tabs -->
+        <div style="display:flex;gap:3px">
+          <div style="background:#7C3AED;color:#fff;font-size:9px;padding:3px 10px;border-radius:4px">Website</div>
+          <div style="background:#1a1a1a;font-size:9px;padding:3px 10px;border-radius:4px">Mobile</div>
+          <div style="background:#1a1a1a;font-size:9px;padding:3px 10px;border-radius:4px">Marketing</div>
+          <div style="background:#1a1a1a;font-size:9px;padding:3px 10px;border-radius:4px;color:#555">+</div>
+        </div>
+        <!-- Page grid -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px">
+          <div style="background:#E6CE0011;border:1px solid #E6CE0033;border-radius:6px;padding:8px">
+            <div style="font-size:10px;font-weight:bold;color:#E6CE00;margin-bottom:3px">Overview</div>
+            <div style="font-size:8px;color:#666;line-height:1.4">Objetivos, escopo e stakeholders do projeto.</div>
+            <div style="margin-top:5px;font-size:8px;color:#555">há 2 dias</div>
+          </div>
+          <div style="background:#1a1a1a;border:1px solid #333;border-radius:6px;padding:8px">
+            <div style="font-size:10px;font-weight:bold;color:#ccc;margin-bottom:3px">Brief</div>
+            <div style="font-size:8px;color:#666;line-height:1.4">Briefing do cliente e requisitos iniciais.</div>
+            <div style="margin-top:5px;font-size:8px;color:#555">há 5 dias</div>
+          </div>
+          <div style="background:#1a1a1a;border:1px solid #333;border-radius:6px;padding:8px">
+            <div style="font-size:10px;font-weight:bold;color:#ccc;margin-bottom:3px">Guidelines</div>
+            <div style="font-size:8px;color:#666;line-height:1.4">Design system e padrões visuais.</div>
+            <div style="margin-top:5px;font-size:8px;color:#555">há 1 sem.</div>
+          </div>
+          <div style="background:#1a1a1a;border:1px dashed #444;border-radius:6px;padding:8px;display:flex;align-items:center;justify-content:center">
+            <div style="font-size:9px;color:#555">+ Nova página</div>
+          </div>
+        </div>
+        <!-- Selected page preview -->
+        <div style="background:#1a1a1a;border-radius:6px;padding:8px;flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+            <div style="font-size:11px;font-weight:bold;color:#fff">Overview</div>
+            <div style="background:#E6CE0022;color:#E6CE00;font-size:8px;padding:2px 8px;border-radius:4px">Editar</div>
+          </div>
+          <div style="font-size:9px;color:#888;line-height:1.5">Resumo do projeto, objetivos e stakeholders principais...</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Tabs por projeto + grid de páginas</h3>
+      <p>Projeto selecionado via tab no topo. Páginas em grid de cards. Clicar num card expande o conteúdo abaixo. Mais visual, sem sidebar.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="C" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111;padding:10px;font-size:11px;color:#aaa;height:210px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:100px 1fr;gap:6px;height:100%">
+        <!-- Left: pages list -->
+        <div style="background:#1a1a1a;border-radius:6px;padding:6px;display:flex;flex-direction:column;gap:2px">
+          <!-- Project selector dropdown -->
+          <div style="background:#7C3AED22;border-radius:4px;padding:3px 6px;font-size:9px;color:#7C3AED;margin-bottom:4px">Website ▾</div>
+          <div style="font-size:8px;color:#555;margin-bottom:2px">PÁGINAS</div>
+          <div style="background:#E6CE0011;border-left:2px solid #E6CE00;padding:3px 6px;font-size:9px;color:#E6CE00">Overview</div>
+          <div style="padding:3px 6px;font-size:9px;color:#888">Brief</div>
+          <div style="padding:3px 6px;font-size:9px;color:#888">Guidelines</div>
+          <div style="margin-top:auto;padding:3px 6px;font-size:9px;color:#555">+ Página</div>
+        </div>
+        <!-- Right: full-width editor -->
+        <div style="background:#1a1a1a;border-radius:6px;padding:8px;display:flex;flex-direction:column;gap:4px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:12px;font-weight:bold;color:#fff;border-bottom:1px solid #E6CE00;padding-bottom:2px">Overview</div>
+            <div style="display:flex;gap:4px">
+              <div style="background:#1a1a1a;border:1px solid #444;color:#888;font-size:8px;padding:2px 6px;border-radius:4px">Visualizar</div>
+              <div style="background:#E6CE00;color:#000;font-size:8px;padding:2px 6px;border-radius:4px;font-weight:bold">Salvar</div>
+            </div>
+          </div>
+          <!-- Textarea-like editor -->
+          <div style="background:#111;border:1px solid #333;border-radius:4px;padding:6px;flex:1;font-size:9px;color:#888;line-height:1.6;font-family:monospace">
+            # Overview<br/>
+            <br/>
+            Redesign completo do site corporativo...<br/>
+            <br/>
+            **Objetivos:** aumentar conversão<br/>
+            **Prazo:** Q2 2025<br/>
+            <span style="color:#555">|</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Sidebar + editor inline</h3>
+      <p>Dropdown de projeto na sidebar, lista de páginas abaixo. Área de edição sempre visível com textarea markdown + botões Visualizar/Salvar. Foco em edição.</p>
+    </div>
+  </div>
+
+</div>
