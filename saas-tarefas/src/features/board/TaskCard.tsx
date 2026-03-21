@@ -62,14 +62,14 @@ export function TaskCard({ task, onSelect }: Props) {
       </button>
 
       {/* Title */}
-      <p className={`flex-1 text-[15px] font-medium truncate ${
+      <p className={`flex-1 min-w-0 text-[15px] font-medium truncate ${
         isDone ? "line-through text-text-muted" : "text-text-primary"
       }`}>
         {task.title}
       </p>
 
       {/* Meta */}
-      <div className="flex items-center gap-3 flex-shrink-0">
+      <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <PriorityBadge priority={task.priority} />
         <div className="hidden sm:flex items-center gap-1.5 text-[13px] text-text-muted">
           <Calendar className="w-3 h-3" />
@@ -77,7 +77,7 @@ export function TaskCard({ task, onSelect }: Props) {
         </div>
         <button
           onClick={handleStatusClick}
-          className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-opacity hover:opacity-80 ${className}`}
+          className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-opacity hover:opacity-80 truncate max-w-[72px] sm:max-w-none ${className}`}
         >
           {label}
         </button>
