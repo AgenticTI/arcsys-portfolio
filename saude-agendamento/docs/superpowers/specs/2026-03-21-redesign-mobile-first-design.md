@@ -42,6 +42,8 @@ Complete visual redesign of the SaudeApp medical scheduling application. The cur
 | `neutral-500` | `#6B7280` | Secondary text |
 | `neutral-100` | `#F4F6F8` | Page background (light theme) |
 
+**Removed tokens:** The old `accent` blue (`#5B8CDB`) used for specialty labels is replaced by `primary` lime. All specialty text now uses `color: #88CD0A`.
+
 ### Patient theme (light)
 
 - Page background: `#F4F6F8`
@@ -160,21 +162,24 @@ Complete visual redesign of the SaudeApp medical scheduling application. The cur
 - Time slot grid (2 columns instead of 4)
 - "Confirmar Agendamento" button full width
 
-**Note:** Profile and booking flow are visually merged — viewing a doctor profile shows the booking interface directly. This simplifies the flow from 2 pages to 1 combined view.
+**Route behavior:** Both `/paciente/medico/[id]` and `/paciente/agendar/[id]` routes are kept. The profile page (`/paciente/medico/[id]`) remains a server component showing doctor info + "Agendar Consulta" button that links to `/paciente/agendar/[id]`. The booking page (`/paciente/agendar/[id]`) is the client component with Zustand + useState + useRouter that handles the actual booking. On desktop, the booking page shows the doctor profile in a left panel alongside the calendar/slots — this is a layout choice within the agendar page, not a route merge.
 
 ---
 
 ### 5. Booking Page (`/paciente/agendar/[id]`)
 
-**Desktop layout (right panel of profile):**
+**Desktop layout:**
+- Split view: left panel (200px) shows doctor card (avatar, name, specialty, rating, CRM, "Sobre"), right panel shows calendar + time slots
 - Week selector: arrows + "16 mar. - 20 mar. 2026" + 5 day pills (selected day in lime)
 - Time slots card: "Horarios disponiveis — [day], [date]" heading, 4-column grid of time slots (selected: lime border + light lime bg, available: gray border, disabled: muted)
 - "Confirmar Agendamento" button (lime, full width)
 
 **Mobile layout:**
-- Same structure, stacked vertically
+- Back arrow header with "Agendar Consulta" title
+- Doctor mini card (horizontal: avatar + name + specialty)
+- Week calendar
 - Time slots: 2-column grid (bigger touch targets)
-- Button full width at bottom
+- "Confirmar Agendamento" button full width at bottom
 
 ---
 
@@ -204,7 +209,7 @@ Existing page with URL params. Redesign with:
 ### 8. Doctor Dashboard (`/medico/agenda`)
 
 **Desktop layout:** Full dark mode
-- Icon sidebar (64px): logo, nav icons (Dashboard active, Calendar, Patients, Settings), avatar at bottom
+- Icon sidebar (64px): logo, nav icons (Dashboard active, Calendar, Patients, Settings — only Dashboard is functional, others are visual-only/disabled for now), avatar at bottom
 - Top bar: "Dashboard" title + date, search bar, notification bell with dot, doctor name + avatar
 - Quick Stats row: 3 cards with icon + label + large number + trend text
   - Consultas Hoje (white number)
@@ -230,7 +235,7 @@ Existing page with URL params. Redesign with:
 
 | Component | Purpose |
 |---|---|
-| `MobileTabBar` | Bottom tab bar with Home, Buscar, FAB, Historico, Perfil |
+| `MobileTabBar` | Bottom tab bar with Home, Buscar, FAB (navigates to `/paciente/buscar`), Historico, Perfil |
 | `MobileHeader` | Contextual header for patient mobile pages |
 | `DoctorSidebar` | Icon-only sidebar for doctor desktop |
 | `StatsCard` | Reusable stat card (number + label + trend) |
