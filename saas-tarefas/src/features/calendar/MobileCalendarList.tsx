@@ -10,7 +10,7 @@ export function MobileCalendarList({ tasks }: Props) {
   if (tasks.length === 0) {
     return (
       <div className="flex items-center justify-center h-40 text-text-muted text-sm">
-        Nenhuma tarefa neste período
+        No tasks in this period
       </div>
     );
   }

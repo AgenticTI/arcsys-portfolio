@@ -8,9 +8,9 @@ type Props = {
 }
 
 const PERIOD_LABELS: Record<PeriodTab, string> = {
-  week: "Esta semana",
-  month: "Este mês",
-  total: "Total",
+  week: "This Week",
+  month: "This Month",
+  total: "All Time",
 }
 
 // Visual decoration bars (not derived from real data)
@@ -46,7 +46,7 @@ export function ReportsHero({ period, data, onPeriodChange }: Props) {
       <div className="bg-card rounded-xl p-6 relative overflow-hidden">
         <div className="absolute inset-0 bg-accent/5 pointer-events-none" />
         <div className="relative">
-          <p className="text-sm text-muted mb-2">Tarefas concluídas</p>
+          <p className="text-sm text-muted mb-2">Completed tasks</p>
           <div className="flex items-end gap-4 md:gap-8 flex-wrap">
             {/* Big number */}
             <span
@@ -71,11 +71,11 @@ export function ReportsHero({ period, data, onPeriodChange }: Props) {
             <div className="flex gap-6 mb-1">
               <div>
                 <p className="text-2xl font-semibold text-primary">{data.inProgressCount}</p>
-                <p className="text-xs text-muted">Em progresso</p>
+                <p className="text-xs text-muted">In progress</p>
               </div>
               <div>
                 <p className="text-2xl font-semibold text-primary">{data.todoCount}</p>
-                <p className="text-xs text-muted">A fazer</p>
+                <p className="text-xs text-muted">To do</p>
               </div>
             </div>
           </div>

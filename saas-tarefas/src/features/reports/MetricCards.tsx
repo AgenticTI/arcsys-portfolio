@@ -11,9 +11,9 @@ export function MetricCards({ data }: Props) {
   ).length
 
   const metrics = [
-    { label: "Tarefas concluídas", value: String(data.completedCount) },
-    { label: "Taxa de conclusão", value: `${Math.round(data.completionRate * 100)}%` },
-    { label: "Alta prioridade concluídas", value: String(highPriorityDone) },
+    { label: "Tasks completed", value: String(data.completedCount) },
+    { label: "Completion rate", value: `${Math.round(data.completionRate * 100)}%` },
+    { label: "High priority completed", value: String(highPriorityDone) },
   ]
 
   return (

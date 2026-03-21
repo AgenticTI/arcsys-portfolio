@@ -10,9 +10,9 @@ type Props = {
 }
 
 const STATUS_LABELS: Record<string, string> = {
-  todo: "A fazer",
-  in_progress: "Em progresso",
-  done: "Concluída",
+  todo: "To Do",
+  in_progress: "In Progress",
+  done: "Done",
 }
 
 export function GanttBar({ task, project, periodStart, daysInMonth }: Props) {
@@ -65,7 +65,7 @@ export function GanttBar({ task, project, periodStart, daysInMonth }: Props) {
               <p className="font-medium text-primary mb-1">{task.title}</p>
               <p className="text-muted">{project.name}</p>
               <p className="text-muted">{STATUS_LABELS[task.status]}</p>
-              <p className="text-muted">Prazo: {task.dueDate}</p>
+              <p className="text-muted">Due: {task.dueDate}</p>
             </div>
           )}
         </div>

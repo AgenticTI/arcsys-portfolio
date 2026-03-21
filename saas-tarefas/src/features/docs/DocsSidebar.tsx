@@ -28,7 +28,7 @@ export function DocsSidebar({
       {/* Projects */}
       <div className="p-4">
         <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">
-          Projetos
+          Projects
         </p>
         <ul className="space-y-1">
           {mockProjects.map((project) => (
@@ -57,7 +57,7 @@ export function DocsSidebar({
       {/* Pages */}
       <div className="flex-1 overflow-y-auto p-4">
         <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">
-          Páginas
+          Pages
         </p>
         <ul className="space-y-0.5">
           {projectPages.map((page) => (
@@ -70,20 +70,20 @@ export function DocsSidebar({
                     : "text-muted hover:text-primary hover:bg-card"
                 }`}
               >
-                {page.title || "Sem título"}
+                {page.title || "Untitled"}
               </button>
               <button
                 onClick={() => onDeletePage(page.id)}
                 disabled={projectPages.length <= 1}
                 className="absolute right-1 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 p-1 rounded text-muted hover:text-primary disabled:opacity-20 disabled:cursor-not-allowed transition-opacity"
-                aria-label="Deletar página"
+                aria-label="Delete page"
               >
                 <Trash2 size={12} />
               </button>
             </li>
           ))}
           {projectPages.length === 0 && (
-            <p className="text-xs text-muted py-2 px-2">Nenhuma página.</p>
+            <p className="text-xs text-muted py-2 px-2">No pages yet.</p>
           )}
         </ul>
       </div>
@@ -95,7 +95,7 @@ export function DocsSidebar({
           className="w-full flex items-center gap-1.5 text-sm text-muted hover:text-primary transition-colors py-1 px-2"
         >
           <Plus size={14} />
-          Nova página
+          New page
         </button>
       </div>
     </aside>

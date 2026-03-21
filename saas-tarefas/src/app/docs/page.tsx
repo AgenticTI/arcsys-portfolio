@@ -135,12 +135,12 @@ export default function DocsPage() {
           <PageViewer page={activePage} onEdit={() => setIsEditing(true)} />
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center gap-4 text-muted">
-            <p className="text-sm">Nenhuma página ainda. Crie a primeira.</p>
+            <p className="text-sm">No pages yet. Create the first one.</p>
             <button
               onClick={handleNewPage}
               className="text-sm bg-accent text-white rounded px-4 py-2 hover:bg-accent/90 transition-colors"
             >
-              + Nova página
+              + New page
             </button>
           </div>
         )}

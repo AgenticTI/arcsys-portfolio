@@ -132,7 +132,7 @@ export function GanttChart() {
                 exit={{ opacity: 0 }}
                 className="flex items-center justify-center h-40 text-muted text-sm"
               >
-                Nenhuma tarefa neste período
+                No tasks in this period
               </motion.div>
             ) : (
               visibleTasks.map((task) => {

@@ -11,8 +11,8 @@ type Props = {
 function relativeTime(dateStr: string): string {
   const diff = Date.now() - new Date(dateStr).getTime()
   const days = Math.floor(diff / (1000 * 60 * 60 * 24))
-  if (days === 0) return "hoje"
-  const rtf = new Intl.RelativeTimeFormat("pt-BR", { style: "long" })
+  if (days === 0) return "today"
+  const rtf = new Intl.RelativeTimeFormat("en", { style: "long" })
   if (days < 30) return rtf.format(-days, "day")
   return rtf.format(-Math.floor(days / 30), "month")
 }
@@ -30,11 +30,11 @@ export function PageViewer({ page, onEdit }: Props) {
             className="flex items-center gap-1.5 text-sm text-muted hover:text-primary border border-border rounded px-3 py-1.5 transition-colors flex-shrink-0 ml-4"
           >
             <Edit size={14} />
-            Editar
+            Edit
           </button>
         </div>
         <p className="text-sm text-muted mb-4">
-          Atualizado {relativeTime(page.updatedAt)} · {project?.name}
+          Updated {relativeTime(page.updatedAt)} · {project?.name}
         </p>
         <hr className="border-border mb-6" />
         <p className="text-primary whitespace-pre-wrap leading-relaxed">{page.content}</p>

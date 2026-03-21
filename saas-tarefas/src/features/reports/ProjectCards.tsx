@@ -38,7 +38,7 @@ export function ProjectCards() {
               </div>
               {isOverdue && (
                 <span className="text-xs bg-priority-high/10 text-priority-high px-2 py-0.5 rounded-full flex-shrink-0 ml-2">
-                  Atrasada
+                  Overdue
                 </span>
               )}
             </div>
@@ -54,7 +54,7 @@ export function ProjectCards() {
               </div>
             </div>
             <p className="text-xs text-muted">
-              {doneCount}/{totalCount} concluídas
+              {doneCount}/{totalCount} completed
             </p>
           </div>
         )

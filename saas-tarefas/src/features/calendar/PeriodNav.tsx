@@ -10,13 +10,13 @@ type Props = {
   onToggleProject: (projectId: string) => void
 }
 
-const MONTHS_PT = [
-  "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
 ]
 
 export function PeriodNav({ period, activeProjects, onPrev, onNext, onToggleProject }: Props) {
-  const label = `${MONTHS_PT[period.getMonth()]} ${period.getFullYear()}`
+  const label = `${MONTHS[period.getMonth()]} ${period.getFullYear()}`
 
   return (
     <div className="flex items-center justify-between px-4 py-3 md:px-6 md:py-4 border-b border-border flex-wrap gap-3">

@@ -52,7 +52,7 @@ export const mockProjects: Project[] = [
   { id: "p3", name: "Marketing Q2", color: "#F59E0B", taskCount: 3 },
 ];
 
-// Datas relativas ao momento do demo (use datas fixas próximas de 2026-03-17)
+// Dates relative to demo time (use fixed dates near 2026-03-17)
 export const mockTasks: Task[] = [
   // --- Website Redesign (p1) ---
   {
