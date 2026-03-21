@@ -7,7 +7,7 @@ interface StatusBadgeProps {
 const config: Record<AppointmentStatus, { label: string; className: string }> = {
   confirmed: {
     label: "Confirmado",
-    className: "bg-primary-light text-primary border border-primary/20",
+    className: "bg-primary/10 text-primary-dark border border-primary/20",
   },
   pending: {
     label: "Pendente",
