@@ -12,7 +12,7 @@ export function TimeSlotGrid({
   onSelect,
 }: TimeSlotGridProps) {
   return (
-    <div className="grid grid-cols-4 gap-2">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
       {slots.map((slot) => {
         const isBooked = bookedSlots.includes(slot);
         const isSelected = selectedSlot === slot;
@@ -23,13 +23,13 @@ export function TimeSlotGrid({
             disabled={isBooked}
             onClick={() => onSelect(slot)}
             className={`
-              py-2 px-3 rounded-xl text-sm font-medium border transition-all
+              py-2.5 px-3 rounded-lg text-sm font-medium border-[1.5px] transition-all
               ${
                 isBooked
                   ? "bg-neutral-100 text-neutral-400 border-neutral-200 cursor-not-allowed"
                   : isSelected
-                  ? "bg-primary text-white border-primary"
-                  : "bg-primary-light text-primary border-primary/30 hover:border-primary"
+                  ? "bg-primary/10 text-primary border-primary"
+                  : "bg-white text-neutral-900 border-neutral-200 hover:border-primary"
               }
             `}
           >
