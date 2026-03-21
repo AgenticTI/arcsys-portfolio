@@ -17,15 +17,15 @@ export default function DashboardPage() {
           </h1>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <button className="flex items-center gap-2 bg-bg-card border border-border rounded-lg px-3.5 py-2 text-sm font-medium text-text-secondary hover:bg-bg-card-2 transition-colors">
+          <div className="flex items-center gap-2 bg-bg-card border border-border rounded-lg px-3.5 py-2 text-sm font-medium text-text-secondary">
             <Home className="w-3.5 h-3.5 opacity-70" />
             All Projects
             <ChevronDown className="w-[11px] h-[11px]" />
-          </button>
-          <button className="flex items-center gap-2 bg-bg-card border border-border rounded-lg px-3.5 py-2 text-sm font-medium text-text-secondary hover:bg-bg-card-2 transition-colors">
+          </div>
+          <div className="flex items-center gap-2 bg-bg-card border border-border rounded-lg px-3.5 py-2 text-sm font-medium text-text-secondary">
             This Week
             <ChevronDown className="w-[11px] h-[11px]" />
-          </button>
+          </div>
         </div>
       </div>
 

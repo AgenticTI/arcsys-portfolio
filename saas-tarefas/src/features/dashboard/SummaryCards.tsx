@@ -26,7 +26,7 @@ export function SummaryCards() {
       <div className="relative rounded-[20px] p-6 overflow-hidden bg-accent min-h-[140px] md:min-h-[168px] flex flex-col sm:col-span-2 md:col-span-1">
         <p className="font-display text-[15px] font-bold text-black/55">Tasks</p>
         {/* Adjust icon */}
-        <span className="absolute top-[18px] right-[18px] w-7 h-7 bg-black/10 rounded-lg flex items-center justify-center cursor-pointer">
+        <span className="absolute top-[18px] right-[18px] w-7 h-7 bg-black/10 rounded-lg flex items-center justify-center">
           <span className="text-black/40 text-xs font-bold">≡</span>
         </span>
         <p className="font-display text-[44px] md:text-[56px] font-extrabold leading-none mt-1.5 text-black tracking-[-2px]">
@@ -99,7 +99,7 @@ export function SummaryCards() {
       <div className="relative rounded-[20px] p-6 bg-bg-card-2 border border-border min-h-[140px] md:min-h-[168px] flex flex-col justify-between shadow-[0_2px_8px_rgba(0,0,0,0.35),0_0_0_1px_rgba(255,255,255,0.04)]">
         <div className="flex justify-between items-start">
           <p className="font-display text-[15px] font-bold text-text-secondary">Upcoming</p>
-          <div className="w-[26px] h-[26px] bg-white/5 rounded-lg flex items-center justify-center cursor-pointer hover:bg-white/9 transition-colors">
+          <div className="w-[26px] h-[26px] bg-white/5 rounded-lg flex items-center justify-center">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-text-muted">
               <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
             </svg>
@@ -132,7 +132,7 @@ export function SummaryCards() {
               {spotlight?.subtasks.length ?? 0} subtasks
             </span>
           </div>
-          <div className="w-[34px] h-[34px] rounded-[10px] bg-accent flex items-center justify-center cursor-pointer text-black text-xl font-light shadow-[0_2px_10px_rgba(230,206,0,0.28)] hover:scale-105 transition-transform">
+          <div className="w-[34px] h-[34px] rounded-[10px] bg-accent flex items-center justify-center text-black text-xl font-light shadow-[0_2px_10px_rgba(230,206,0,0.28)]">
             +
           </div>
         </div>

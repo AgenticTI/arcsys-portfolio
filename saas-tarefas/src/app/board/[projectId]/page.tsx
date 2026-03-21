@@ -8,7 +8,7 @@ import { Status } from "@/data/mock";
 import { KanbanCounters } from "@/features/board/KanbanCounters";
 import { TaskList } from "@/features/board/TaskList";
 import { TaskDetailPanel } from "@/features/board/TaskDetailPanel";
-import { ChevronDown, Plus } from "lucide-react";
+
 
 export default function BoardPage() {
   const params = useParams();
@@ -48,19 +48,6 @@ export default function BoardPage() {
             <span className="text-[14px] text-text-muted font-medium">
               {projectTasks.length} tasks
             </span>
-          </div>
-          <div className="flex items-center gap-2 w-full md:w-auto flex-wrap">
-            <button className="flex items-center gap-2 bg-bg-card border border-border rounded-lg px-3.5 py-2 text-[14px] font-medium text-text-secondary hover:bg-bg-card-2 transition-colors">
-              Status
-              <ChevronDown className="w-[11px] h-[11px]" />
-            </button>
-            <button
-              className="flex items-center gap-1.5 bg-accent rounded-lg px-4 py-2 text-[14px] font-semibold text-black hover:opacity-90 transition-opacity"
-              style={{ boxShadow: "0 2px 10px rgba(230,206,0,0.28)" }}
-            >
-              <Plus className="w-3.5 h-3.5" />
-              New Task
-            </button>
           </div>
         </div>
 

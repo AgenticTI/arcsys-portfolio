@@ -55,13 +55,13 @@ export function Sidebar() {
       {/* Bottom */}
       <div className="flex flex-col items-center gap-3.5">
         {/* Bell */}
-        <div className="relative w-[38px] h-[38px] rounded-full bg-bg-card border border-border flex items-center justify-center text-text-secondary cursor-pointer hover:bg-bg-card-2 transition-colors">
+        <div className="relative w-[38px] h-[38px] rounded-full bg-bg-card border border-border flex items-center justify-center text-text-secondary">
           <Bell className="w-4 h-4" />
           <span className="absolute top-[9px] right-[9px] w-[7px] h-[7px] rounded-full bg-accent-orange border-2 border-bg-sidebar" />
         </div>
 
         {/* Avatar */}
-        <div className="w-[38px] h-[38px] rounded-full bg-gradient-to-br from-[#3A3010] to-[#5A4820] border-2 border-accent-dim flex items-center justify-center font-display text-[13px] font-bold text-accent cursor-pointer">
+        <div className="w-[38px] h-[38px] rounded-full bg-gradient-to-br from-[#3A3010] to-[#5A4820] border-2 border-accent-dim flex items-center justify-center font-display text-[13px] font-bold text-accent">
           {mockUser.avatarInitials.toUpperCase()}
         </div>
       </div>

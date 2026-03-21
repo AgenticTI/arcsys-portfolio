@@ -50,13 +50,13 @@ export function MobileTopBar() {
       {/* Right */}
       <div className="flex items-center gap-2 flex-shrink-0">
         {/* Bell */}
-        <div className="relative w-8 h-8 rounded-full bg-bg-card border border-border flex items-center justify-center text-text-secondary cursor-pointer hover:bg-bg-card-2 transition-colors">
+        <div className="relative w-8 h-8 rounded-full bg-bg-card border border-border flex items-center justify-center text-text-secondary">
           <Bell className="w-3.5 h-3.5" />
           <span className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-accent-orange border-2 border-bg-sidebar" />
         </div>
 
         {/* Avatar */}
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3A3010] to-[#5A4820] border-2 border-accent-dim flex items-center justify-center font-display text-[11px] font-bold text-accent cursor-pointer">
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3A3010] to-[#5A4820] border-2 border-accent-dim flex items-center justify-center font-display text-[11px] font-bold text-accent">
           {mockUser.avatarInitials.toUpperCase()}
         </div>
       </div>
