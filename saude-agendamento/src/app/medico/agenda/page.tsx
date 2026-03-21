@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 import { useAppointmentsStore } from "@/store/appointments";
-import { StatusBadge } from "@/components/StatusBadge";
 import doctorUser from "@/data/doctor-user.json";
-import { Check, X, Calendar } from "lucide-react";
+import patient from "@/data/patient.json";
+import { StatsCard } from "@/components/StatsCard";
+import { ScheduleTable } from "@/components/ScheduleTable";
+import { MiniCalendar } from "@/components/MiniCalendar";
+import { WeeklyChart } from "@/components/WeeklyChart";
+import { Calendar, CheckCircle, Clock, Check, X } from "lucide-react";
 import { Appointment } from "@/types";
 
 const TODAY = "2026-03-17";
@@ -19,167 +23,180 @@ function formatDate(dateStr: string): string {
   });
 }
 
-function getWeekDates(startStr: string): string[] {
-  const dates: string[] = [];
-  const start = new Date(startStr + "T00:00:00");
-  for (let i = 0; i < 5; i++) {
-    const d = new Date(start);
-    d.setDate(start.getDate() + i);
-    dates.push(d.toISOString().split("T")[0]);
-  }
-  return dates;
-}
-
 export default function AgendaMedico() {
   const appointments = useAppointmentsStore((s) => s.appointments);
   const confirmAppointment = useAppointmentsStore((s) => s.confirmAppointment);
   const cancelAppointment = useAppointmentsStore((s) => s.cancelAppointment);
 
-  const [tab, setTab] = useState<"day" | "week">("day");
+  const [mobileTab, setMobileTab] = useState<"hoje" | "semana">("hoje");
 
   const myAppointments = appointments.filter((a) => a.doctorId === doctorUser.id);
-  const todayAppts = myAppointments
+  const todayAppointments = myAppointments
     .filter((a) => a.date === TODAY)
     .sort((a, b) => a.time.localeCompare(b.time));
 
-  const weekDates = getWeekDates(TODAY);
-  const weekAppts = myAppointments.filter((a) => weekDates.includes(a.date));
+  const confirmedCount = todayAppointments.filter((a) => a.status === "confirmed").length;
+  const pendingCount = todayAppointments.filter((a) => a.status === "pending").length;
 
-  function countByDate(date: string) {
-    return weekAppts.filter((a) => a.date === date).length;
-  }
+  const weeklyData = [
+    { day: "Seg", count: 5 },
+    { day: "Ter", count: todayAppointments.length },
+    { day: "Qua", count: 4 },
+    { day: "Qui", count: 6 },
+    { day: "Sex", count: 3 },
+  ];
 
   return (
-    <div className="max-w-3xl mx-auto">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+    <div className="min-h-full">
+      {/* Desktop top bar */}
+      <div className="hidden md:flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900">Minha Agenda</h1>
-          <p className="text-neutral-500 text-sm mt-1">{formatDate(TODAY)}</p>
+          <h1 className="text-xl font-extrabold text-white">Dashboard</h1>
+          <p className="text-[11px] text-neutral-500 capitalize mt-0.5">{formatDate(TODAY)}</p>
         </div>
-        <div className="bg-primary-light rounded-[14px] px-5 py-3 text-center">
-          <p className="text-2xl font-bold text-primary">{todayAppts.length}</p>
-          <p className="text-xs text-primary/70 font-medium">consultas hoje</p>
+        <div className="flex items-center gap-3">
+          <div className="text-right">
+            <p className="text-sm font-bold text-white">{doctorUser.name}</p>
+            <p className="text-[10px] text-neutral-500">{doctorUser.specialty}</p>
+          </div>
+          <img
+            src={doctorUser.photo}
+            alt={doctorUser.name}
+            className="w-9 h-9 rounded-full object-cover border-2 border-primary"
+          />
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-2 mb-6">
-        {(["day", "week"] as const).map((t) => (
+      {/* Stats row */}
+      <div className="flex gap-3 mb-4">
+        <StatsCard
+          icon={Calendar}
+          label="Consultas Hoje"
+          value={todayAppointments.length}
+          trend="agendadas para hoje"
+        />
+        <StatsCard
+          icon={CheckCircle}
+          label="Confirmadas"
+          value={`${confirmedCount}/${todayAppointments.length}`}
+          trend="confirmadas"
+        />
+        <StatsCard
+          icon={Clock}
+          label="Pendentes"
+          value={pendingCount}
+          trend="aguardando confirmação"
+          trendColor="text-amber-500"
+        />
+      </div>
+
+      {/* Mobile tab toggle */}
+      <div className="md:hidden flex gap-2 mb-4">
+        {(["hoje", "semana"] as const).map((t) => (
           <button
             key={t}
-            onClick={() => setTab(t)}
-            className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${
-              tab === t
-                ? "bg-primary text-white"
-                : "bg-white text-neutral-500 border border-neutral-200 hover:border-primary hover:text-primary"
+            onClick={() => setMobileTab(t)}
+            className={`flex-1 py-2 rounded-[10px] text-xs font-semibold transition-colors ${
+              mobileTab === t
+                ? "bg-primary text-dark-card"
+                : "bg-dark-card text-neutral-500 border border-dark-border"
             }`}
           >
-            {t === "day" ? "Hoje" : "Semana"}
+            {t === "hoje" ? "Hoje" : "Semana"}
           </button>
         ))}
       </div>
 
-      {/* Day view */}
-      {tab === "day" && (
-        <div className="flex flex-col gap-3">
-          {todayAppts.length === 0 ? (
-            <div className="text-center py-16 text-neutral-400">
-              <Calendar size={40} className="mx-auto mb-3 opacity-30" />
-              <p className="text-sm">Nenhuma consulta para hoje.</p>
-            </div>
-          ) : (
-            todayAppts.map((appt) => (
-              <AppointmentRow
-                key={appt.id}
-                appointment={appt}
-                onConfirm={() => confirmAppointment(appt.id)}
-                onCancel={() => cancelAppointment(appt.id)}
-              />
-            ))
-          )}
-        </div>
-      )}
+      {/* Mobile: stacked appointment cards */}
+      <div className="md:hidden flex flex-col gap-3 mb-4">
+        {todayAppointments.length === 0 ? (
+          <div className="bg-dark-card rounded-[14px] border border-dark-border p-8 text-center">
+            <Calendar size={32} className="mx-auto mb-2 text-neutral-500 opacity-50" />
+            <p className="text-sm text-neutral-500">Nenhuma consulta para hoje.</p>
+          </div>
+        ) : (
+          todayAppointments.map((apt) => (
+            <MobileAppointmentCard
+              key={apt.id}
+              appointment={apt}
+              patientName={patient.name}
+              onConfirm={() => confirmAppointment(apt.id)}
+              onCancel={() => cancelAppointment(apt.id)}
+            />
+          ))
+        )}
+      </div>
 
-      {/* Week view */}
-      {tab === "week" && (
-        <div className="flex flex-col gap-4">
-          {weekDates.map((date) => {
-            const count = countByDate(date);
-            const d = new Date(date + "T00:00:00");
-            const label = d.toLocaleDateString("pt-BR", {
-              weekday: "long",
-              day: "numeric",
-              month: "short",
-            });
-            const isToday = date === TODAY;
-            return (
-              <div
-                key={date}
-                className={`bg-white rounded-[14px] shadow-card px-5 py-4 flex items-center justify-between ${
-                  isToday ? "border-l-4 border-primary" : ""
-                }`}
-              >
-                <span className={`text-sm font-medium capitalize ${isToday ? "text-primary" : "text-neutral-700"}`}>
-                  {label}
-                </span>
-                <span
-                  className={`text-sm font-semibold px-3 py-1 rounded-full ${
-                    count > 0
-                      ? "bg-primary-light text-primary"
-                      : "bg-neutral-100 text-neutral-400"
-                  }`}
-                >
-                  {count} {count === 1 ? "consulta" : "consultas"}
-                </span>
-              </div>
-            );
-          })}
+      {/* Desktop bottom grid */}
+      <div className="hidden md:flex flex-col md:flex-row gap-4">
+        {/* Left: schedule table */}
+        <div className="flex-1">
+          <ScheduleTable
+            appointments={todayAppointments}
+            patientName={patient.name}
+            onConfirm={confirmAppointment}
+            onCancel={cancelAppointment}
+          />
         </div>
-      )}
+        {/* Right: mini calendar + weekly chart */}
+        <div className="md:w-60 shrink-0 flex flex-col gap-4">
+          <MiniCalendar today={TODAY} />
+          <WeeklyChart data={weeklyData} currentDay="Ter" />
+        </div>
+      </div>
     </div>
   );
 }
 
-// Local sub-component for appointment row
-function AppointmentRow({
+// Mobile-only appointment card
+function MobileAppointmentCard({
   appointment,
+  patientName,
   onConfirm,
   onCancel,
 }: {
   appointment: Appointment;
+  patientName: string;
   onConfirm: () => void;
   onCancel: () => void;
 }) {
   return (
-    <div className="bg-white rounded-[14px] shadow-card p-4 flex items-center justify-between gap-4">
-      <div className="flex items-center gap-4">
-        <div className="text-center min-w-[48px]">
-          <p className="text-lg font-bold text-neutral-900">{appointment.time}</p>
-        </div>
+    <div className="bg-dark-card rounded-[14px] border border-dark-border p-4 flex items-center justify-between gap-3">
+      <div className="flex items-center gap-3">
+        <div className="w-8 h-8 rounded-full bg-dark-surface shrink-0" />
         <div>
-          {/* Patient name is always p1 = Rafael in mock data */}
-          <p className="font-semibold text-neutral-900 text-sm">Rafael Mendes</p>
-          <p className="text-xs text-neutral-500">{appointment.reason}</p>
+          <p className="text-xs font-bold text-white">{patientName}</p>
+          <p className="text-[10px] text-neutral-500">{appointment.reason}</p>
+          <p className={`text-[10px] font-semibold mt-0.5 ${appointment.status === "confirmed" ? "text-primary" : "text-white"}`}>
+            {appointment.time}
+          </p>
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <StatusBadge status={appointment.status} />
+        <span
+          className={`text-[9px] px-2 py-0.5 rounded-full font-semibold ${
+            appointment.status === "confirmed"
+              ? "bg-primary/10 text-primary"
+              : appointment.status === "pending"
+              ? "bg-amber-500/10 text-amber-500"
+              : "bg-red-500/10 text-red-500"
+          }`}
+        >
+          {appointment.status === "confirmed" ? "CONFIRMADO" : appointment.status === "pending" ? "PENDENTE" : "CANCELADO"}
+        </span>
         {appointment.status === "pending" && (
           <>
             <button
               onClick={onConfirm}
-              title="Confirmar"
-              className="p-2 bg-primary-light text-primary rounded-xl hover:bg-primary hover:text-white transition-colors"
+              className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center"
             >
-              <Check size={16} />
+              <Check size={12} className="text-primary" />
             </button>
             <button
               onClick={onCancel}
-              title="Cancelar"
-              className="p-2 bg-red-50 text-red-500 rounded-xl hover:bg-red-500 hover:text-white transition-colors"
+              className="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center"
             >
-              <X size={16} />
+              <X size={12} className="text-red-500" />
             </button>
           </>
         )}
