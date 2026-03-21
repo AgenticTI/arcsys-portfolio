@@ -20,30 +20,30 @@ export default function BuscarMedico() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold text-neutral-900 mb-6">Buscar Médico</h1>
+      <h1 className="hidden md:block text-xl font-extrabold text-neutral-900 mb-5">Buscar Médico</h1>
 
       {/* Search input */}
       <div className="relative mb-4">
-        <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+        <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
         <input
           type="text"
           placeholder="Buscar por nome..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full pl-10 pr-4 py-3 bg-white border border-neutral-200 rounded-[14px] text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+          className="w-full pl-10 pr-4 py-3 bg-white border border-neutral-100 rounded-xl shadow-card text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-neutral-900 placeholder:text-neutral-500"
         />
       </div>
 
-      {/* Specialty filter tabs */}
-      <div className="flex gap-2 flex-wrap mb-6">
+      {/* Specialty filter chips */}
+      <div className="flex gap-2 flex-wrap mb-5">
         {SPECIALTIES.map((s) => (
           <button
             key={s}
             onClick={() => setSpecialty(s)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
               specialty === s
-                ? "bg-primary text-white border-primary"
-                : "bg-white text-neutral-500 border-neutral-200 hover:border-primary hover:text-primary"
+                ? "bg-primary text-dark-card border-primary font-bold"
+                : "bg-white text-neutral-500 border border-neutral-200 hover:border-primary hover:text-primary"
             }`}
           >
             {s}
@@ -58,7 +58,7 @@ export default function BuscarMedico() {
           <p className="text-sm">Nenhum médico encontrado.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {filtered.map((doctor) => (
             <DoctorCard key={doctor.id} doctor={doctor} />
           ))}
