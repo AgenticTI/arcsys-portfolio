@@ -1,7 +1,7 @@
 "use client";
 
 import { useTaskStore } from "@/store/useTaskStore";
-import { mockProjects } from "@/data/mock";
+import { mockProjects, mockUser } from "@/data/mock";
 
 export function SummaryCards() {
   const tasks = useTaskStore((s) => s.tasks);
@@ -125,7 +125,7 @@ export function SummaryCards() {
           <div className="flex items-center gap-2">
             <div className="flex items-center">
               <div className="w-[26px] h-[26px] rounded-full bg-gradient-to-br from-[#3A3010] to-[#5A4820] border-2 border-[#1E1C14] flex items-center justify-center font-display text-[10px] font-bold text-accent">
-                LE
+                {mockUser.avatarInitials}
               </div>
             </div>
             <span className="text-[13px] text-text-muted">

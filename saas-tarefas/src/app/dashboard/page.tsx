@@ -5,7 +5,7 @@ import { LayoutDashboard, Home, ChevronDown } from "lucide-react";
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col h-full p-4 md:p-6 gap-4 overflow-hidden">
+    <div className="flex flex-col p-4 md:p-6 gap-4">
       {/* Header */}
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between flex-shrink-0">
         <div className="flex items-center gap-3">
