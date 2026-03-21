@@ -1,6 +1,7 @@
 # CLAUDE.md — saude-agendamento
 
 This is a **Next.js 14 medical appointment scheduling app** built as a portfolio project. It simulates a two-role system (patient and doctor) with no backend — all state lives in a Zustand store seeded from JSON files.
+Projeto Deployado no Vercel: https://saude-agendamento.vercel.app
 
 ---
 
