@@ -8,7 +8,7 @@ export function ProjectCards() {
   today.setHours(0, 0, 0, 0)
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {mockProjects.map((project) => {
         // Progress bar uses all tasks for the project (not period-filtered), per spec
         const projectAllTasks = allTasks.filter((t) => t.projectId === project.id)

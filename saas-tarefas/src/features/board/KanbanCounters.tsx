@@ -50,14 +50,14 @@ export function KanbanCounters({
   };
 
   return (
-    <div className="grid grid-cols-3 gap-3 flex-shrink-0">
+    <div className="grid grid-cols-3 gap-2 md:gap-3 flex-shrink-0">
       {columns.map(({ status, label, activeBg, activeText, badgeClass }) => {
         const isActive = activeFilter === status;
         return (
           <button
             key={status}
             onClick={() => onFilter(isActive ? null : status)}
-            className={`rounded-[20px] border p-5 text-left transition-all ${
+            className={`rounded-[20px] border p-3 md:p-5 text-left transition-all ${
               isActive ? activeBg : "border-border bg-bg-card hover:border-white/10 hover:bg-bg-card-2"
             }`}
           >
@@ -66,7 +66,7 @@ export function KanbanCounters({
             }`}>
               {label}
             </p>
-            <p className="font-display text-[40px] font-extrabold text-text-primary mt-1 tracking-[-1.5px] leading-none">
+            <p className="font-display text-[28px] md:text-[40px] font-extrabold text-text-primary mt-1 tracking-[-1.5px] leading-none">
               {counts[status]}
             </p>
             <span className={`inline-flex items-center mt-2 px-2.5 py-1 rounded-full text-xs font-semibold ${badgeClass}`}>

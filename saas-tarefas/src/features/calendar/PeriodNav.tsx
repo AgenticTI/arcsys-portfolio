@@ -19,7 +19,7 @@ export function PeriodNav({ period, activeProjects, onPrev, onNext, onToggleProj
   const label = `${MONTHS_PT[period.getMonth()]} ${period.getFullYear()}`
 
   return (
-    <div className="flex items-center justify-between px-6 py-4 border-b border-border flex-wrap gap-3">
+    <div className="flex items-center justify-between px-4 py-3 md:px-6 md:py-4 border-b border-border flex-wrap gap-3">
       <div className="flex items-center gap-3">
         <h1 className="text-lg font-semibold text-primary">Calendar</h1>
         <div className="flex items-center gap-1">
@@ -40,7 +40,7 @@ export function PeriodNav({ period, activeProjects, onPrev, onNext, onToggleProj
       </div>
 
       {/* Filter chips */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 overflow-x-auto flex-nowrap">
         {mockProjects.map((project) => {
           const isActive = activeProjects.includes(project.id)
           return (

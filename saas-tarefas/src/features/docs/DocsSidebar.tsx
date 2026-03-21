@@ -24,7 +24,7 @@ export function DocsSidebar({
   const projectPages = pages.filter((p) => p.projectId === selectedProjectId)
 
   return (
-    <aside className="w-[200px] flex-shrink-0 border-r border-border flex flex-col h-full overflow-hidden">
+    <aside className="w-[200px] flex-shrink-0 border-r border-border flex flex-col h-full overflow-hidden bg-bg-app">
       {/* Projects */}
       <div className="p-4">
         <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">

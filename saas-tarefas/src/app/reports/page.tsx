@@ -11,7 +11,7 @@ export default function ReportsPage() {
   const data = usePeriodFilter(period)
 
   return (
-    <div className="p-8 space-y-6 overflow-y-auto h-full">
+    <div className="p-4 md:p-8 space-y-6 overflow-y-auto h-full">
       <h1 className="text-2xl font-bold text-primary">Relatórios</h1>
       <ReportsHero period={period} data={data} onPeriodChange={setPeriod} />
       <MetricCards data={data} />

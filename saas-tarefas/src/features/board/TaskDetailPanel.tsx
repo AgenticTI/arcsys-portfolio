@@ -22,7 +22,7 @@ export function TaskDetailPanel({ task, onClose }: Props) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/20 z-10"
+            className="fixed inset-0 bg-black/20 z-40"
           />
 
           {/* Panel */}
@@ -32,7 +32,7 @@ export function TaskDetailPanel({ task, onClose }: Props) {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="absolute right-0 top-0 h-full w-96 bg-bg-card border-l border-border z-20 flex flex-col shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-y-auto"
+            className="fixed right-0 top-0 h-full w-full md:w-96 bg-bg-card border-l border-border z-50 flex flex-col shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-y-auto"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-border flex-shrink-0">

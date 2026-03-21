@@ -47,10 +47,10 @@ export function ReportsHero({ period, data, onPeriodChange }: Props) {
         <div className="absolute inset-0 bg-accent/5 pointer-events-none" />
         <div className="relative">
           <p className="text-sm text-muted mb-2">Tarefas concluídas</p>
-          <div className="flex items-end gap-8 flex-wrap">
+          <div className="flex items-end gap-4 md:gap-8 flex-wrap">
             {/* Big number */}
             <span
-              className="text-6xl font-bold text-primary transition-opacity duration-150"
+              className="text-4xl md:text-6xl font-bold text-primary transition-opacity duration-150"
               key={`${period}-${data.completedCount}`}
             >
               {data.completedCount}

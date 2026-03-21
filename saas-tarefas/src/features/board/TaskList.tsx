@@ -43,7 +43,7 @@ function SortableTaskCard({
       <button
         {...attributes}
         {...listeners}
-        className="p-1 text-text-muted hover:text-text-primary cursor-grab active:cursor-grabbing flex-shrink-0"
+        className="p-2 md:p-1 text-text-muted hover:text-text-primary cursor-grab active:cursor-grabbing flex-shrink-0"
       >
         <GripVertical className="w-4 h-4" />
       </button>
@@ -69,7 +69,7 @@ export function TaskList({ projectId, statusFilter, onSelectTask }: Props) {
     : projectTasks;
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 

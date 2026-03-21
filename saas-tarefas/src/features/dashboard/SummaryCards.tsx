@@ -20,16 +20,16 @@ export function SummaryCards() {
   const spotlightProject = mockProjects.find((p) => p.id === spotlight?.projectId);
 
   return (
-    <div className="grid grid-cols-3 gap-4 flex-shrink-0">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 flex-shrink-0">
 
       {/* Yellow — All Tasks */}
-      <div className="relative rounded-[20px] p-6 overflow-hidden bg-accent min-h-[168px] flex flex-col">
+      <div className="relative rounded-[20px] p-6 overflow-hidden bg-accent min-h-[140px] md:min-h-[168px] flex flex-col sm:col-span-2 md:col-span-1">
         <p className="font-display text-[15px] font-bold text-black/55">Tasks</p>
         {/* Adjust icon */}
         <span className="absolute top-[18px] right-[18px] w-7 h-7 bg-black/10 rounded-lg flex items-center justify-center cursor-pointer">
           <span className="text-black/40 text-xs font-bold">≡</span>
         </span>
-        <p className="font-display text-[56px] font-extrabold leading-none mt-1.5 text-black tracking-[-2px]">
+        <p className="font-display text-[44px] md:text-[56px] font-extrabold leading-none mt-1.5 text-black tracking-[-2px]">
           {total}
         </p>
         <p className="text-[13px] font-medium text-black/45 mt-0.5">Total across all projects</p>
@@ -62,9 +62,9 @@ export function SummaryCards() {
       </div>
 
       {/* Orange — In Progress */}
-      <div className="relative rounded-[20px] p-6 overflow-hidden min-h-[168px] flex flex-col" style={{ background: "#D97820" }}>
+      <div className="relative rounded-[20px] p-6 overflow-hidden min-h-[140px] md:min-h-[168px] flex flex-col" style={{ background: "#D97820" }}>
         <p className="font-display text-[15px] font-bold text-white/60">In Progress</p>
-        <p className="font-display text-[56px] font-extrabold leading-none mt-1.5 text-white tracking-[-2px]">
+        <p className="font-display text-[44px] md:text-[56px] font-extrabold leading-none mt-1.5 text-white tracking-[-2px]">
           {inProgressCount}
         </p>
         <div className="flex flex-col gap-1.5 mt-3">
@@ -96,7 +96,7 @@ export function SummaryCards() {
       </div>
 
       {/* Dark — Upcoming spotlight */}
-      <div className="relative rounded-[20px] p-6 bg-bg-card-2 border border-border min-h-[168px] flex flex-col justify-between shadow-[0_2px_8px_rgba(0,0,0,0.35),0_0_0_1px_rgba(255,255,255,0.04)]">
+      <div className="relative rounded-[20px] p-6 bg-bg-card-2 border border-border min-h-[140px] md:min-h-[168px] flex flex-col justify-between shadow-[0_2px_8px_rgba(0,0,0,0.35),0_0_0_1px_rgba(255,255,255,0.04)]">
         <div className="flex justify-between items-start">
           <p className="font-display text-[15px] font-bold text-text-secondary">Upcoming</p>
           <div className="w-[26px] h-[26px] bg-white/5 rounded-lg flex items-center justify-center cursor-pointer hover:bg-white/9 transition-colors">

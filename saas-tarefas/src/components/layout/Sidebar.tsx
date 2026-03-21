@@ -4,38 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTaskStore } from "@/store/useTaskStore";
 import { mockUser } from "@/data/mock";
-import {
-  LayoutDashboard,
-  Columns3,
-  Calendar,
-  BarChart2,
-  FileText,
-  Settings,
-  Bell,
-} from "lucide-react";
-
-const navItems = [
-  { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-  { href: "/board",     icon: Columns3,        label: "Board" },
-  { href: "/calendar",  icon: Calendar,        label: "Calendar" },
-  { href: "/reports",   icon: BarChart2,       label: "Reports" },
-  { href: "/docs",      icon: FileText,        label: "Documents" },
-  { href: "/settings",  icon: Settings,        label: "Settings" },
-];
+import { Bell } from "lucide-react";
+import { navItems, getIsActive } from "./navItems";
 
 export function Sidebar() {
   const pathname = usePathname();
   const { activeProjectId } = useTaskStore();
 
-  // Determine active nav: dashboard, board (any project), settings
-  const getIsActive = (href: string) => {
-    if (href === "/board") return pathname.startsWith("/board");
-    return pathname === href;
-  };
 
   return (
     <aside
-      className="w-[68px] min-w-[68px] h-screen flex flex-col items-center py-[22px]
+      className="w-[68px] min-w-[68px] h-screen hidden md:flex flex-col items-center py-[22px]
                  bg-bg-sidebar border-r border-border flex-shrink-0"
       style={{ backdropFilter: "blur(24px) saturate(1.6)" }}
     >
@@ -55,7 +34,7 @@ export function Sidebar() {
       {/* Nav */}
       <nav className="flex flex-col items-center gap-1.5 flex-1">
         {navItems.map(({ href, icon: Icon, label }) => {
-          const active = getIsActive(href);
+          const active = getIsActive(href, pathname);
           return (
             <Link
               key={href}

@@ -8,7 +8,7 @@ export function UpcomingTasks() {
   const tasks = useTaskStore((s) => s.tasks);
 
   return (
-    <div className="bg-bg-card border border-border rounded-[20px] p-5 shadow-[0_2px_8px_rgba(0,0,0,0.35)]">
+    <div className="bg-bg-card border border-border rounded-[20px] p-4 md:p-5 shadow-[0_2px_8px_rgba(0,0,0,0.35)]">
       <div className="flex items-center justify-between mb-4">
         <p className="font-display text-[15px] font-bold text-text-primary">Projects</p>
       </div>

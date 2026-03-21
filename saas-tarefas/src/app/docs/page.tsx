@@ -5,6 +5,7 @@ import { useTaskStore } from "@/store/useTaskStore"
 import { DocsSidebar } from "@/features/docs/DocsSidebar"
 import { PageViewer } from "@/features/docs/PageViewer"
 import { PageEditor } from "@/features/docs/PageEditor"
+import { Menu } from "lucide-react"
 import type { WikiPage } from "@/data/mock"
 
 export default function DocsPage() {
@@ -13,6 +14,7 @@ export default function DocsPage() {
   const [selectedPageId, setSelectedPageId] = useState<string | null>(null)
   const [isEditing, setIsEditing] = useState(false)
   const [draftPage, setDraftPage] = useState<WikiPage | null>(null)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   // Auto-select first page when project changes, or clear selectedPageId if page was deleted
   useEffect(() => {
@@ -77,15 +79,56 @@ export default function DocsPage() {
 
   return (
     <div className="flex h-full overflow-hidden">
-      <DocsSidebar
-        selectedProjectId={selectedProjectId}
-        selectedPageId={selectedPageId}
-        onSelectProject={handleSelectProject}
-        onSelectPage={handleSelectPage}
-        onNewPage={handleNewPage}
-        onDeletePage={handleDeletePage}
-      />
+      {/* Desktop sidebar */}
+      <div className="hidden md:block">
+        <DocsSidebar
+          selectedProjectId={selectedProjectId}
+          selectedPageId={selectedPageId}
+          onSelectProject={handleSelectProject}
+          onSelectPage={handleSelectPage}
+          onNewPage={handleNewPage}
+          onDeletePage={handleDeletePage}
+        />
+      </div>
+
+      {/* Mobile sidebar overlay */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 z-30 md:hidden">
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={() => setSidebarOpen(false)}
+          />
+          <div className="relative z-10 h-full w-[240px]">
+            <DocsSidebar
+              selectedProjectId={selectedProjectId}
+              selectedPageId={selectedPageId}
+              onSelectProject={handleSelectProject}
+              onSelectPage={(pageId) => {
+                handleSelectPage(pageId)
+                setSidebarOpen(false)
+              }}
+              onNewPage={() => {
+                handleNewPage()
+                setSidebarOpen(false)
+              }}
+              onDeletePage={handleDeletePage}
+            />
+          </div>
+        </div>
+      )}
+
       <main className="flex-1 flex flex-col overflow-hidden">
+        {/* Mobile menu button */}
+        <div className="flex md:hidden items-center px-4 py-2 border-b border-border">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 rounded-lg hover:bg-bg-card text-text-muted hover:text-text-primary transition-colors"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+          <span className="ml-2 text-sm font-medium text-text-secondary">Documents</span>
+        </div>
+
         {activePage && isEditing ? (
           <PageEditor page={activePage} onSave={handleSave} onCancel={handleCancel} />
         ) : activePage ? (

@@ -21,7 +21,7 @@ export function PageViewer({ page, onEdit }: Props) {
   const project = mockProjects.find((p) => p.id === page.projectId)
 
   return (
-    <div className="flex-1 overflow-y-auto p-8">
+    <div className="flex-1 overflow-y-auto p-4 md:p-8">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-start justify-between mb-2">
           <h1 className="text-2xl font-bold text-primary">{page.title}</h1>

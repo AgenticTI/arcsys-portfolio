@@ -5,6 +5,7 @@ import { useTaskStore } from "@/store/useTaskStore"
 import { mockProjects } from "@/data/mock"
 import { PeriodNav } from "./PeriodNav"
 import { GanttBar } from "./GanttBar"
+import { MobileCalendarList } from "./MobileCalendarList"
 
 function getDaysInMonth(date: Date): number {
   return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
@@ -87,7 +88,13 @@ export function GanttChart() {
         onToggleProject={handleToggleProject}
       />
 
-      <div className="flex-1 overflow-y-auto">
+      {/* Mobile list */}
+      <div className="flex md:hidden flex-col flex-1 overflow-y-auto">
+        <MobileCalendarList tasks={visibleTasks} />
+      </div>
+
+      {/* Desktop Gantt */}
+      <div className="hidden md:flex flex-col flex-1 overflow-y-auto">
         {/* Day axis header */}
         <div className="flex h-8 border-b border-border sticky top-0 bg-bg-app z-10">
           <div className="w-[180px] flex-shrink-0" />
@@ -154,3 +161,4 @@ export function GanttChart() {
     </div>
   )
 }
+

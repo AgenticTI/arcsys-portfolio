@@ -16,7 +16,7 @@ const barColor: Record<string, string> = {
 
 export function WeeklyChart() {
   return (
-    <div className="bg-bg-card border border-border rounded-[20px] p-5 shadow-[0_2px_8px_rgba(0,0,0,0.35)]">
+    <div className="bg-bg-card border border-border rounded-[20px] p-4 md:p-5 shadow-[0_2px_8px_rgba(0,0,0,0.35)]">
       <div className="flex items-center justify-between mb-4">
         <p className="font-display text-[15px] font-bold text-text-primary">Weekly Activity</p>
         <div className="flex items-center gap-2">
@@ -38,7 +38,7 @@ export function WeeklyChart() {
       </div>
 
       {/* Footer */}
-      <div className="flex gap-4 mt-3 pt-2.5 border-t border-border-soft">
+      <div className="flex flex-wrap gap-y-1 gap-4 mt-3 pt-2.5 border-t border-border-soft">
         {[
           { color: "bg-accent",       label: "Completed", num: 12 },
           { color: "bg-accent-orange", label: "Started",   num: 8 },

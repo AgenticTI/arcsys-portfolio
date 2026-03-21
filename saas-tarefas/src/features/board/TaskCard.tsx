@@ -45,12 +45,12 @@ export function TaskCard({ task, onSelect }: Props) {
   return (
     <div
       onClick={() => onSelect(task.id)}
-      className="bg-bg-card border border-border rounded-2xl px-5 py-3.5 flex items-center gap-4 cursor-pointer hover:border-white/10 hover:bg-bg-card-2 transition-all group"
+      className="bg-bg-card border border-border rounded-2xl px-3 py-3 md:px-5 md:py-3.5 flex items-center gap-4 cursor-pointer hover:border-white/10 hover:bg-bg-card-2 transition-all group"
     >
       {/* Checkbox */}
       <button
         onClick={handleStatusClick}
-        className="flex-shrink-0 w-[18px] h-[18px] rounded-full border-[1.5px] border-text-muted group-hover:border-text-secondary flex items-center justify-center transition-colors"
+        className="relative flex-shrink-0 w-[18px] h-[18px] rounded-full border-[1.5px] border-text-muted group-hover:border-text-secondary flex items-center justify-center transition-colors before:absolute before:inset-[-12px] before:content-['']"
       >
         {isDone && (
           <motion.div
@@ -71,7 +71,7 @@ export function TaskCard({ task, onSelect }: Props) {
       {/* Meta */}
       <div className="flex items-center gap-3 flex-shrink-0">
         <PriorityBadge priority={task.priority} />
-        <div className="flex items-center gap-1.5 text-[13px] text-text-muted">
+        <div className="hidden sm:flex items-center gap-1.5 text-[13px] text-text-muted">
           <Calendar className="w-3 h-3" />
           <span>{task.dueDate}</span>
         </div>
