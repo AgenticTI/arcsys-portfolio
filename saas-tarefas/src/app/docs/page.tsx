@@ -138,7 +138,7 @@ export default function DocsPage() {
             <p className="text-sm">No pages yet. Create the first one.</p>
             <button
               onClick={handleNewPage}
-              className="text-sm bg-accent text-white rounded px-4 py-2 hover:bg-accent/90 transition-colors"
+              className="text-sm bg-accent text-black rounded px-4 py-2 hover:bg-accent/90 transition-colors"
             >
               + New page
             </button>
