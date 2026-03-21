@@ -64,3 +64,4 @@ Portifolio ARCSYS/
 - `node_modules/` is gitignored in each project — run `npm install` before starting.
 - The repo has no root `package.json` — there is no workspace tooling.
 - When working on a specific project, read that project's `CLAUDE.md` first.
+- This repo uses **git worktrees** (`.worktrees/` directory). When diagnosing missing changes, always run `git worktree list` and `git branch -a` — work may exist on an unmerged worktree branch.

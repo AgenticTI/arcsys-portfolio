@@ -2,16 +2,19 @@
 
 This file is the authoritative guide for any AI agent working in this repository.
 Read it fully before making any change. Follow these instructions exactly.
-
+Production URL: https://saas-tarefas-omega.vercel.app
 ---
 
 ## 1. Project Overview
 
 **Hazel** is a portfolio SaaS task manager built as a frontend-only demo (no backend, no auth, no database). Its purpose is to showcase a polished, production-quality UI for a multi-project Kanban/list task management app.
 
-The app has three routes:
+The app has six routes:
 - `/dashboard` — overview of all tasks across all projects (summary cards, weekly chart, upcoming tasks)
 - `/board/[projectId]` — per-project task list with drag-and-drop reordering, status filters, and a slide-in task detail panel
+- `/calendar` — Gantt timeline view of tasks across projects with period navigation
+- `/docs` — per-project wiki pages with sidebar navigation, read and edit modes
+- `/reports` — analytics overview with metric cards, project breakdowns, and period filtering
 - `/settings` — static profile display and a toggle-based preferences panel
 
 The root `/` redirects immediately to `/dashboard`.
@@ -32,7 +35,7 @@ All data is mocked (no API calls). State is managed client-side with Zustand and
 | @dnd-kit/core | 6.3.1 | Drag-and-drop engine |
 | @dnd-kit/sortable | 10.0.0 | Sortable list primitives |
 | @dnd-kit/utilities | 3.2.2 | CSS transform helpers |
-| Framer Motion | 12.38.0 | Animations (task card checkbox, detail panel slide-in/out) |
+| Framer Motion | 12.38.0 | Animations (task card checkbox, detail panel slide-in/out, Gantt chart) |
 | Lucide React | 0.577.0 | Icons throughout the app |
 
 There is no testing framework, no Storybook, no external UI component library.
@@ -53,6 +56,12 @@ saas-tarefas/
 │   │   ├── board/
 │   │   │   └── [projectId]/
 │   │   │       └── page.tsx        # Board page — dynamic route per project
+│   │   ├── calendar/
+│   │   │   └── page.tsx            # Calendar page — Gantt timeline view
+│   │   ├── docs/
+│   │   │   └── page.tsx            # Docs page — per-project wiki with sidebar
+│   │   ├── reports/
+│   │   │   └── page.tsx            # Reports page — analytics and metrics
 │   │   └── settings/
 │   │       └── page.tsx            # Settings page
 │   │
@@ -70,10 +79,24 @@ saas-tarefas/
 │   │   │   ├── TaskCard.tsx        # Single task row with inline status cycling
 │   │   │   ├── TaskDetailPanel.tsx # Animated slide-in panel (Framer Motion)
 │   │   │   └── TaskList.tsx        # DnD-enabled sortable list; contains SortableTaskCard
+│   │   ├── calendar/
+│   │   │   ├── GanttBar.tsx        # Individual task bar in the Gantt timeline
+│   │   │   ├── GanttChart.tsx      # Main Gantt chart with AnimatePresence (Framer Motion)
+│   │   │   └── PeriodNav.tsx       # Week/month period navigation controls
 │   │   ├── dashboard/
 │   │   │   ├── SummaryCards.tsx    # Due today / In progress / Completed counts
 │   │   │   ├── UpcomingTasks.tsx   # Top-3 non-done tasks sorted by dueDate
 │   │   │   └── WeeklyChart.tsx     # Static bar chart (hardcoded weekly data)
+│   │   ├── docs/
+│   │   │   ├── DocsSidebar.tsx     # Project + page sidebar for wiki navigation
+│   │   │   ├── PageEditor.tsx      # Wiki page editor with save/cancel
+│   │   │   └── PageViewer.tsx      # Wiki page viewer (read mode)
+│   │   ├── reports/
+│   │   │   ├── dateUtils.ts        # Date formatting helpers for reports
+│   │   │   ├── MetricCards.tsx     # Summary metric cards (tasks, completion, etc.)
+│   │   │   ├── ProjectCards.tsx    # Per-project analytics breakdown
+│   │   │   ├── ReportsHero.tsx     # Reports page header section
+│   │   │   └── usePeriodFilter.ts  # Custom hook for period-based data filtering
 │   │   └── settings/
 │   │       ├── PreferencesSection.tsx  # Notifications toggle + theme info
 │   │       └── ProfileSection.tsx      # Displays mockUser data
@@ -129,26 +152,30 @@ The single store (`useTaskStore`) owns:
 - `tasks: Task[]` — flat array of all tasks across all projects; filter by `projectId` at the component level
 - `activeProjectId: string` — which project the sidebar highlights; set on sidebar click
 - `selectedTaskId: string | null` — drives the detail panel open/closed state
+- `pages: WikiPage[]` — flat array of wiki pages across all projects; used by `/docs` route
 
-The store uses `zustand/middleware/persist` and serializes to `localStorage` key `"hazel-tasks"`. The initial value is `mockTasks` from `src/data/mock.ts` — on first load, if `localStorage` is empty, mock data populates it.
+Actions: `setActiveProject`, `setSelectedTask`, `updateTaskStatus`, `toggleSubtask`, `reorderTasks`, `addPage`, `updatePage`, `deletePage`.
+
+The store uses `zustand/middleware/persist` and serializes to `localStorage` key `"hazel-tasks"`. The initial values are `mockTasks` and `mockPages` from `src/data/mock.ts` — on first load, if `localStorage` is empty, mock data populates it.
 
 ### Page components are thin orchestrators
 Pages (`app/*/page.tsx`) do not contain UI logic. They import feature components, read minimal store state, and pass props down. All real logic lives in `features/`.
 
 ### Framer Motion usage
-Used in exactly two places:
+Used in three places:
 1. `TaskCard.tsx` — the animated filled dot inside the round checkbox when a task is `done`
 2. `TaskDetailPanel.tsx` — `AnimatePresence` + `motion.aside` for the slide-in panel (`x: "100%" → 0`) and its dim backdrop
+3. `GanttChart.tsx` — `AnimatePresence` + `motion` for animated Gantt bar transitions
 
 Do not add Framer Motion to components that do not need it.
 
 ### Tailwind semantic color tokens
 All colors are semantic aliases defined in `tailwind.config.ts`. Never hardcode hex values in components. Use these tokens:
-- `bg-sidebar`, `bg-main`, `bg-card`
-- `accent`, `accent-soft`
-- `text-primary`, `text-muted`
-- `border`
-- `priority-high`, `priority-medium`, `priority-low`
+- **Backgrounds:** `bg-app`, `bg-sidebar`, `bg-card`, `bg-card-2`, `bg-input`
+- **Accents:** `accent`, `accent-dim`, `accent-glow`, `accent-orange`, `accent-orange-dim`, `accent-green`, `accent-red`, `accent-blue`
+- **Text:** `text-primary`, `text-secondary`, `text-muted`, `text-label`
+- **Borders:** `border`, `border-soft`
+- **Priority:** `priority-high`, `priority-medium`, `priority-low`
 
 ---
 
@@ -190,14 +217,16 @@ All mock data lives in `src/data/mock.ts`. It also defines all shared TypeScript
 - `Task` — `{ id, projectId, title, description, priority, status, dueDate, subtasks, createdAt }`
 - `Project` — `{ id, name, color, taskCount }`
 - `User` — `{ name, email, avatarInitials }`
+- `WikiPage` — `{ id, projectId, title, content, updatedAt }`
 
 **Exported mock values:**
 - `mockUser` — single user object (name: "Leon", email: "leon@hazel.app")
 - `mockProjects` — array of 3 projects: `p1` Website Redesign, `p2` Mobile App, `p3` Marketing Q2
 - `mockTasks` — array of 12 tasks distributed across projects (4-5 per project)
+- `mockPages` — array of 6 wiki pages distributed across projects (2 per project)
 
 **How mock data flows into the app:**
-1. `useTaskStore` initializes `tasks` with `mockTasks` and `activeProjectId` with `mockProjects[0].id`
+1. `useTaskStore` initializes `tasks` with `mockTasks`, `pages` with `mockPages`, and `activeProjectId` with `mockProjects[0].id`
 2. The store's `persist` middleware saves to `localStorage`; on subsequent loads the persisted state overrides the initial mock values
 3. `mockProjects` and `mockUser` are imported **directly** in components that need them (Sidebar, UpcomingTasks, ProfileSection) — they are not in the store
 4. `WeeklyChart` has its own locally hardcoded `weeklyData` array — it is completely static and not derived from tasks

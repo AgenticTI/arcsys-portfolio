@@ -1,1 +1,21 @@
 .worktrees/
+.playwright-mcp/
+
+# Reference images and screenshots
+*.png
+*.jpeg
+*.jpg
+*.mp4
+!**/public/**
+
+# Superpowers artifacts
+.superpowers/
+
+# Design references
+dribbble-*
+ref-*
+mock-*.html
+mock-*.png
+
+# Plans (internal tooling)
+docs/superpowers/

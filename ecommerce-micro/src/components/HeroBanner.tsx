@@ -40,7 +40,7 @@ export function HeroBanner() {
           className="absolute inset-0 w-full h-full object-cover z-0"
           style={{ opacity: 0.35 }}
         >
-          <source src="/hero-loop.mp4" type="video/mp4" />
+          <source src="/assets/hero-loop.mp4" type="video/mp4" />
         </video>
       )}
 

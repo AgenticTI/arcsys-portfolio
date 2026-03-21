@@ -38,19 +38,32 @@ There is **no backend**. All data is static JSON. No authentication, no real pay
 ## 3. Folder Structure
 
 ```
+public/
+├── assets/
+│   ├── banner-default.jpg     # Default hero banner image
+│   └── hero-loop.mp4          # Hero background video (3.6 MB)
+├── favicon.svg                # Site favicon
+└── icons.svg                  # SVG icon sprite
+
+scripts/
+└── fetch-mock-data.ts         # One-time script: npx tsx scripts/fetch-mock-data.ts
+
 src/
-├── assets/            # Static images (hero.png, etc.)
+├── assets/            # Static images (hero.png only)
 ├── components/
 │   ├── layout/
 │   │   ├── StoreHeader.tsx    # Sticky nav: logo/name + cart badge
+│   │   ├── StoreFooter.tsx    # Store footer with links and branding
 │   │   └── AdminHeader.tsx    # Admin panel top bar
 │   ├── ui/                    # shadcn/ui primitives (do not hand-edit)
+│   │   ├── badge.tsx
 │   │   ├── button.tsx
+│   │   ├── card.tsx
 │   │   ├── input.tsx
 │   │   ├── label.tsx
+│   │   ├── separator.tsx
 │   │   ├── slider.tsx
-│   │   ├── tabs.tsx
-│   │   └── ...
+│   │   └── tabs.tsx
 │   ├── CartItem.tsx           # CartItemRow — single line item in cart
 │   ├── FilterBar.tsx          # Search + category tabs + price slider
 │   ├── HeroBanner.tsx         # Hero section driven by useStoreConfig
@@ -61,7 +74,9 @@ src/
 ├── hooks/
 │   └── useAccentColor.ts      # Syncs --cor-principal CSS var from store to :root
 ├── lib/
-│   └── utils.ts               # cn() helper (clsx + tailwind-merge)
+│   ├── utils.ts               # cn() helper (clsx + tailwind-merge)
+│   ├── categoryLabels.ts      # pt-BR translation map for product categories
+│   └── formatBRL.ts           # Format numbers as R$ currency
 ├── mocks/
 │   ├── products.json          # 20 products from FakeStore API shape
 │   └── categories.json        # ["men's clothing","jewelery","electronics","women's clothing"]
@@ -102,6 +117,12 @@ npm run preview    # Serve the dist/ build locally
 There is no dedicated `typecheck` script. Type checking runs as part of `build` (`tsc -b`).
 To check types without bundling, run: `npx tsc -b --noEmit`
 
+### Vite public/ path convention
+
+Files in `public/` are served at the root URL. Subdirectories matter:
+- `public/assets/hero-loop.mp4` → reference as `/assets/hero-loop.mp4` (NOT `/hero-loop.mp4`)
+- `public/favicon.svg` → reference as `/favicon.svg`
+
 ---
 
 ## 5. Architecture Decisions
@@ -141,7 +162,7 @@ const store = useCartStore()                     // avoid
 
 ### Dynamic Accent Color
 
-`useStoreConfig` holds `corPrincipal` (a hex string, default `#000000`).
+`useStoreConfig` holds `corPrincipal` (a hex string, default `#0066CC`).
 `useAccentColor` (mounted once in `__root.tsx`) writes it to
 `document.documentElement.style.setProperty('--cor-principal', corPrincipal)` on every change.
 
@@ -167,7 +188,10 @@ will show the confirmation UI without order details (gracefully handled with `{o
 - `@` → `src/`
 - `src` → `src/`
 
-`tsconfig.app.json` only declares `@/*` for TypeScript. Prefer `@/` in new imports.
+`tsconfig.app.json` only declares `@/*` for TypeScript.
+
+**Note:** Existing code uses relative paths (`../`). Either style works; be consistent with
+the file you're editing.
 
 ### Tailwind Design Tokens
 
@@ -182,8 +206,24 @@ Custom colors are defined in `tailwind.config.ts`:
 | `border` | `#D2D2D7` |
 | `admin-bg` | `#0F0F0F` |
 | `accent` | `var(--cor-principal)` |
+| `dark-surface` | `#0A0A0A` |
+| `card-dark` | `#141414` |
+| `card-img-dark` | `#1c1c1c` |
 
-Font is Inter (system-ui fallback).
+Dark mode is enabled via `darkMode: ['class']` in Tailwind config.
+
+Font is Inter (loaded from Google Fonts, system-ui fallback).
+
+### CSS Keyframes
+
+Global animations defined in `src/index.css`:
+- `wordReveal` — staggered word-by-word text reveal (hero title)
+- `slideUp` — fade-in with upward motion (hero elements)
+- `fadeIn` — simple opacity transition (badges, scroll cue)
+- `float` — vertical oscillation (scroll cue line)
+- `drift` — slow background gradient movement (hero fallback)
+
+A `prefers-reduced-motion` media query disables all animations for accessibility.
 
 ---
 

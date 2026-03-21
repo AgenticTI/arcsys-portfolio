@@ -1,4 +1,0 @@
-[     920ms] [ERROR] Failed to load resource: net::ERR_CACHE_READ_FAILURE @ https://use.typekit.net/af/cd27bb/0000000000000000774be2a6/30/l?primer=a190936a1a773f66ff9849fcff929a5be3e63f0304b5a1b2c716875f8f2cd50a&fvd=n4&v=3:0
-[     942ms] [ERROR] Failed to load resource: net::ERR_CACHE_READ_FAILURE @ https://a5.behance.net/1c7b5745b09bc341ee1411165b75c01c53401c5d/js/main.0a2fab8031f4af10fd85.js:0
-[     943ms] [ERROR] Failed to load resource: net::ERR_CACHE_READ_FAILURE @ https://a5.behance.net/1c7b5745b09bc341ee1411165b75c01c53401c5d/js/runtimechunk~1c7b5745b09bc341ee1411165b75c01c53401c5d.app_client.caee31f5e16750aeb8b6.js:0
-[    1888ms] [ERROR] Failed to load resource: net::ERR_CACHE_READ_FAILURE @ https://js-agent.newrelic.com/nr-full-1.310.1.min.js:0

@@ -1,2 +1,0 @@
-[    1835ms] [ERROR] Not signed in with the identity provider. @ https://dribbble.com/shots/19201408-Desktop-App-UI-for-Task-Manager:0
-[   61765ms] [ERROR] [GSI_LOGGER]: FedCM get() rejects with NetworkError: Error retrieving a token. @ https://accounts.google.com/gsi/client:81
