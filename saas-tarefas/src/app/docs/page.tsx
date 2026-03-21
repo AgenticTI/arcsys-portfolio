@@ -134,7 +134,7 @@ export default function DocsPage() {
         ) : activePage ? (
           <PageViewer page={activePage} onEdit={() => setIsEditing(true)} />
         ) : (
-          <div className="flex-1 flex flex-col items-center justify-center gap-4 text-muted">
+          <div className="flex-1 flex flex-col items-center justify-center gap-4 text-text-muted">
             <p className="text-sm">No pages yet. Create the first one.</p>
             <button
               onClick={handleNewPage}

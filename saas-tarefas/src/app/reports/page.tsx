@@ -12,7 +12,7 @@ export default function ReportsPage() {
 
   return (
     <div className="p-4 md:p-8 space-y-6 overflow-y-auto h-full">
-      <h1 className="text-2xl font-bold text-primary">Reports</h1>
+      <h1 className="text-2xl font-bold text-text-primary">Reports</h1>
       <ReportsHero period={period} data={data} onPeriodChange={setPeriod} />
       <MetricCards data={data} />
       <ProjectCards />

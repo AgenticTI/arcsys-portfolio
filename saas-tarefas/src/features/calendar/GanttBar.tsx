@@ -42,9 +42,9 @@ export function GanttBar({ task, project, periodStart, daysInMonth }: Props) {
   const widthPercent = Math.max(rawWidth, minWidth)
 
   return (
-    <div className="flex h-10 items-center border-b border-border/50 hover:bg-card/50 transition-colors">
+    <div className="flex h-10 items-center border-b border-border/50 hover:bg-bg-card/50 transition-colors">
       {/* Task name column */}
-      <div className="w-[180px] flex-shrink-0 px-4 text-sm text-primary truncate" title={task.title}>
+      <div className="w-[180px] flex-shrink-0 px-4 text-sm text-text-primary truncate" title={task.title}>
         {task.title}
       </div>
       {/* Bar area */}
@@ -61,11 +61,11 @@ export function GanttBar({ task, project, periodStart, daysInMonth }: Props) {
           onMouseLeave={() => setShowTooltip(false)}
         >
           {showTooltip && (
-            <div className="absolute bottom-full left-0 mb-2 z-20 bg-card border border-border rounded-lg shadow-lg p-3 text-xs whitespace-nowrap min-w-[180px]">
-              <p className="font-medium text-primary mb-1">{task.title}</p>
-              <p className="text-muted">{project.name}</p>
-              <p className="text-muted">{STATUS_LABELS[task.status]}</p>
-              <p className="text-muted">Due: {task.dueDate}</p>
+            <div className="absolute bottom-full left-0 mb-2 z-20 bg-bg-card border border-border rounded-lg shadow-lg p-3 text-xs whitespace-nowrap min-w-[180px]">
+              <p className="font-medium text-text-primary mb-1">{task.title}</p>
+              <p className="text-text-muted">{project.name}</p>
+              <p className="text-text-muted">{STATUS_LABELS[task.status]}</p>
+              <p className="text-text-muted">Due: {task.dueDate}</p>
             </div>
           )}
         </div>

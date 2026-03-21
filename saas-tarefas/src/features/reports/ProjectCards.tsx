@@ -23,7 +23,7 @@ export function ProjectCards() {
         return (
           <div
             key={project.id}
-            className="bg-card rounded-xl p-5 border-l-4"
+            className="bg-bg-card rounded-xl p-5 border-l-4"
             style={{ borderLeftColor: project.color }}
           >
             <div className="flex items-center justify-between mb-3">
@@ -32,7 +32,7 @@ export function ProjectCards() {
                   className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                   style={{ backgroundColor: project.color }}
                 />
-                <span className="font-medium text-primary text-sm truncate">
+                <span className="font-medium text-text-primary text-sm truncate">
                   {project.name}
                 </span>
               </div>
@@ -53,7 +53,7 @@ export function ProjectCards() {
                 />
               </div>
             </div>
-            <p className="text-xs text-muted">
+            <p className="text-xs text-text-muted">
               {doneCount}/{totalCount} completed
             </p>
           </div>

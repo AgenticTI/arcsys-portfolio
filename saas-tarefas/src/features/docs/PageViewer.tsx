@@ -24,20 +24,20 @@ export function PageViewer({ page, onEdit }: Props) {
     <div className="flex-1 overflow-y-auto p-4 md:p-8">
       <div className="max-w-3xl mx-auto">
         <div className="flex items-start justify-between mb-2">
-          <h1 className="text-2xl font-bold text-primary">{page.title}</h1>
+          <h1 className="text-2xl font-bold text-text-primary">{page.title}</h1>
           <button
             onClick={onEdit}
-            className="flex items-center gap-1.5 text-sm text-muted hover:text-primary border border-border rounded px-3 py-1.5 transition-colors flex-shrink-0 ml-4"
+            className="flex items-center gap-1.5 text-sm text-text-muted hover:text-text-primary border border-border rounded px-3 py-1.5 transition-colors flex-shrink-0 ml-4"
           >
             <Edit size={14} />
             Edit
           </button>
         </div>
-        <p className="text-sm text-muted mb-4">
+        <p className="text-sm text-text-muted mb-4">
           Updated {relativeTime(page.updatedAt)} · {project?.name}
         </p>
         <hr className="border-border mb-6" />
-        <p className="text-primary whitespace-pre-wrap leading-relaxed">{page.content}</p>
+        <p className="text-text-primary whitespace-pre-wrap leading-relaxed">{page.content}</p>
       </div>
     </div>
   )

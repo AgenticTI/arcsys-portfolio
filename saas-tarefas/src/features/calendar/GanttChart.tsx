@@ -102,7 +102,7 @@ export function GanttChart() {
             {dayMarkers.map((day) => (
               <span
                 key={day}
-                className="absolute top-1/2 -translate-y-1/2 text-xs text-muted"
+                className="absolute top-1/2 -translate-y-1/2 text-xs text-text-muted"
                 style={{ left: `${((day - 1) / daysInMonth) * 100}%` }}
               >
                 {day}
@@ -130,7 +130,7 @@ export function GanttChart() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex items-center justify-center h-40 text-muted text-sm"
+                className="flex items-center justify-center h-40 text-text-muted text-sm"
               >
                 No tasks in this period
               </motion.div>

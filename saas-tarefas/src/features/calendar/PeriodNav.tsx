@@ -21,18 +21,18 @@ export function PeriodNav({ period, activeProjects, onPrev, onNext, onToggleProj
   return (
     <div className="flex items-center justify-between px-4 py-3 md:px-6 md:py-4 border-b border-border flex-wrap gap-3">
       <div className="flex items-center gap-3">
-        <h1 className="text-lg font-semibold text-primary">Calendar</h1>
+        <h1 className="text-lg font-semibold text-text-primary">Calendar</h1>
         <div className="flex items-center gap-1">
           <button
             onClick={onPrev}
-            className="p-1 text-muted hover:text-primary transition-colors rounded hover:bg-card"
+            className="p-1 text-text-muted hover:text-text-primary transition-colors rounded hover:bg-bg-card"
           >
             <ChevronLeft size={16} />
           </button>
-          <span className="text-sm font-medium text-primary w-36 text-center">{label}</span>
+          <span className="text-sm font-medium text-text-primary w-36 text-center">{label}</span>
           <button
             onClick={onNext}
-            className="p-1 text-muted hover:text-primary transition-colors rounded hover:bg-card"
+            className="p-1 text-text-muted hover:text-text-primary transition-colors rounded hover:bg-bg-card"
           >
             <ChevronRight size={16} />
           </button>
@@ -50,7 +50,7 @@ export function PeriodNav({ period, activeProjects, onPrev, onNext, onToggleProj
               className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-colors ${
                 isActive
                   ? "border-transparent text-white"
-                  : "border-border text-muted hover:text-primary"
+                  : "border-border text-text-muted hover:text-text-primary"
               }`}
               style={isActive ? { backgroundColor: project.color } : undefined}
             >

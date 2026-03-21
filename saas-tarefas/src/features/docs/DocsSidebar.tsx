@@ -27,7 +27,7 @@ export function DocsSidebar({
     <aside className="w-[200px] flex-shrink-0 border-r border-border flex flex-col h-full overflow-hidden bg-bg-app">
       {/* Projects */}
       <div className="p-4">
-        <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">
+        <p className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">
           Projects
         </p>
         <ul className="space-y-1">
@@ -38,7 +38,7 @@ export function DocsSidebar({
                 className={`w-full text-left flex items-center gap-2 px-2 py-1.5 rounded text-sm transition-colors ${
                   selectedProjectId === project.id
                     ? "bg-accent/10 text-accent font-medium"
-                    : "text-muted hover:text-primary hover:bg-card"
+                    : "text-text-muted hover:text-text-primary hover:bg-bg-card"
                 }`}
               >
                 <span
@@ -56,7 +56,7 @@ export function DocsSidebar({
 
       {/* Pages */}
       <div className="flex-1 overflow-y-auto p-4">
-        <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">
+        <p className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">
           Pages
         </p>
         <ul className="space-y-0.5">
@@ -67,7 +67,7 @@ export function DocsSidebar({
                 className={`w-full text-left text-sm px-2 py-1.5 rounded pr-7 truncate transition-colors ${
                   selectedPageId === page.id
                     ? "border-l-2 border-accent text-accent bg-accent/5"
-                    : "text-muted hover:text-primary hover:bg-card"
+                    : "text-text-muted hover:text-text-primary hover:bg-bg-card"
                 }`}
               >
                 {page.title || "Untitled"}
@@ -75,7 +75,7 @@ export function DocsSidebar({
               <button
                 onClick={() => onDeletePage(page.id)}
                 disabled={projectPages.length <= 1}
-                className="absolute right-1 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 p-1 rounded text-muted hover:text-primary disabled:opacity-20 disabled:cursor-not-allowed transition-opacity"
+                className="absolute right-1 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 p-1 rounded text-text-muted hover:text-text-primary disabled:opacity-20 disabled:cursor-not-allowed transition-opacity"
                 aria-label="Delete page"
               >
                 <Trash2 size={12} />
@@ -83,7 +83,7 @@ export function DocsSidebar({
             </li>
           ))}
           {projectPages.length === 0 && (
-            <p className="text-xs text-muted py-2 px-2">No pages yet.</p>
+            <p className="text-xs text-text-muted py-2 px-2">No pages yet.</p>
           )}
         </ul>
       </div>
@@ -92,7 +92,7 @@ export function DocsSidebar({
       <div className="p-3 border-t border-border">
         <button
           onClick={onNewPage}
-          className="w-full flex items-center gap-1.5 text-sm text-muted hover:text-primary transition-colors py-1 px-2"
+          className="w-full flex items-center gap-1.5 text-sm text-text-muted hover:text-text-primary transition-colors py-1 px-2"
         >
           <Plus size={14} />
           New page

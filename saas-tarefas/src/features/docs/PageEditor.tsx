@@ -31,12 +31,12 @@ export function PageEditor({ page, onSave, onCancel }: Props) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Page title"
-            className="text-2xl font-bold text-primary bg-transparent border-b border-border focus:border-accent outline-none pb-1 flex-1 mr-4"
+            className="text-2xl font-bold text-text-primary bg-transparent border-b border-border focus:border-accent outline-none pb-1 flex-1 mr-4"
           />
           <div className="flex gap-2 flex-shrink-0">
             <button
               onClick={onCancel}
-              className="text-sm text-muted hover:text-primary border border-border rounded px-3 py-1.5 transition-colors"
+              className="text-sm text-text-muted hover:text-text-primary border border-border rounded px-3 py-1.5 transition-colors"
             >
               Cancel
             </button>
@@ -54,7 +54,7 @@ export function PageEditor({ page, onSave, onCancel }: Props) {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Write content here..."
-          className="w-full min-h-[400px] bg-transparent text-primary font-mono text-sm leading-relaxed resize-none outline-none"
+          className="w-full min-h-[400px] bg-transparent text-text-primary font-mono text-sm leading-relaxed resize-none outline-none"
         />
       </div>
     </div>
