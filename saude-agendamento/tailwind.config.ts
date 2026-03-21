@@ -11,17 +11,24 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#3DAA6D",
-          light: "#EBF7F0",
+          DEFAULT: "#88CD0A",
+          light: "rgba(136,205,10,0.12)",
+          dark: "#6B9C00",
         },
-        accent: "#5B8CDB",
+        dark: {
+          bg: "#0f1114",
+          card: "#1A1D23",
+          border: "#2d3139",
+          surface: "#3d4149",
+        },
         neutral: {
           900: "#1A1D23",
+          800: "#2d3139",
           500: "#6B7280",
           100: "#F4F6F8",
         },
         status: {
-          confirmed: "#3DAA6D",
+          confirmed: "#88CD0A",
           pending: "#F59E0B",
           cancelled: "#EF4444",
         },
@@ -33,7 +40,7 @@ const config: Config = {
         card: "14px",
       },
       boxShadow: {
-        card: "0 2px 12px rgba(0,0,0,0.06)",
+        card: "0 1px 4px rgba(0,0,0,0.05)",
       },
     },
   },
